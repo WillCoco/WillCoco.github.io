@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Ramda,technology," />
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="人生七十古来稀">
-<meta property="og:type" content="website">
-<meta property="og:title" content="稀客">
-<meta property="og:url" content="https://WillCoco.github.io/index.html">
+<meta name="description" content="六. 数组6.1 数组的特征判断contains：如果包含某个成员，返回true。 R.contains(3)([1, 2, 3]) // true R.contains(4)([1, 2, 3]) // false R.contains({ name: &amp;apos;Fred&amp;apos; })([{ name: &amp;apos;Fred&amp;apos; }]) // true R.contains([42">
+<meta name="keywords" content="Ramda,technology">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ramda-学习记录3">
+<meta property="og:url" content="https://WillCoco.github.io/2018/02/25/Ramda-学习记录3/index.html">
 <meta property="og:site_name" content="稀客">
-<meta property="og:description" content="人生七十古来稀">
+<meta property="og:description" content="六. 数组6.1 数组的特征判断contains：如果包含某个成员，返回true。 R.contains(3)([1, 2, 3]) // true R.contains(4)([1, 2, 3]) // false R.contains({ name: &amp;apos;Fred&amp;apos; })([{ name: &amp;apos;Fred&amp;apos; }]) // true R.contains([42">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:40:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="稀客">
-<meta name="twitter:description" content="人生七十古来稀">
+<meta name="twitter:title" content="Ramda-学习记录3">
+<meta name="twitter:description" content="六. 数组6.1 数组的特征判断contains：如果包含某个成员，返回true。 R.contains(3)([1, 2, 3]) // true R.contains(4)([1, 2, 3]) // false R.contains({ name: &amp;apos;Fred&amp;apos; })([{ name: &amp;apos;Fred&amp;apos; }]) // true R.contains([42">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://WillCoco.github.io/"/>
+  <link rel="canonical" href="https://WillCoco.github.io/2018/02/25/Ramda-学习记录3/"/>
 
 
 
 
 
-  <title>稀客</title>
+  <title>Ramda-学习记录3 | 稀客</title>
   
 
 
@@ -163,9 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,338 +258,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/02/26/Ramda-学习记录4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cico">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/26/Ramda-学习记录4/" itemprop="url">Ramda-学习记录4</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-26T10:03:06+08:00">
-                2018-02-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="七-对象"><a href="#七-对象" class="headerlink" title="七. 对象"></a>七. 对象</h2><p>7.1 对象的特征判断</p>
-<p>has: 返回一个布尔值，表示对象自身是否具有该属性。</p>
-<pre><code>var hasName = R.has(&apos;name&apos;)
-hasName({name: &apos;alice&apos;})   //=&gt; true
-hasName({name: &apos;bob&apos;})     //=&gt; true
-hasName({})                //=&gt; false
-
-var point = {x: 0, y: 0};
-var pointHas = R.has(R.__, point); //R.__ 参数占位
-pointHas(&apos;x&apos;)  // true
-pointHas(&apos;y&apos;)  // true
-pointHas(&apos;z&apos;)  // false
-</code></pre><p>hasIn：返回一个布尔值，表示对象自身或原型链上是否具有某个属性。</p>
-<pre><code>function Rectangle(width, height) {
-  this.width = width;
-  this.height = height;
-}
-Rectangle.prototype.area = function() {
-  return this.width * this.height;
-};
-
-var square = new Rectangle(2, 2);
-R.hasIn(&apos;width&apos;)(square)  // true
-R.hasIn(&apos;area&apos;)(square)  // true
-</code></pre><p>propIs：如果属性类型等于给定类型， 返回true。</p>
-<pre><code>R.propIs(Number, &apos;x&apos;, {x: 1, y: 2});  //=&gt; true
-R.propIs(Number, &apos;x&apos;, {x: &apos;foo&apos;});    //=&gt; false
-R.propIs(Number, &apos;x&apos;, {});            //=&gt; false
-</code></pre><p>propEq：如果属性等于给定值，返回true。单个属性</p>
-<pre><code>var abby = {name: &apos;Abby&apos;, age: 7, hair: &apos;blond&apos;};
-var fred = {name: &apos;Fred&apos;, age: 12, hair: &apos;brown&apos;};
-var rusty = {name: &apos;Rusty&apos;, age: 10, hair: &apos;brown&apos;};
-var alois = {name: &apos;Alois&apos;, age: 15, disposition: &apos;surly&apos;};
-var kids = [abby, fred, rusty, alois];
-var hasBrownHair = R.propEq(&apos;hair&apos;, &apos;brown&apos;);
-R.filter(hasBrownHair)(kids) // [fred, rusty]
-</code></pre><p>propOr：定义一个私有属性，如果属性名存在，则显示存在的属性</p>
-<pre><code>var alice = {
-  name: &apos;ALICE&apos;,
-  age: 101
-};
-
-var favorite = R.prop(&apos;favoriteLibrary&apos;);
-var favoriteWithDefault = R.propOr(&apos;Ramda&apos;, &apos;favoriteLibrary&apos;);
-favorite(alice);  //=&gt; undefined
-favoriteWithDefault(alice);  //=&gt; &apos;Ramda&apos;
-
-var favoriteName = R.propOr(&apos;Ramda&apos;, &apos;name&apos;);
-favoriteName(alice); // =&gt; &apos;ALICE&apos;
-</code></pre><p>whereEq：如果属性等于给定值，返回true。多个属性</p>
-<pre><code>var pred = R.whereEq({a: 1, b: 2});
-
-pred({a: 1})              // false
-pred({a: 1, b: 2})        // true
-pred({a: 1, b: 2, c: 3})  // true
-pred({a: 1, b: 1})        // false
-</code></pre><p>where：如果各个属性都符合指定条件，返回true。</p>
-<pre><code>var pred = R.where({
-  a: R.equals(&apos;foo&apos;),
-  b: R.complement(R.equals(&apos;bar&apos;)),
-  x: R.gt(__, 10),
-  y: R.lt(__, 20)
-});
-
-pred({a: &apos;foo&apos;, b: &apos;xxx&apos;, x: 11, y: 19}) // true
-pred({a: &apos;xxx&apos;, b: &apos;xxx&apos;, x: 11, y: 19}) // false
-pred({a: &apos;foo&apos;, b: &apos;bar&apos;, x: 11, y: 19}) // false
-pred({a: &apos;foo&apos;, b: &apos;xxx&apos;, x: 10, y: 19}) // false
-pred({a: &apos;foo&apos;, b: &apos;xxx&apos;, x: 11, y: 20}) // false
-</code></pre><p>7.2 对象的过滤</p>
-<p>omit：过滤指定属性。</p>
-<pre><code>R.omit([&apos;a&apos;, &apos;d&apos;])({a: 1, b: 2, c: 3, d: 4})
-// {b: 2, c: 3}
-</code></pre><p>filter：返回所有满足条件的属性</p>
-<pre><code>var isEven = n =&gt; n % 2 === 0;
-R.filter(isEven)({a: 1, b: 2, c: 3, d: 4}) // {b: 2, d: 4}
-</code></pre><p>reject：返回所有不满足条件的属性</p>
-<pre><code>var isOdd = (n) =&gt; n % 2 === 1;
-R.reject(isOdd)({a: 1, b: 2, c: 3, d: 4})
-// {b: 2, d: 4}
-</code></pre><p>7.3 对象的截取</p>
-<p>dissoc：过滤掉指定属性。(和omit有什么区别？)</p>
-<pre><code>R.dissoc(&apos;b&apos;)({a: 1, b: 2, c: 3})
-// {a: 1, c: 3}
-</code></pre><p>assoc：添加或改写某个属性。</p>
-<pre><code>R.assoc(&apos;c&apos;, 3)({a: 1, b: 2})
-// {a: 1, b: 2, c: 3}
-</code></pre><p>partition：根据属性值是否满足给定条件，将属性分区。</p>
-<pre><code>R.partition(R.contains(&apos;s&apos;))({ a: &apos;sss&apos;, b: &apos;ttt&apos;, foo: &apos;bars&apos; })
-// [ { a: &apos;sss&apos;, foo: &apos;bars&apos; }, { b: &apos;ttt&apos; }  ]
-</code></pre><p>pick：返回指定属性组成的新对象</p>
-<pre><code>R.pick([&apos;a&apos;, &apos;d&apos;])({a: 1, b: 2, c: 3, d: 4})
-// {a: 1, d: 4}
-
-R.pick([&apos;a&apos;, &apos;e&apos;, &apos;f&apos;])({a: 1, b: 2, c: 3, d: 4})
-// {a: 1}
-</code></pre><p>pickAll：与pick类似，但会包括不存在的属性。</p>
-<pre><code>R.pickAll([&apos;a&apos;, &apos;d&apos;])({a: 1, b: 2, c: 3, d: 4})
-// {a: 1, d: 4}
-
-R.pickAll([&apos;a&apos;, &apos;e&apos;, &apos;f&apos;])({a: 1, b: 2, c: 3, d: 4})
-// {a: 1, e: undefined, f: undefined}
-</code></pre><p>pickBy：返回符合条件的属性</p>
-<pre><code>var isUpperCase = (val, key) =&gt; key.toUpperCase() === key;
-R.pickBy(isUpperCase)({a: 1, b: 2, A: 3, B: 4})
-// {A: 3, B: 4}
-</code></pre><p>keys：返回对象自身属性的属性名组成的新数组。</p>
-<pre><code>R.keys({a: 1, b: 2, c: 3}) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]
-</code></pre><p>keysIn：返回对象自身的和继承的属性的属性名组成的新数组。</p>
-<pre><code>var F = function() { this.x = &apos;X&apos;; };
-F.prototype.y = &apos;Y&apos;;
-var f = new F();
-R.keysIn(f) // [&apos;x&apos;, &apos;y&apos;]
-</code></pre><p>values：返回对象自身的属性的属性值组成的数组。</p>
-<pre><code>R.values({a: 1, b: 2, c: 3}); //=&gt; [1, 2, 3]
-</code></pre><p>valuesIn：返回对象自身的和继承的属性的属性值组成的数组。</p>
-<pre><code>var F = function() { this.x = &apos;X&apos;; };
-F.prototype.y = &apos;Y&apos;;
-var f = new F();
-R.valuesIn(f) // [&apos;X&apos;, &apos;Y&apos;]
-</code></pre><p>invertObj：将属性值和属性名互换。如果多个属性的属性值相同，只返回最后一个属性。</p>
-<pre><code>var raceResultsByFirstName = {
-  first: &apos;alice&apos;,
-  second: &apos;jake&apos;,
-  third: &apos;alice&apos;,
-};
-R.invertObj(raceResultsByFirstName)
-// {&quot;alice&quot;: &quot;third&quot;, &quot;jake&quot;: &quot;second&quot;}
-</code></pre><p>invert：将属性值和属性名互换，每个属性值对应一个数组。</p>
-<pre><code>var raceResultsByFirstName = {
-  first: &apos;alice&apos;,
-  second: &apos;jake&apos;,
-  third: &apos;alice&apos;,
-};
-R.invert(raceResultsByFirstName)
-// { &apos;alice&apos;: [&apos;first&apos;, &apos;third&apos;], &apos;jake&apos;:[&apos;second&apos;] }
-</code></pre><p>7.4 对象的运算</p>
-<p>prop：返回对象的指定属性</p>
-<pre><code>R.prop(&apos;x&apos;)({x: 100})
-// 100
-
-R.prop(&apos;x&apos;)({})
-// undefined
-</code></pre><p>map：对象的所有属性依次执行某个函数。</p>
-<pre><code>var double = x =&gt; x * 2;
-R.map(double)({x: 1, y: 2, z: 3})
-// {x: 2, y: 4, z: 6}
-</code></pre><p>mapObjIndexed：与map类似，但是会额外传入属性名和整个对象。</p>
-<pre><code>var values = { x: 1, y: 2, z: 3 };
-var prependKeyAndDouble = (num, key, obj) =&gt; key + (num * 2);
-
-R.mapObjIndexed(prependKeyAndDouble)(values)
-// { x: &apos;x2&apos;, y: &apos;y4&apos;, z: &apos;z6&apos; }
-</code></pre><p>forEachObjIndexed：每个属性依次执行给定函数，给定函数的参数分别是属性值和属性名，返回原对象。</p>
-<pre><code>var printKeyConcatValue = (value, key) =&gt; console.log(key + &apos;:&apos; + value);
-R.forEachObjIndexed(printKeyConcatValue)({x: 1, y: 2}) // {x: 1, y: 2}
-// logs x:1
-// logs y:2
-</code></pre><p>merge：合并两个对象，如果有同名属性，后面的值会覆盖掉前面的值。</p>
-<pre><code>R.merge({ &apos;name&apos;: &apos;fred&apos;, &apos;age&apos;: 10 })({ &apos;age&apos;: 40 })
-// { &apos;name&apos;: &apos;fred&apos;, &apos;age&apos;: 40 }
-
-var resetToDefault = R.merge(R.__, {x: 0});
-resetToDefault({x: 5, y: 2}) // {x: 0, y: 2}
-</code></pre><p>mergeWith：合并两个对象，如果有同名属性，会使用指定的函数处理。</p>
-<pre><code>R.mergeWith(
-  R.concat,
-  { a: true, values: [10, 20] },
-  { b: true, values: [15, 35] }
-);
-// { a: true, b: true, values: [10, 20, 15, 35] }
-</code></pre><p>eqProps：比较两个对象的指定属性是否相等。</p>
-<pre><code>var o1 = { a: 1, b: 2, c: 3, d: 4 };
-var o2 = { a: 10, b: 20, c: 3, d: 40 };
-R.eqProps(&apos;a&apos;, o1)(o2) // false
-R.eqProps(&apos;c&apos;, o1)(o2) // true
-</code></pre><p>R.evolve：对象的属性分别经过一组函数的处理，返回一个新对象。</p>
-<pre><code>var tomato  = {
-  firstName: &apos;  Tomato &apos;,
-  data: {elapsed: 100, remaining: 1400},
-  id: 123
-};
-var transformations = {
-  firstName: R.trim,
-  lastName: R.trim, // 不会被调用
-  data: {elapsed: R.add(1), remaining: R.add(-1)}
-};
-R.evolve(transformations)(tomato)
-// {
-//   firstName: &apos;Tomato&apos;,
-//   data: {elapsed: 101, remaining: 1399},
-//   id: 123
-// }
-</code></pre><p>7.5 复合对象</p>
-<p>path：取出数组中指定路径的值。</p>
-<pre><code>R.path([&apos;a&apos;, &apos;b&apos;], {a: {b: 2}}) // 2
-R.path([&apos;a&apos;, &apos;b&apos;], {c: {b: 2}}) // undefined
-</code></pre><p>pathEq：返回指定路径的值符合条件的成员</p>
-<pre><code>var user1 = { address: { zipCode: 90210 } };
-var user2 = { address: { zipCode: 55555 } };
-var user3 = { name: &apos;Bob&apos; };
-var users = [ user1, user2, user3 ];
-var isFamous = R.pathEq([&apos;address&apos;, &apos;zipCode&apos;], 90210);
-R.filter(isFamous)(users) // [ user1 ]
-</code></pre><p>assocPath：添加或改写指定路径的属性的值。</p>
-<pre><code>R.assocPath([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], 42)({a: {b: {c: 0}}})
-// {a: {b: {c: 42}}}
-
-R.assocPath([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], 42)({a: 5})
-// {a: {b: {c: 42}}}
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -619,9 +290,7 @@ R.assocPath([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], 42)({a: 5})
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/25/Ramda-学习记录3/" itemprop="url">Ramda-学习记录3</a></h1>
+          <h1 class="post-title" itemprop="name headline">Ramda-学习记录3</h1>
         
 
         <div class="post-meta">
@@ -671,9 +340,7 @@ R.assocPath([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], 42)({a: 5})
       
 
       
-        
-          
-            <h2 id="六-数组"><a href="#六-数组" class="headerlink" title="六. 数组"></a>六. 数组</h2><h3 id="6-1-数组的特征判断"><a href="#6-1-数组的特征判断" class="headerlink" title="6.1 数组的特征判断"></a>6.1 数组的特征判断</h3><p>contains：如果包含某个成员，返回true。</p>
+        <h2 id="六-数组"><a href="#六-数组" class="headerlink" title="六. 数组"></a>六. 数组</h2><h3 id="6-1-数组的特征判断"><a href="#6-1-数组的特征判断" class="headerlink" title="6.1 数组的特征判断"></a>6.1 数组的特征判断</h3><p>contains：如果包含某个成员，返回true。</p>
 <pre><code>R.contains(3)([1, 2, 3]) // true
 R.contains(4)([1, 2, 3]) // false
 R.contains({ name: &apos;Fred&apos; })([{ name: &apos;Fred&apos; }]) // true
@@ -1015,8 +682,6 @@ var people = [clara, bob, alice];
 sortByNameCaseInsensitive(people)
 // [alice, bob, clara]      
 </code></pre>
-          
-        
       
     </div>
     
@@ -1031,455 +696,42 @@ sortByNameCaseInsensitive(people)
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/02/25/Ramda-学习记录2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cico">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/25/Ramda-学习记录2/" itemprop="url">Ramda-学习记录2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-25T00:03:06+08:00">
-                2018-02-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/Ramda/" rel="tag"># Ramda</a>
           
-            
+            <a href="/tags/technology/" rel="tag"># technology</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="五-函数"><a href="#五-函数" class="headerlink" title="五. 函数"></a>五. 函数</h2><h3 id="5-1-函数的合成"><a href="#5-1-函数的合成" class="headerlink" title="5.1 函数的合成"></a>5.1 函数的合成</h3><p>compose：将多个函数合并成一个函数，从右到左执行。</p>
-<pre><code>R.compose(Math.abs, R.add(1), R.multiply(2))(-4) // |(-4*2)+1| = 7
-pipe：将多个函数合并成一个函数，从左到右执行。
-
-var negative = x =&gt; -1 * x;
-var increaseOne = x =&gt; x + 1;
-
-var f = R.pipe(Math.pow, negative, increaseOne);
-f(3, 4) // -80 =&gt; -(3^4) + 1
-</code></pre><p>pipe：将多个函数合并成一个函数，从左到右执行。</p>
-<pre><code>var negative = x =&gt; -1 * x;
-var increaseOne = x =&gt; x + 1;
-
-var f = R.pipe(Math.pow, negative, increaseOne);
-f(3, 4) // -80 =&gt; -(3^4) + 1
-</code></pre><p>converge：接受两个参数，第一个参数是函数，第二个参数是函数数组。传入的值先使用第二个参数包含的函数分别处理以后，再用第一个参数处理前一步生成的结果。</p>
-<pre><code>var sumOfArr = arr =&gt; {
-  var sum = 0;
-  arr.forEach(i =&gt; sum += i);
-  return sum;
-};
-var lengthOfArr = arr =&gt; arr.length;
-
-var average = R.converge(R.divide, [sumOfArr, lengthOfArr])
-average([1, 2, 3, 4, 5, 6, 7])
-// 4
-// 相当于 28 除以 7
-
-var toUpperCase = s =&gt; s.toUpperCase();
-var toLowerCase = s =&gt; s.toLowerCase();
-var strangeConcat = R.converge(R.concat, [toUpperCase, toLowerCase])
-strangeConcat(&quot;Yodel&quot;)
-// &quot;YODELyodel&quot;
-// 相当于 R.concat(&apos;YODEL&apos;, &apos;yodel&apos;)
-</code></pre><h3 id="5-2-柯里化"><a href="#5-2-柯里化" class="headerlink" title="5.2 柯里化"></a>5.2 柯里化</h3><p>curry：将多参数的函数，转换成单参数的形式。</p>
-<pre><code>var addFourNumbers = (a, b, c, d) =&gt; a + b + c + d;
-
-var curriedAddFourNumbers = R.curry(addFourNumbers);
-var f = curriedAddFourNumbers(1, 2);
-var g = f(3);
-g(4) // 10
-</code></pre><p>partial：允许多参数的函数接受一个数组，指定最左边的部分参数。</p>
-<pre><code>var multiply2 = (a, b) =&gt; a * b;
-var double = R.partial(multiply2, [2]);
-double(2) // 4
-
-var greet = (salutation, title, firstName, lastName) =&gt;
-  salutation + &apos;, &apos; + title + &apos; &apos; + firstName + &apos; &apos; + lastName + &apos;!&apos;;
-
-var sayHello = R.partial(greet, [&apos;Hello&apos;]);
-var sayHelloToMs = R.partial(sayHello, [&apos;Ms.&apos;]);
-sayHelloToMs(&apos;Jane&apos;, &apos;Jones&apos;); //=&gt; &apos;Hello, Ms. Jane Jones!&apos;
-</code></pre><p>partialRight：与partial类似，但数组指定的参数为最右边的参数。</p>
-<pre><code>var greet = (salutation, title, firstName, lastName) =&gt;
-  salutation + &apos;, &apos; + title + &apos; &apos; + firstName + &apos; &apos; + lastName + &apos;!&apos;;
-
-var greetMsJaneJones = R.partialRight(greet, [&apos;Ms.&apos;, &apos;Jane&apos;, &apos;Jones&apos;]);
-greetMsJaneJones(&apos;Hello&apos;) // &apos;Hello, Ms. Jane Jones!&apos;
-</code></pre><p>useWith：接受一个函数fn和一个函数数组fnList作为参数，返回fn的柯里化版本。该新函数的参数，先分别经过对应的fnList成员处理，再传入fn执行。</p>
-<pre><code>var decreaseOne = x =&gt; x - 1;
-var increaseOne = x =&gt; x + 1;
-
-R.useWith(Math.pow, [decreaseOne, increaseOne])(3, 4) // 32
-R.useWith(Math.pow, [decreaseOne, increaseOne])(3)(4) // 32
-</code></pre><p>memoize：返回一个函数，会缓存每一次的运行结果。</p>
-<pre><code>var productOfArr = arr =&gt; {
-  var product = 1;
-  arr.forEach(i =&gt; product *= i);
-  return product;
-};
-var count = 0;
-var factorial = R.memoize(n =&gt; {
-  count += 1;
-  return productOfArr(R.range(1, n + 1));
-});
-factorial(5) // 120
-factorial(5) // 120
-factorial(5) // 120
-count // 1
-</code></pre><p>complement：返回一个新函数，如果原函数返回true，该函数返回false；如果原函数返回false，该函数返回true。</p>
-<pre><code>var gt10 = x =&gt; x &gt; 10;
-var lte10 = R.complement(gt10);
-gt10(7) // false
-lte10(7) // true
-</code></pre><h3 id="函数的执行"><a href="#函数的执行" class="headerlink" title="函数的执行"></a>函数的执行</h3><p>binary：参数函数执行时，只传入最前面两个参数。</p>
-<pre><code>var takesThreeArgs = function(a, b, c) {
-  return [a, b, c];
-};
-
-var takesTwoArgs = R.binary(takesThreeArgs);
-takesTwoArgs(1, 2, 3) // [1, 2, undefined]
-</code></pre><p>tap：将一个值传入指定函数，并返回该值。</p>
-<pre><code>var sayX = x =&gt; console.log(&apos;x is &apos; + x);
-R.tap(sayX)(100) // 100
-
-R.pipe(
-  R.assoc(&apos;a&apos;, 2), //添加某个属性
-  R.tap(console.log),
-  R.assoc(&apos;a&apos;, 3)
-)({a: 1})
-// {a: 3}
-</code></pre><p>zipWith：将两个数组对应位置的值，一起作为参数传入某个函数。</p>
-<pre><code>var f = (x, y) =&gt; {
-  // ...
-};
-R.zipWith(f, [1, 2, 3])([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;])
-//执行三次： [f(1, &apos;a&apos;), f(2, &apos;b&apos;), f(3, &apos;c&apos;)]
-</code></pre><p>apply：将数组转成参数序列，传入指定函数。</p>
-<pre><code>var nums = [1, 2, 3, -99, 42, 6, 7];
-R.apply(Math.max)(nums) // 42
-</code></pre><p>applySpec：返回一个模板函数，该函数会将参数传入模板内的函数执行，然后将执行结果填充到模板。</p>
-<pre><code>var getMetrics = R.applySpec({
-  sum: R.add,
-  nested: { mul: R.multiply }
-});
-
-getMetrics(2, 4) // { sum: 6, nested: { mul: 8 } }
-</code></pre><p>ascend：返回一个升序排列的比较函数，主要用于排序。</p>
-<pre><code>var byAge = R.ascend(R.prop(&apos;age&apos;));
-var people = [
-  // ...
-];
-var peopleByYoungestFirst = R.sort(byAge)(people);
-</code></pre><p>descend：返回一个降序排列的比较函数，主要用于排序。</p>
-<pre><code>var byAge = R.descend(R.prop(&apos;age&apos;));
-var people = [
-  // ...
-];
-var peopleByOldestFirst = R.sort(byAge)(people);
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/02/24/Ramda-学习记录1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cico">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/24/Ramda-学习记录1/" itemprop="url">Ramda学习记录1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-24T17:30:11+08:00">
-                2018-02-24
-              </time>
+              <a href="/2018/02/25/Ramda-学习记录2/" rel="next" title="Ramda-学习记录2">
+                <i class="fa fa-chevron-left"></i> Ramda-学习记录2
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
+              <a href="/2018/02/26/Ramda-学习记录4/" rel="prev" title="Ramda-学习记录4">
+                Ramda-学习记录4 <i class="fa fa-chevron-right"></i>
+              </a>
             
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2 id="一-比较运算"><a href="#一-比较运算" class="headerlink" title="一. 比较运算"></a>一. 比较运算</h2><p>gt：判断第一个参数是否大于第二个参数。</p>
-<pre><code>R.gt(2)(1) // true
-R.gt(&apos;a&apos;)(&apos;z&apos;) // false
-</code></pre><p>gte：判断第一个参数是否大于等于第二个参数。</p>
-<pre><code>R.gte(2)(2) // true
-R.gte(&apos;a&apos;)(&apos;z&apos;) // false
-</code></pre><p>lt：判断第一个参数是否小于第二个参数。</p>
-<pre><code>R.lt(2)(1) // false
-R.lt(&apos;a&apos;)(&apos;z&apos;) // true
-</code></pre><p>lte：判断第一个参数是否小于等于第二个参数。</p>
-<pre><code>R.lte(2)(2) // true
-R.lte(&apos;a&apos;)(&apos;z&apos;) // true
-</code></pre><p>equals：比较两个值是否相等（支持对象的比较）。</p>
-<pre><code>R.equals(1)(1) // true
-R.equals(1)(&apos;1&apos;) // false
-R.equals([1, 2, 3])([1, 2, 3]) // true
-
-var a = {};
-a.v = a;
-var b = {};
-b.v = b;
-R.equals(a)(b)
-// true
-eqBy：比较两个值传入指定函数的运算结果是否相等。
-
-R.eqBy(Math.abs, 5)(-5)
-// true
-</code></pre><h2 id="二-数学运算"><a href="#二-数学运算" class="headerlink" title="二. 数学运算"></a>二. 数学运算</h2><p>  add：返回两个值的和。</p>
-<pre><code>R.add(7)(10) // 17
-</code></pre><p>  subtract：返回第一个参数减第二个参数的差。</p>
-<pre><code>R.subtract(10)(8) // 2
-</code></pre><p>  multiply：返回两个值的积。</p>
-<pre><code>R.multiply(2)(5)  // 10
-</code></pre><p>  divide：返回第一个参数除以第二个参数的商。</p>
-<pre><code>R.divide(71)(100) // 0.71
-</code></pre><h2 id="三-逻辑运算"><a href="#三-逻辑运算" class="headerlink" title="三. 逻辑运算"></a>三. 逻辑运算</h2><p>either：接受两个函数作为参数，只要有一个返回true，就返回true，否则返回false。相当于||运算。</p>
-<pre><code>var gt10 = x =&gt; x &gt; 10;
-var even = x =&gt; x % 2 === 0;
-
-var f = R.either(gt10, even);
-f(101) // true
-f(8) // true
-</code></pre><p>both：接受两个函数作为参数，只有它们都返回true，才返回true，否则返回false，相当于&amp;&amp;运算。</p>
-<pre><code>var gt10 = x =&gt; x &gt; 10;
-var even = x =&gt; x % 2 === 0;
-
-var f = R.both(gt10, even);
-f(15) // false
-f(30) // true
-</code></pre><p>allPass：接受一个函数数组作为参数，只有它们都返回true，才返回true，否则返回false。</p>
-<pre><code>var gt10 = x =&gt; x &gt; 10;
-var even = x =&gt; x % 2 === 0;
-
-var isEvenAndGt10 = R.allPass([gt10, even]);
-isEvenAndGt10(15) // false
-isEvenAndGt10(30) // true  
-</code></pre><h2 id="四-字符串"><a href="#四-字符串" class="headerlink" title="四. 字符串"></a>四. 字符串</h2><p>split：按照指定分隔符将字符串拆成一个数组。</p>
-<pre><code>R.split(&apos;.&apos;)(&apos;a.b.c.xyz.d&apos;)
-// [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;xyz&apos;, &apos;d&apos;]
-</code></pre><p>test：判断一个字符串是否匹配给定的正则表达式。</p>
-<pre><code>R.test(/^x/)(&apos;xyz&apos;)
-// true
-
-R.test(/^y/)(&apos;xyz&apos;)
-// false
-</code></pre><p>match：返回一个字符串的匹配结果。</p>
-<pre><code>R.match(/([a-z]a)/g)(&apos;bananas&apos;)
-// [&apos;ba&apos;, &apos;na&apos;, &apos;na&apos;]
-
-R.match(/a/)(&apos;b&apos;)
-// []
-
-R.match(/a/)(null)
-// TypeError: null does not have a method named &quot;match&quot;
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1489,14 +741,11 @@ R.match(/a/)(null)
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1504,6 +753,10 @@ R.match(/a/)(null)
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -1524,8 +777,17 @@ R.match(/a/)(null)
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -1587,6 +849,22 @@ R.match(/a/)(null)
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#六-数组"><span class="nav-number">1.</span> <span class="nav-text">六. 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-数组的特征判断"><span class="nav-number">1.1.</span> <span class="nav-text">6.1 数组的特征判断</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1709,10 +987,10 @@ R.match(/a/)(null)
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
