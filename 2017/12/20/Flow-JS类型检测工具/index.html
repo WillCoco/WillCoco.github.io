@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,react,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言Facebook超爱Javascript；它快，表达性好，而且到处运行，是构建产品的极佳语言。同时，因为没有静态类型让开发者困扰。Bug难以发现（比如，崩溃的原因隐藏很深），代码维护犹如噩梦（比如，在不知道所有依赖的情况下进行重构风险很大）。Flow改进了速度和效率促进了开发者在使用Javascript的生成效率。 Flow的类型检查是选择性的 —— 你不需要一次性执行检查所有。然而，Flow">
+<meta name="keywords" content="javascript,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flow-JS类型检测工具">
+<meta property="og:url" content="https://WillCoco.github.io/2017/12/20/Flow-JS类型检测工具/index.html">
+<meta property="og:site_name" content="稀客">
+<meta property="og:description" content="前言Facebook超爱Javascript；它快，表达性好，而且到处运行，是构建产品的极佳语言。同时，因为没有静态类型让开发者困扰。Bug难以发现（比如，崩溃的原因隐藏很深），代码维护犹如噩梦（比如，在不知道所有依赖的情况下进行重构风险很大）。Flow改进了速度和效率促进了开发者在使用Javascript的生成效率。 Flow的类型检查是选择性的 —— 你不需要一次性执行检查所有。然而，Flow">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-18T04:32:32.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flow-JS类型检测工具">
+<meta name="twitter:description" content="前言Facebook超爱Javascript；它快，表达性好，而且到处运行，是构建产品的极佳语言。同时，因为没有静态类型让开发者困扰。Bug难以发现（比如，崩溃的原因隐藏很深），代码维护犹如噩梦（比如，在不知道所有依赖的情况下进行重构风险很大）。Flow改进了速度和效率促进了开发者在使用Javascript的生成效率。 Flow的类型检查是选择性的 —— 你不需要一次性执行检查所有。然而，Flow">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://WillCoco.github.io/2017/12/20/Flow-JS类型检测工具/">
+
+
+
+
+
+  <title>Flow-JS类型检测工具 | 稀客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">稀客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2017/12/20/Flow-JS类型检测工具/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Flow-JS类型检测工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T23:39:11+08:00">
+                2017-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Facebook超爱Javascript；它快，表达性好，而且到处运行，是构建产品的极佳语言。同时，因为没有静态类型让开发者困扰。Bug难以发现（比如，崩溃的原因隐藏很深），代码维护犹如噩梦（比如，在不知道所有依赖的情况下进行重构风险很大）。Flow改进了速度和效率促进了开发者在使用Javascript的生成效率。</p>
+<p>Flow的类型检查是选择性的 —— 你不需要一次性执行检查所有。然而，Flow背后的设计基于假定大多数Javascript的代码类型是隐式静态类型；虽然类型可能不会到处在代码中出现，它们是以一种可以按照代码正确性推理出来的形式存在于开发者的思路中。一旦可能，Flow就去推断这些类型，意味着它可以不需要改动代码就能发现类型错误。另一发面，一些如存在于框架中的Javascript代码，大量使用了反射使得静态类型推断非常困难。对于这种天然动态的代码，类型检查就会错漏百出，因此Flow提供对此类代码添加信任并继续。这种设计在Facebook内部被大量的Javascript代码库所验证：大多数代码没有通过隐式静态类型检查条目，这些条目让开发者可以不用添加注释就能检查代码类型错误。</p>
+<p>这使得Flow从根本上区别于其他Javascript的类型系统（如TypeScript），通过弱化的假设大多数JavaScript代码是动态输入的，并由开发者自己表达哪些代码应该是静态类型。通常来看，这类设计会导致检查覆盖率降低：更少的类型错误被检测到，工具不够高效。然而对于某些情况下是合理的，一般这种设计如果没有通过大量额外的努力就无法对实际开发提供足够多的帮助。尽管如此，Flow让你可以简单就获得这种弱化的类型检查，对于现有代码非常有用。</p>
+<p>如何对一个文件进行类型检查？</p>
+<p>如果你想对一个文件进行类型检查，必须在文件头部加上一行注释；</p>
+<pre><code>// @flow
+  或者
+/* @flow */
+</code></pre><p>意思简单明了，AT 一下 Flow 检查器，意思是：“嘿， Flow，来验一下我”。<br>当我们写完代码后，运行 flow check（或者配置的相应 npm 命令），Flow 会对加上了这行注释的 JS 文件进行类型检查，并且只会对加了这行注释的 JS 文件进行类型检查；这样可以方便的使你渐进式的把你项目中 JS 文件一个个的改写得符合规范。</p>
+<h3 id="自动的类型推导"><a href="#自动的类型推导" class="headerlink" title="自动的类型推导"></a>自动的类型推导</h3><p>在我们将一个 JS 文件加入类型检测的范围之后，运行 flow check, Flow 会怎么对这些文件进行操作呢？Flow 有一个自动的类型推导机制，很多情况下，Flow 都自动推导出变量的类型并持续跟踪其使用；比如：<br>let name = ‘zhihu’;<br>将变量 name 定义为 zhihu ，Flow 会自动推导 name 为 string 类型；如果后面的代码对 name 进行了不适用于字符串的操作，运行 Flow 命令对代码进行检测就会报错。比如：</p>
+<pre><code>// @flow
+let name = ‘zhihu’
+console.log(name - 1) // 即便没有手动给 name 加上类型标注，Flow 也会在这里报错
+</code></pre><h3 id="基本类型的类型标注语法"><a href="#基本类型的类型标注语法" class="headerlink" title="基本类型的类型标注语法"></a>基本类型的类型标注语法</h3><p>JavaScript 中的基本类型，类型标注语法是在变量后加上一个冒号，空格，然后是相应的类型名称，如：</p>
+<pre><code>// @flow
+const a: string = &apos;zhihu&apos;;
+const b: number = 5;
+const c: boolean = false;
+const d: void = undefined;
+const e: null = null;
+</code></pre><p>以上需要注意的几点：</p>
+<ol>
+<li>undefined 的类型是 void；</li>
+<li>null 的类型是 null；</li>
+<li>string 类型、number 类型和 boolean 类型，其类型名称都是小写开头；但是在 JS 中还有相对应的大写开头的类型名称，如 String，Number, Boolean；</li>
+</ol>
+<p>在 Flow 中，大写开头的类型名和小写开头的类型名是有区别的。</p>
+<pre><code>// @flow 
+const a: string = &apos;a&apos;;             // 字面量值对应的类型名称是小写
+const b: string = String(&apos;b&apos;);     // String 函数是将参数转化成一个字符串，仍然是小写的 string 类型
+const c: String = new String(‘c’); // 大写开头的类型名称，其对应的值是 new 创建出来的类型实例；
+</code></pre><p>字面量值作为一种类型<br>在 Flow 中，字面量值也可以作为一种类型，符合这种类型的变量只有这个字面量本身；给这个变量赋其他值， Flow 在进行类型检测时都会报错；比如下例所示。</p>
+<pre><code>// @flow
+let monthsAYear: 12 = 12;
+monthsAYear = 13; // Flow 会在这里报错
+</code></pre><h3 id="函数类型标注"><a href="#函数类型标注" class="headerlink" title="函数类型标注"></a>函数类型标注</h3><p>对函数类型我们主要是标注其接受的参数类型和返回值类型；下面的示例中分别展示了如何对函数声明、函数表达式，以及箭头函数加上类型标注。</p>
+<pre><code>// @flow 
+// 函数声明
+function getLength(str: string): number {
+ return str.length;
+}
+// 函数表达式
+const greeting = function(welcome: string): void{
+ console.log(welcome);
+}
+// 箭头函数
+const addNumber = (a: number, b: number): number =&gt; (a + b);
+</code></pre><h3 id="数组类型标注"><a href="#数组类型标注" class="headerlink" title="数组类型标注"></a>数组类型标注</h3><p>对数组的标注 Flow 提供两种语法，</p>
+<ol>
+<li>Array 后接一对尖括号，且尖括号里边就是数组项的类型名称；</li>
+<li><p>类型名称后加一对中括号。</p>
+<p> // @flow<br> const names: Array<string> = [‘a’, ‘b’, ‘c’];<br> const ages: number[] = [1, 2, 3, 4];</string></p>
+</li>
+</ol>
+<h3 id="元组（Tuple）类型的标注"><a href="#元组（Tuple）类型的标注" class="headerlink" title="元组（Tuple）类型的标注"></a>元组（Tuple）类型的标注</h3><p>另外一种常见的数组是元组（Tuple）。在其他语言里，元组可能是一个特定的类型结构；但是在 JS 里，元组就是数组来表示的，并且是一个有限数组，数组每一项的类型分别标注出来；通常的使用场景比如一个用来表示数据库纪录的数组，比如函数返回多个返回值。</p>
+<pre><code>// @flow
+const recordItem : [number, string, boolean] = [1, &apos;First&apos;, true];
+</code></pre><p>一个数组被标注为元组类型后，每一项的类型都不可再次改变，且数组的长度也不能改变；因此对元组类型的数组进行 push、pop 操作，都是 Flow 不允许的。</p>
+<h3 id="对象类型的标注"><a href="#对象类型的标注" class="headerlink" title="对象类型的标注"></a>对象类型的标注</h3><p>对对象类型加上类型标注的方式是定义其结构（Shape），即有哪些属性，属性及属性值的类型；</p>
+<pre><code>// @flow
+const borderConfig : {
+ width: number,
+ color: string,
+ hasShadow: boolean
+} = {
+ width: 10,
+ color: &apos;red&apos;,
+ hasShadow: true,
+}
+</code></pre><p>上面这种写法非常不直观，类型定义内容跟对象本身混在一起；优化的方式是像下面这样将类型定义和类型标注分开。</p>
+<pre><code>// @flow
+type BorderConfigType = {
+ width: number,
+ color: string,
+ hasShadow: boolean
+}
+
+const borderConfig : BorderConfigType = {
+ width: 10,
+ color: &apos;red&apos;,
+ hasShadow: true,
+} 
+</code></pre><p>type 是 Flow 中的关键字，用来定义自定义的类型，并且可以在后面的类型标注中使用。例如：</p>
+<pre><code>// @flow
+type StringType = string;
+const name: StringType = ‘zhihu’;
+
+type TupleType = [ number, string ]
+const record: TupleType = [ 1, ‘a’ ]
+</code></pre><p>更多技术细节请参看：<a href="https://flow.org/en/docs/" target="_blank" rel="noopener">官方文档</a> / <a href="https://zhenyong.github.io/flowtype/docs/builtins.html" target="_blank" rel="noopener">中文翻译</a></p>
+<p>文章来源参考：<br><a href="https://segmentfault.com/a/1190000004174468" target="_blank" rel="noopener">https://segmentfault.com/a/1190000004174468</a><br><a href="https://zhuanlan.zhihu.com/p/26204569" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26204569</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/20/类型检测/" rel="next" title="React类型检测">
+                <i class="fa fa-chevron-left"></i> React类型检测
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/16/node-sqilte3/" rel="prev" title="node-sqilte3 api">
+                node-sqilte3 api <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">coco x</p>
+              <p class="site-description motion-element" itemprop="description">人生七十古来稀</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动的类型推导"><span class="nav-number">2.</span> <span class="nav-text">自动的类型推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型的类型标注语法"><span class="nav-number">3.</span> <span class="nav-text">基本类型的类型标注语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数类型标注"><span class="nav-number">4.</span> <span class="nav-text">函数类型标注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组类型标注"><span class="nav-number">5.</span> <span class="nav-text">数组类型标注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组（Tuple）类型的标注"><span class="nav-number">6.</span> <span class="nav-text">元组（Tuple）类型的标注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象类型的标注"><span class="nav-number">7.</span> <span class="nav-text">对象类型的标注</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coco x</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

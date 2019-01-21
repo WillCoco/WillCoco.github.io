@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ramda,technology,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="七. 对象7.1 对象的特征判断 has: 返回一个布尔值，表示对象自身是否具有该属性。 var hasName = R.has(&amp;apos;name&amp;apos;) hasName({name: &amp;apos;alice&amp;apos;})   //=&amp;gt; true hasName({name: &amp;apos;bob&amp;apos;})     //=&amp;gt; true hasName({})">
+<meta name="keywords" content="Ramda,technology">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ramda-学习记录4">
+<meta property="og:url" content="https://WillCoco.github.io/2018/02/26/Ramda-学习记录4/index.html">
+<meta property="og:site_name" content="稀客">
+<meta property="og:description" content="七. 对象7.1 对象的特征判断 has: 返回一个布尔值，表示对象自身是否具有该属性。 var hasName = R.has(&amp;apos;name&amp;apos;) hasName({name: &amp;apos;alice&amp;apos;})   //=&amp;gt; true hasName({name: &amp;apos;bob&amp;apos;})     //=&amp;gt; true hasName({})">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:41:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ramda-学习记录4">
+<meta name="twitter:description" content="七. 对象7.1 对象的特征判断 has: 返回一个布尔值，表示对象自身是否具有该属性。 var hasName = R.has(&amp;apos;name&amp;apos;) hasName({name: &amp;apos;alice&amp;apos;})   //=&amp;gt; true hasName({name: &amp;apos;bob&amp;apos;})     //=&amp;gt; true hasName({})">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://WillCoco.github.io/2018/02/26/Ramda-学习记录4/">
+
+
+
+
+
+  <title>Ramda-学习记录4 | 稀客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">稀客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/02/26/Ramda-学习记录4/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ramda-学习记录4</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-26T10:03:06+08:00">
+                2018-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="七-对象"><a href="#七-对象" class="headerlink" title="七. 对象"></a>七. 对象</h2><p>7.1 对象的特征判断</p>
+<p>has: 返回一个布尔值，表示对象自身是否具有该属性。</p>
+<pre><code>var hasName = R.has(&apos;name&apos;)
+hasName({name: &apos;alice&apos;})   //=&gt; true
+hasName({name: &apos;bob&apos;})     //=&gt; true
+hasName({})                //=&gt; false
+
+var point = {x: 0, y: 0};
+var pointHas = R.has(R.__, point); //R.__ 参数占位
+pointHas(&apos;x&apos;)  // true
+pointHas(&apos;y&apos;)  // true
+pointHas(&apos;z&apos;)  // false
+</code></pre><p>hasIn：返回一个布尔值，表示对象自身或原型链上是否具有某个属性。</p>
+<pre><code>function Rectangle(width, height) {
+  this.width = width;
+  this.height = height;
+}
+Rectangle.prototype.area = function() {
+  return this.width * this.height;
+};
+
+var square = new Rectangle(2, 2);
+R.hasIn(&apos;width&apos;)(square)  // true
+R.hasIn(&apos;area&apos;)(square)  // true
+</code></pre><p>propIs：如果属性类型等于给定类型， 返回true。</p>
+<pre><code>R.propIs(Number, &apos;x&apos;, {x: 1, y: 2});  //=&gt; true
+R.propIs(Number, &apos;x&apos;, {x: &apos;foo&apos;});    //=&gt; false
+R.propIs(Number, &apos;x&apos;, {});            //=&gt; false
+</code></pre><p>propEq：如果属性等于给定值，返回true。单个属性</p>
+<pre><code>var abby = {name: &apos;Abby&apos;, age: 7, hair: &apos;blond&apos;};
+var fred = {name: &apos;Fred&apos;, age: 12, hair: &apos;brown&apos;};
+var rusty = {name: &apos;Rusty&apos;, age: 10, hair: &apos;brown&apos;};
+var alois = {name: &apos;Alois&apos;, age: 15, disposition: &apos;surly&apos;};
+var kids = [abby, fred, rusty, alois];
+var hasBrownHair = R.propEq(&apos;hair&apos;, &apos;brown&apos;);
+R.filter(hasBrownHair)(kids) // [fred, rusty]
+</code></pre><p>propOr：定义一个私有属性，如果属性名存在，则显示存在的属性</p>
+<pre><code>var alice = {
+  name: &apos;ALICE&apos;,
+  age: 101
+};
+
+var favorite = R.prop(&apos;favoriteLibrary&apos;);
+var favoriteWithDefault = R.propOr(&apos;Ramda&apos;, &apos;favoriteLibrary&apos;);
+favorite(alice);  //=&gt; undefined
+favoriteWithDefault(alice);  //=&gt; &apos;Ramda&apos;
+
+var favoriteName = R.propOr(&apos;Ramda&apos;, &apos;name&apos;);
+favoriteName(alice); // =&gt; &apos;ALICE&apos;
+</code></pre><p>whereEq：如果属性等于给定值，返回true。多个属性</p>
+<pre><code>var pred = R.whereEq({a: 1, b: 2});
+
+pred({a: 1})              // false
+pred({a: 1, b: 2})        // true
+pred({a: 1, b: 2, c: 3})  // true
+pred({a: 1, b: 1})        // false
+</code></pre><p>where：如果各个属性都符合指定条件，返回true。</p>
+<pre><code>var pred = R.where({
+  a: R.equals(&apos;foo&apos;),
+  b: R.complement(R.equals(&apos;bar&apos;)),
+  x: R.gt(__, 10),
+  y: R.lt(__, 20)
+});
+
+pred({a: &apos;foo&apos;, b: &apos;xxx&apos;, x: 11, y: 19}) // true
+pred({a: &apos;xxx&apos;, b: &apos;xxx&apos;, x: 11, y: 19}) // false
+pred({a: &apos;foo&apos;, b: &apos;bar&apos;, x: 11, y: 19}) // false
+pred({a: &apos;foo&apos;, b: &apos;xxx&apos;, x: 10, y: 19}) // false
+pred({a: &apos;foo&apos;, b: &apos;xxx&apos;, x: 11, y: 20}) // false
+</code></pre><p>7.2 对象的过滤</p>
+<p>omit：过滤指定属性。</p>
+<pre><code>R.omit([&apos;a&apos;, &apos;d&apos;])({a: 1, b: 2, c: 3, d: 4})
+// {b: 2, c: 3}
+</code></pre><p>filter：返回所有满足条件的属性</p>
+<pre><code>var isEven = n =&gt; n % 2 === 0;
+R.filter(isEven)({a: 1, b: 2, c: 3, d: 4}) // {b: 2, d: 4}
+</code></pre><p>reject：返回所有不满足条件的属性</p>
+<pre><code>var isOdd = (n) =&gt; n % 2 === 1;
+R.reject(isOdd)({a: 1, b: 2, c: 3, d: 4})
+// {b: 2, d: 4}
+</code></pre><p>7.3 对象的截取</p>
+<p>dissoc：过滤掉指定属性。(和omit有什么区别？)</p>
+<pre><code>R.dissoc(&apos;b&apos;)({a: 1, b: 2, c: 3})
+// {a: 1, c: 3}
+</code></pre><p>assoc：添加或改写某个属性。</p>
+<pre><code>R.assoc(&apos;c&apos;, 3)({a: 1, b: 2})
+// {a: 1, b: 2, c: 3}
+</code></pre><p>partition：根据属性值是否满足给定条件，将属性分区。</p>
+<pre><code>R.partition(R.contains(&apos;s&apos;))({ a: &apos;sss&apos;, b: &apos;ttt&apos;, foo: &apos;bars&apos; })
+// [ { a: &apos;sss&apos;, foo: &apos;bars&apos; }, { b: &apos;ttt&apos; }  ]
+</code></pre><p>pick：返回指定属性组成的新对象</p>
+<pre><code>R.pick([&apos;a&apos;, &apos;d&apos;])({a: 1, b: 2, c: 3, d: 4})
+// {a: 1, d: 4}
+
+R.pick([&apos;a&apos;, &apos;e&apos;, &apos;f&apos;])({a: 1, b: 2, c: 3, d: 4})
+// {a: 1}
+</code></pre><p>pickAll：与pick类似，但会包括不存在的属性。</p>
+<pre><code>R.pickAll([&apos;a&apos;, &apos;d&apos;])({a: 1, b: 2, c: 3, d: 4})
+// {a: 1, d: 4}
+
+R.pickAll([&apos;a&apos;, &apos;e&apos;, &apos;f&apos;])({a: 1, b: 2, c: 3, d: 4})
+// {a: 1, e: undefined, f: undefined}
+</code></pre><p>pickBy：返回符合条件的属性</p>
+<pre><code>var isUpperCase = (val, key) =&gt; key.toUpperCase() === key;
+R.pickBy(isUpperCase)({a: 1, b: 2, A: 3, B: 4})
+// {A: 3, B: 4}
+</code></pre><p>keys：返回对象自身属性的属性名组成的新数组。</p>
+<pre><code>R.keys({a: 1, b: 2, c: 3}) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]
+</code></pre><p>keysIn：返回对象自身的和继承的属性的属性名组成的新数组。</p>
+<pre><code>var F = function() { this.x = &apos;X&apos;; };
+F.prototype.y = &apos;Y&apos;;
+var f = new F();
+R.keysIn(f) // [&apos;x&apos;, &apos;y&apos;]
+</code></pre><p>values：返回对象自身的属性的属性值组成的数组。</p>
+<pre><code>R.values({a: 1, b: 2, c: 3}); //=&gt; [1, 2, 3]
+</code></pre><p>valuesIn：返回对象自身的和继承的属性的属性值组成的数组。</p>
+<pre><code>var F = function() { this.x = &apos;X&apos;; };
+F.prototype.y = &apos;Y&apos;;
+var f = new F();
+R.valuesIn(f) // [&apos;X&apos;, &apos;Y&apos;]
+</code></pre><p>invertObj：将属性值和属性名互换。如果多个属性的属性值相同，只返回最后一个属性。</p>
+<pre><code>var raceResultsByFirstName = {
+  first: &apos;alice&apos;,
+  second: &apos;jake&apos;,
+  third: &apos;alice&apos;,
+};
+R.invertObj(raceResultsByFirstName)
+// {&quot;alice&quot;: &quot;third&quot;, &quot;jake&quot;: &quot;second&quot;}
+</code></pre><p>invert：将属性值和属性名互换，每个属性值对应一个数组。</p>
+<pre><code>var raceResultsByFirstName = {
+  first: &apos;alice&apos;,
+  second: &apos;jake&apos;,
+  third: &apos;alice&apos;,
+};
+R.invert(raceResultsByFirstName)
+// { &apos;alice&apos;: [&apos;first&apos;, &apos;third&apos;], &apos;jake&apos;:[&apos;second&apos;] }
+</code></pre><p>7.4 对象的运算</p>
+<p>prop：返回对象的指定属性</p>
+<pre><code>R.prop(&apos;x&apos;)({x: 100})
+// 100
+
+R.prop(&apos;x&apos;)({})
+// undefined
+</code></pre><p>map：对象的所有属性依次执行某个函数。</p>
+<pre><code>var double = x =&gt; x * 2;
+R.map(double)({x: 1, y: 2, z: 3})
+// {x: 2, y: 4, z: 6}
+</code></pre><p>mapObjIndexed：与map类似，但是会额外传入属性名和整个对象。</p>
+<pre><code>var values = { x: 1, y: 2, z: 3 };
+var prependKeyAndDouble = (num, key, obj) =&gt; key + (num * 2);
+
+R.mapObjIndexed(prependKeyAndDouble)(values)
+// { x: &apos;x2&apos;, y: &apos;y4&apos;, z: &apos;z6&apos; }
+</code></pre><p>forEachObjIndexed：每个属性依次执行给定函数，给定函数的参数分别是属性值和属性名，返回原对象。</p>
+<pre><code>var printKeyConcatValue = (value, key) =&gt; console.log(key + &apos;:&apos; + value);
+R.forEachObjIndexed(printKeyConcatValue)({x: 1, y: 2}) // {x: 1, y: 2}
+// logs x:1
+// logs y:2
+</code></pre><p>merge：合并两个对象，如果有同名属性，后面的值会覆盖掉前面的值。</p>
+<pre><code>R.merge({ &apos;name&apos;: &apos;fred&apos;, &apos;age&apos;: 10 })({ &apos;age&apos;: 40 })
+// { &apos;name&apos;: &apos;fred&apos;, &apos;age&apos;: 40 }
+
+var resetToDefault = R.merge(R.__, {x: 0});
+resetToDefault({x: 5, y: 2}) // {x: 0, y: 2}
+</code></pre><p>mergeWith：合并两个对象，如果有同名属性，会使用指定的函数处理。</p>
+<pre><code>R.mergeWith(
+  R.concat,
+  { a: true, values: [10, 20] },
+  { b: true, values: [15, 35] }
+);
+// { a: true, b: true, values: [10, 20, 15, 35] }
+</code></pre><p>eqProps：比较两个对象的指定属性是否相等。</p>
+<pre><code>var o1 = { a: 1, b: 2, c: 3, d: 4 };
+var o2 = { a: 10, b: 20, c: 3, d: 40 };
+R.eqProps(&apos;a&apos;, o1)(o2) // false
+R.eqProps(&apos;c&apos;, o1)(o2) // true
+</code></pre><p>R.evolve：对象的属性分别经过一组函数的处理，返回一个新对象。</p>
+<pre><code>var tomato  = {
+  firstName: &apos;  Tomato &apos;,
+  data: {elapsed: 100, remaining: 1400},
+  id: 123
+};
+var transformations = {
+  firstName: R.trim,
+  lastName: R.trim, // 不会被调用
+  data: {elapsed: R.add(1), remaining: R.add(-1)}
+};
+R.evolve(transformations)(tomato)
+// {
+//   firstName: &apos;Tomato&apos;,
+//   data: {elapsed: 101, remaining: 1399},
+//   id: 123
+// }
+</code></pre><p>7.5 复合对象</p>
+<p>path：取出数组中指定路径的值。</p>
+<pre><code>R.path([&apos;a&apos;, &apos;b&apos;], {a: {b: 2}}) // 2
+R.path([&apos;a&apos;, &apos;b&apos;], {c: {b: 2}}) // undefined
+</code></pre><p>pathEq：返回指定路径的值符合条件的成员</p>
+<pre><code>var user1 = { address: { zipCode: 90210 } };
+var user2 = { address: { zipCode: 55555 } };
+var user3 = { name: &apos;Bob&apos; };
+var users = [ user1, user2, user3 ];
+var isFamous = R.pathEq([&apos;address&apos;, &apos;zipCode&apos;], 90210);
+R.filter(isFamous)(users) // [ user1 ]
+</code></pre><p>assocPath：添加或改写指定路径的属性的值。</p>
+<pre><code>R.assocPath([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], 42)({a: {b: {c: 0}}})
+// {a: {b: {c: 42}}}
+
+R.assocPath([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], 42)({a: 5})
+// {a: {b: {c: 42}}}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ramda/" rel="tag"># Ramda</a>
+          
+            <a href="/tags/technology/" rel="tag"># technology</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/25/Ramda-学习记录3/" rel="next" title="Ramda-学习记录3">
+                <i class="fa fa-chevron-left"></i> Ramda-学习记录3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/ES6-Symbol/" rel="prev" title="ES6_Symbol">
+                ES6_Symbol <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">coco x</p>
+              <p class="site-description motion-element" itemprop="description">人生七十古来稀</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#七-对象"><span class="nav-number">1.</span> <span class="nav-text">七. 对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coco x</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
