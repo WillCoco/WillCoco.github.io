@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     if (!isHome &amp;&amp; title) {         console.log(doc">
+<meta name="description" content="// const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     // const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     // if (!isHome &amp;&amp; title) {     //    cons">
 <meta name="keywords" content="javascript,zeromq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="zeromq.js介绍和事例">
 <meta property="og:url" content="https://WillCoco.github.io/2019/01/31/zeromqjs/index.html">
 <meta property="og:site_name" content="稀客">
-<meta property="og:description" content="const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     if (!isHome &amp;&amp; title) {         console.log(doc">
+<meta property="og:description" content="// const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     // const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     // if (!isHome &amp;&amp; title) {     //    cons">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_3.png">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_0.png">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_1.png">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_2.png">
-<meta property="og:updated_time" content="2019-02-28T07:28:55.630Z">
+<meta property="og:updated_time" content="2019-02-28T14:22:36.928Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zeromq.js介绍和事例">
-<meta name="twitter:description" content="const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     if (!isHome &amp;&amp; title) {         console.log(doc">
+<meta name="twitter:description" content="// const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     // const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     // if (!isHome &amp;&amp; title) {     //    cons">
 <meta name="twitter:image" content="https://willcoco.github.io/images/zeromq/zeromq_3.png">
 
 
@@ -306,31 +306,31 @@
 
       
         <p>　　　　</p>
-<script scoped>
-    const title = document.getElementsByClassName('post-title')[0];
-    const isHome = document.getElementsByClassName('post-title-link') > 0;
-    if (!isHome && title) {
-        console.log(document.styleSheets[0].rules[0])
-        try {
-            document.styleSheets[0].insertRule(
-            `.mystery-title::after{
-                content:'after';
-                color:green;
-            }`,
-            0)//chrome,firefox等非IE浏览器使用
-        } catch(err) {
-            console.log(err)
-        }
-        try {
-            document.styleSheets[0].addRule('.mystery-title::before{color:green}',0)//IE系列浏览器使用
-        } catch(err) {
-            console.log(err)
-        }
-        if (!title.className.match('mystery-title')) {
-            title.className += ' mystery-title' 
-        }
-        console.log(title.className) 
-    }
+<script>
+    // const title = document.getElementsByClassName('post-title')[0];
+    // const isHome = document.getElementsByClassName('post-title-link') > 0;
+    // if (!isHome && title) {
+    //    console.log(document.styleSheets[0].rules[0])
+    //    try {
+    //        document.styleSheets[0].insertRule(
+    //        `.mystery-title::after{
+    //            content:'after';
+    //            color:green;
+    //        }`,
+    //        0)//chrome,firefox等非IE浏览器使用
+    //    } catch(err) {
+    //        console.log(err)
+    //    }
+    //    try {
+    //        document.styleSheets[0].addRule('.mystery-title::before{color:green}',0)//IE系列浏览器使用
+    //    } catch(err) {
+    //        console.log(err)
+    //    }
+    //    if (!title.className.match('mystery-title')) {
+    //        title.className += ' mystery-title' 
+    //    }
+    //    console.log(title.className) 
+    //}
 </script>
 
 <h3 id="1-zeromq介绍"><a href="#1-zeromq介绍" class="headerlink" title="1. zeromq介绍"></a><a href="#介绍">1. zeromq介绍</a></h3><h3 id="2-几种消息模式"><a href="#2-几种消息模式" class="headerlink" title="2. 几种消息模式"></a><a href="#几种消息模式">2. 几种消息模式</a></h3><h3 id="3-req-rep-listener转换成promise"><a href="#3-req-rep-listener转换成promise" class="headerlink" title="3. req/rep listener转换成promise"></a><a href="#req/rep listener转换成promise">3. req/rep listener转换成promise</a></h3><h3 id="4-demo"><a href="#4-demo" class="headerlink" title="4. demo"></a><a href="#demo">4. demo</a></h3><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的node绑定库，这里的例子是基于<a href="https://github.com/zeromq/zeromq.js" target="_blank" rel="noopener">zeromq.js</a></p>

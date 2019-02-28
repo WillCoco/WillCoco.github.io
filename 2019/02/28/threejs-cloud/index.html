@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="X轴  Y轴  重置 　　　　       			varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;">
+<meta name="description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
 <meta name="keywords" content="javascript,threejs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="threejs-cloud">
 <meta property="og:url" content="https://WillCoco.github.io/2019/02/28/threejs-cloud/index.html">
 <meta property="og:site_name" content="稀客">
-<meta property="og:description" content="X轴  Y轴  重置 　　　　       			varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;">
+<meta property="og:description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-28T14:09:51.198Z">
+<meta property="og:updated_time" content="2019-02-28T14:20:43.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="threejs-cloud">
-<meta name="twitter:description" content="X轴  Y轴  重置 　　　　       			varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;">
+<meta name="twitter:description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
 
 
 
@@ -262,7 +262,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:09:51+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:20:43+08:00">
                 2019-02-28
               </time>
             
@@ -300,11 +300,7 @@
       
 
       
-        
-<div style="text-align: center">X轴 <input type="number" id="x-input"></div>
-<div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
-<div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
-　　　　
+        　　　　
     <script id="vs" type="x-shader/x-vertex">
 
 			varying vec2 vUv;
@@ -344,6 +340,12 @@
     <script type="text/javascript">
       (function() {
         if (document.getElementsByClassName('post-title-link').length === 0 && document.getElementsByClassName('post-title')[0]) {
+          document.write(`
+            <div style="text-align: center">X轴 <input type="number" id="x-input"></div>
+            <div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
+            <div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
+          `);
+
           function loadJS(filePath) {
             return new Promise((resolve) => {
               var newScriptElement = document.createElement("script");
