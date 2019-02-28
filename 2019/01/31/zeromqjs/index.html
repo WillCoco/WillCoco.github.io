@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="1. zeromq介绍2. 几种消息模式3. req/rep listener转换成promise4. demo介绍zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的nod">
+<meta name="description" content="const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     if (!isHome &amp;&amp; title) {         console.log(doc">
 <meta name="keywords" content="javascript,zeromq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="zeromq.js介绍和事例">
 <meta property="og:url" content="https://WillCoco.github.io/2019/01/31/zeromqjs/index.html">
 <meta property="og:site_name" content="稀客">
-<meta property="og:description" content="1. zeromq介绍2. 几种消息模式3. req/rep listener转换成promise4. demo介绍zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的nod">
+<meta property="og:description" content="const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     if (!isHome &amp;&amp; title) {         console.log(doc">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_3.png">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_0.png">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_1.png">
 <meta property="og:image" content="https://willcoco.github.io/images/zeromq/zeromq_2.png">
-<meta property="og:updated_time" content="2019-01-31T09:08:09.010Z">
+<meta property="og:updated_time" content="2019-02-28T07:28:55.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zeromq.js介绍和事例">
-<meta name="twitter:description" content="1. zeromq介绍2. 几种消息模式3. req/rep listener转换成promise4. demo介绍zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的nod">
+<meta name="twitter:description" content="const title = document.getElementsByClassName(&apos;post-title&apos;)[0];     const isHome = document.getElementsByClassName(&apos;post-title-link&apos;) &amp;gt; 0;     if (!isHome &amp;&amp; title) {         console.log(doc">
 <meta name="twitter:image" content="https://willcoco.github.io/images/zeromq/zeromq_3.png">
 
 
@@ -305,7 +305,35 @@
       
 
       
-        <h3 id="1-zeromq介绍"><a href="#1-zeromq介绍" class="headerlink" title="1. zeromq介绍"></a><a href="#介绍">1. zeromq介绍</a></h3><h3 id="2-几种消息模式"><a href="#2-几种消息模式" class="headerlink" title="2. 几种消息模式"></a><a href="#几种消息模式">2. 几种消息模式</a></h3><h3 id="3-req-rep-listener转换成promise"><a href="#3-req-rep-listener转换成promise" class="headerlink" title="3. req/rep listener转换成promise"></a><a href="#req/rep listener转换成promise">3. req/rep listener转换成promise</a></h3><h3 id="4-demo"><a href="#4-demo" class="headerlink" title="4. demo"></a><a href="#demo">4. demo</a></h3><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的node绑定库，这里的例子是基于<a href="https://github.com/zeromq/zeromq.js" target="_blank" rel="noopener">zeromq.js</a></p>
+        <p>　　　　</p>
+<script scoped>
+    const title = document.getElementsByClassName('post-title')[0];
+    const isHome = document.getElementsByClassName('post-title-link') > 0;
+    if (!isHome && title) {
+        console.log(document.styleSheets[0].rules[0])
+        try {
+            document.styleSheets[0].insertRule(
+            `.mystery-title::after{
+                content:'after';
+                color:green;
+            }`,
+            0)//chrome,firefox等非IE浏览器使用
+        } catch(err) {
+            console.log(err)
+        }
+        try {
+            document.styleSheets[0].addRule('.mystery-title::before{color:green}',0)//IE系列浏览器使用
+        } catch(err) {
+            console.log(err)
+        }
+        if (!title.className.match('mystery-title')) {
+            title.className += ' mystery-title' 
+        }
+        console.log(title.className) 
+    }
+</script>
+
+<h3 id="1-zeromq介绍"><a href="#1-zeromq介绍" class="headerlink" title="1. zeromq介绍"></a><a href="#介绍">1. zeromq介绍</a></h3><h3 id="2-几种消息模式"><a href="#2-几种消息模式" class="headerlink" title="2. 几种消息模式"></a><a href="#几种消息模式">2. 几种消息模式</a></h3><h3 id="3-req-rep-listener转换成promise"><a href="#3-req-rep-listener转换成promise" class="headerlink" title="3. req/rep listener转换成promise"></a><a href="#req/rep listener转换成promise">3. req/rep listener转换成promise</a></h3><h3 id="4-demo"><a href="#4-demo" class="headerlink" title="4. demo"></a><a href="#demo">4. demo</a></h3><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的node绑定库，这里的例子是基于<a href="https://github.com/zeromq/zeromq.js" target="_blank" rel="noopener">zeromq.js</a></p>
 <h3 id="几种消息模式"><a href="#几种消息模式" class="headerlink" title="几种消息模式"></a>几种消息模式</h3><h4 id="pub-sub模式"><a href="#pub-sub模式" class="headerlink" title="pub/sub模式"></a>pub/sub模式</h4><p>  <img src="/images/zeromq/zeromq_3.png" width="400"></p>
 <p>发布订阅模式 发布端单向分发数据，且不关心是否把全部信息发送给订阅端。如果发布端开始发布信息时，订阅端尚未连接上来，则这些信息会被直接丢弃。订阅端只负责接收，而不能反馈，且在订阅端消费速度慢于发布端的情况下，会在订阅端堆积数据。该模型主要用于有时效性的数据分发。实时价格、天气预报、微博明星粉丝可以应用这种经典模型。订阅端未连接时发布者发布的信息会丢失，如果需要这些过去的信息，可以通过与请求回应模型组合来解决。</p>
 <ul>
@@ -370,6 +398,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/28/threejs-cloud/" rel="prev" title="threejs-cloud">
+                threejs-cloud <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -446,7 +478,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -468,7 +500,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -232,6 +232,301 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/12/29/Lodash-Array-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/29/Lodash-Array-1/" itemprop="url">Lodash-练习记录-Array-1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-29T13:14:21+08:00">
+                2018-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/technology/" itemprop="url" rel="index">
+                    <span itemprop="name">technology</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><h3 id="chunk-array-size-1"><a href="#chunk-array-size-1" class="headerlink" title="_.chunk(array, [size=1])"></a>_.chunk(array, [size=1])</h3><h4 id="将数组按长度分城若干组"><a href="#将数组按长度分城若干组" class="headerlink" title="将数组按长度分城若干组"></a>将数组按长度分城若干组</h4><pre><code>_.chunk([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;], 2);
+// =&gt; [[&apos;a&apos;, &apos;b&apos;], [&apos;c&apos;, &apos;d&apos;]]
+
+_.chunk([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;], 3);
+// =&gt; [[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], [&apos;d&apos;]]
+</code></pre><h3 id="compact-array"><a href="#compact-array" class="headerlink" title="__.compact(array)"></a>__.compact(array)</h3><h4 id="去除数组中转换bool为false的项"><a href="#去除数组中转换bool为false的项" class="headerlink" title="去除数组中转换bool为false的项"></a>去除数组中转换bool为false的项</h4><pre><code>_.compact([0, 1, false, 2, &apos;&apos;, 3]);
+// =&gt; [1, 2, 3]        
+</code></pre><h3 id="concat-array-values"><a href="#concat-array-values" class="headerlink" title="_.concat(array, [values])"></a>_.concat(array, [values])</h3><h4 id="拼接数组，可同时拼接多个，拼接项可以不是数组"><a href="#拼接数组，可同时拼接多个，拼接项可以不是数组" class="headerlink" title="拼接数组，可同时拼接多个，拼接项可以不是数组"></a>拼接数组，可同时拼接多个，拼接项可以不是数组</h4><pre><code>var array = [1];
+var other = _.concat(array, 2, [3], [[4]]);
+
+console.log(other);
+// =&gt; [1, 2, 3, [4]]
+
+console.log(array);
+// =&gt; [1]      
+</code></pre><h3 id="difference-array-values"><a href="#difference-array-values" class="headerlink" title="_.difference(array, [values])"></a>_.difference(array, [values])</h3><h4 id="array中不包含-values-中的项"><a href="#array中不包含-values-中的项" class="headerlink" title="array中不包含[values]中的项"></a>array中不包含[values]中的项</h4><pre><code>_.difference([2, 1], [2, 3]);
+// =&gt; [1]       
+</code></pre><h3 id="differenceBy-array-values-iteratee-identity"><a href="#differenceBy-array-values-iteratee-identity" class="headerlink" title=".differenceBy(array, [values], [iteratee=.identity])"></a><em>.differenceBy(array, [values], [iteratee=</em>.identity])</h3><h4 id="类似difference，比较前array和-values-中的每一项都经过-iteratee-identity-处理"><a href="#类似difference，比较前array和-values-中的每一项都经过-iteratee-identity-处理" class="headerlink" title="类似difference，比较前array和[values]中的每一项都经过[iteratee=_.identity]处理"></a>类似difference，比较前array和[values]中的每一项都经过[iteratee=_.identity]处理</h4><pre><code>_.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor);
+// =&gt; [1.2]
+
+// The `_.property` iteratee shorthand.
+_.differenceBy([{ &apos;x&apos;: 2 }, { &apos;x&apos;: 1 }], [{ &apos;x&apos;: 1 }], &apos;x&apos;);
+// =&gt; [{ &apos;x&apos;: 2 }]     
+</code></pre><h3 id="differenceWith-array-values-comparator"><a href="#differenceWith-array-values-comparator" class="headerlink" title="_.differenceWith(array, [values], [comparator])"></a>_.differenceWith(array, [values], [comparator])</h3><h4 id="类似difference，array和-values-的每一项传给比较函数-comparator-，-保留返回false的项"><a href="#类似difference，array和-values-的每一项传给比较函数-comparator-，-保留返回false的项" class="headerlink" title="类似difference，array和[values]的每一项传给比较函数[comparator]， 保留返回false的项"></a>类似difference，array和[values]的每一项传给比较函数[comparator]， 保留返回false的项</h4><pre><code>var objects = [{ &apos;x&apos;: 1, &apos;y&apos;: 2 }, { &apos;x&apos;: 2, &apos;y&apos;: 1 }];
+
+_.differenceWith(objects, [{ &apos;x&apos;: 1, &apos;y&apos;: 2 }], _.isEqual);
+// =&gt; [{ &apos;x&apos;: 2, &apos;y&apos;: 1 }]     
+</code></pre><h3 id="drop-array-n-1"><a href="#drop-array-n-1" class="headerlink" title="_.drop(array, [n=1])"></a>_.drop(array, [n=1])</h3><h4 id="从左边开始位置切除n项"><a href="#从左边开始位置切除n项" class="headerlink" title="从左边开始位置切除n项"></a>从左边开始位置切除n项</h4><pre><code>_.drop([1, 2, 3]);
+// =&gt; [2, 3]
+
+_.drop([1, 2, 3], 2);
+// =&gt; [3]
+
+_.drop([1, 2, 3], 5);
+// =&gt; []
+
+_.drop([1, 2, 3], 0);
+// =&gt; [1, 2, 3]
+</code></pre><h3 id="dropRight-array-n-1"><a href="#dropRight-array-n-1" class="headerlink" title="_.dropRight(array, [n=1])"></a>_.dropRight(array, [n=1])</h3><h4 id="类似drop，从右边开始"><a href="#类似drop，从右边开始" class="headerlink" title="类似drop，从右边开始"></a>类似drop，从右边开始</h4><pre><code>_.dropRight([1, 2, 3]);
+// =&gt; [1, 2]
+
+_.dropRight([1, 2, 3], 2);
+// =&gt; [1]
+
+_.dropRight([1, 2, 3], 5);
+// =&gt; []
+
+_.dropRight([1, 2, 3], 0);
+// =&gt; [1, 2, 3]
+</code></pre><h3 id="dropRightWhile-array-predicate-identity"><a href="#dropRightWhile-array-predicate-identity" class="headerlink" title=".dropRightWhile(array, [predicate=.identity])"></a><em>.dropRightWhile(array, [predicate=</em>.identity])</h3><h4 id="从右边开始，切除满足条件的项"><a href="#从右边开始，切除满足条件的项" class="headerlink" title="从右边开始，切除满足条件的项"></a>从右边开始，切除满足条件的项</h4><pre><code>var users = [
+  { &apos;user&apos;: &apos;barney&apos;,  &apos;active&apos;: true },
+  { &apos;user&apos;: &apos;fred&apos;,    &apos;active&apos;: false },
+  { &apos;user&apos;: &apos;pebbles&apos;, &apos;active&apos;: false }
+];
+
+_.dropRightWhile(users, function(o) { return !o.active; });
+// =&gt; objects for [&apos;barney&apos;]
+
+// The `_.matches` iteratee shorthand.
+_.dropRightWhile(users, { &apos;user&apos;: &apos;pebbles&apos;, &apos;active&apos;: false });
+// =&gt; objects for [&apos;barney&apos;, &apos;fred&apos;]
+
+// The `_.matchesProperty` iteratee shorthand.
+_.dropRightWhile(users, [&apos;active&apos;, false]);
+// =&gt; objects for [&apos;barney&apos;]
+
+// The `_.property` iteratee shorthand.
+_.dropRightWhile(users, &apos;active&apos;);
+// =&gt; objects for [&apos;barney&apos;, &apos;fred&apos;, &apos;pebbles&apos;]
+</code></pre><h3 id="dropWhile-array-predicate-identity"><a href="#dropWhile-array-predicate-identity" class="headerlink" title=".dropWhile(array, [predicate=.identity])"></a><em>.dropWhile(array, [predicate=</em>.identity])</h3><h4 id="从左边开始，切除满足条件的项"><a href="#从左边开始，切除满足条件的项" class="headerlink" title="从左边开始，切除满足条件的项"></a>从左边开始，切除满足条件的项</h4><h3 id="fill-array-value-start-0-end-array-length"><a href="#fill-array-value-start-0-end-array-length" class="headerlink" title="_.fill(array, value, [start=0], [end=array.length])"></a>_.fill(array, value, [start=0], [end=array.length])</h3><h4 id="在start-end区间内为array填充值"><a href="#在start-end区间内为array填充值" class="headerlink" title="在start-end区间内为array填充值"></a>在start-end区间内为array填充值</h4><pre><code>var array = [1, 2, 3];
+
+_.fill(array, &apos;a&apos;);
+console.log(array);
+// =&gt; [&apos;a&apos;, &apos;a&apos;, &apos;a&apos;]
+
+_.fill(Array(3), 2);
+// =&gt; [2, 2, 2]
+
+_.fill([4, 6, 8, 10], &apos;*&apos;, 1, 3);
+// =&gt; [4, &apos;*&apos;, &apos;*&apos;, 10]
+</code></pre><h3 id="findIndex-array-predicate-identity-fromIndex-0"><a href="#findIndex-array-predicate-identity-fromIndex-0" class="headerlink" title=".findIndex(array, [predicate=.identity], [fromIndex=0])"></a><em>.findIndex(array, [predicate=</em>.identity], [fromIndex=0])</h3><h4 id="从fromIndex开始，从左往右，返回第一个满足条件-predicate-identity-的索引index"><a href="#从fromIndex开始，从左往右，返回第一个满足条件-predicate-identity-的索引index" class="headerlink" title="从fromIndex开始，从左往右，返回第一个满足条件[predicate=_.identity]的索引index"></a>从fromIndex开始，从左往右，返回第一个满足条件[predicate=_.identity]的索引index</h4><pre><code>var users = [
+  { &apos;user&apos;: &apos;barney&apos;,  &apos;active&apos;: false },
+  { &apos;user&apos;: &apos;fred&apos;,    &apos;active&apos;: false },
+  { &apos;user&apos;: &apos;pebbles&apos;, &apos;active&apos;: true }
+];
+
+_.findIndex(users, function(o) { return o.user == &apos;barney&apos;; });
+// =&gt; 0
+
+// The `_.matches` iteratee shorthand.
+_.findIndex(users, { &apos;user&apos;: &apos;fred&apos;, &apos;active&apos;: false });
+// =&gt; 1
+
+// The `_.matchesProperty` iteratee shorthand.
+_.findIndex(users, [&apos;active&apos;, false]);
+// =&gt; 0
+
+// The `_.property` iteratee shorthand.
+_.findIndex(users, &apos;active&apos;);
+// =&gt; 2
+</code></pre><h3 id="findLastIndex-array-predicate-identity-fromIndex-array-length-1"><a href="#findLastIndex-array-predicate-identity-fromIndex-array-length-1" class="headerlink" title=".findLastIndex(array, [predicate=.identity], [fromIndex=array.length-1])"></a><em>.findLastIndex(array, [predicate=</em>.identity], [fromIndex=array.length-1])</h3><h4 id="从fromIndex开始，从右往左，返回第一个满足条件-predicate-identity-的索引index"><a href="#从fromIndex开始，从右往左，返回第一个满足条件-predicate-identity-的索引index" class="headerlink" title="从fromIndex开始，从右往左，返回第一个满足条件[predicate=_.identity]的索引index"></a>从fromIndex开始，从右往左，返回第一个满足条件[predicate=_.identity]的索引index</h4><h3 id="head-array"><a href="#head-array" class="headerlink" title="_.head(array)"></a>_.head(array)</h3><h4 id="取array的第一个元素"><a href="#取array的第一个元素" class="headerlink" title="取array的第一个元素"></a>取array的第一个元素</h4><pre><code>_.head([1, 2, 3]);
+// =&gt; 1
+
+_.head([]);
+// =&gt; undefined
+</code></pre><h3 id="tail-array"><a href="#tail-array" class="headerlink" title="_.tail(array)"></a>_.tail(array)</h3><h4 id="除去取array的第一个元素"><a href="#除去取array的第一个元素" class="headerlink" title="除去取array的第一个元素"></a>除去取array的第一个元素</h4><pre><code>_.tail([1, 2, 3]);
+// =&gt; [2, 3]
+</code></pre><h3 id="last-array"><a href="#last-array" class="headerlink" title="_.last(array)"></a>_.last(array)</h3><h4 id="取array的最后一个元素"><a href="#取array的最后一个元素" class="headerlink" title="取array的最后一个元素"></a>取array的最后一个元素</h4><pre><code>_.last([1, 2, 3]);
+// =&gt; 3
+</code></pre><h3 id="flatten-array"><a href="#flatten-array" class="headerlink" title="_.flatten(array)"></a>_.flatten(array)</h3><h4 id="展平一次数组"><a href="#展平一次数组" class="headerlink" title="展平一次数组"></a>展平一次数组</h4><pre><code>_.flatten([1, [2, [3, [4]], 5]]);
+// =&gt; [1, 2, [3, [4]], 5]
+</code></pre><h3 id="flattenDeep-array"><a href="#flattenDeep-array" class="headerlink" title="_.flattenDeep(array)"></a>_.flattenDeep(array)</h3><h4 id="展平数组"><a href="#展平数组" class="headerlink" title="展平数组"></a>展平数组</h4><pre><code>_.flattenDeep([1, [2, [3, [4]], 5]]);
+// =&gt; [1, 2, 3, 4, 5]
+</code></pre><h3 id="flattenDepth-array-depth-1"><a href="#flattenDepth-array-depth-1" class="headerlink" title="_.flattenDepth(array, [depth=1])"></a>_.flattenDepth(array, [depth=1])</h3><h4 id="展平n次数组"><a href="#展平n次数组" class="headerlink" title="展平n次数组"></a>展平n次数组</h4><pre><code>var array = [1, [2, [3, [4]], 5]];
+
+_.flattenDepth(array, 1);
+// =&gt; [1, 2, [3, [4]], 5]
+
+_.flattenDepth(array, 2);
+// =&gt; [1, 2, 3, [4], 5]
+</code></pre><h3 id="pull-array-values"><a href="#pull-array-values" class="headerlink" title="_.pull(array, [values])"></a>_.pull(array, [values])</h3><h4 id="array中除去values"><a href="#array中除去values" class="headerlink" title="array中除去values"></a>array中除去values</h4><pre><code>var array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;];
+
+_.pull(array, &apos;a&apos;, &apos;c&apos;);
+console.log(array);
+// =&gt; [&apos;b&apos;, &apos;b&apos;]
+</code></pre><h3 id="pullAll-array-values"><a href="#pullAll-array-values" class="headerlink" title="_.pullAll(array, values)"></a>_.pullAll(array, values)</h3><h4 id="类似pull，values参数为数组"><a href="#类似pull，values参数为数组" class="headerlink" title="类似pull，values参数为数组"></a>类似pull，values参数为数组</h4><pre><code>var array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;];
+
+_.pull(array, &apos;a&apos;, &apos;c&apos;);
+console.log(array);
+// =&gt; [&apos;b&apos;, &apos;b&apos;]
+</code></pre><h3 id="pullAllBy-array-values-iteratee-identity"><a href="#pullAllBy-array-values-iteratee-identity" class="headerlink" title=".pullAllBy(array, values, [iteratee=.identity])"></a><em>.pullAllBy(array, values, [iteratee=</em>.identity])</h3><h4 id="类似pull，values参数为数组-1"><a href="#类似pull，values参数为数组-1" class="headerlink" title="类似pull，values参数为数组"></a>类似pull，values参数为数组</h4><pre><code>var array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;];
+
+_.pull(array, &apos;a&apos;, &apos;c&apos;);
+console.log(array);
+// =&gt; [&apos;b&apos;, &apos;b&apos;]
+</code></pre><h3 id="pullAllBy-array-values-iteratee-identity-1"><a href="#pullAllBy-array-values-iteratee-identity-1" class="headerlink" title=".pullAllBy(array, values, [iteratee=.identity])"></a><em>.pullAllBy(array, values, [iteratee=</em>.identity])</h3><p>#### </p>
+<pre><code>var array = [{ &apos;x&apos;: 1 }, { &apos;x&apos;: 2 }, { &apos;x&apos;: 3 }, { &apos;x&apos;: 1 }];
+
+_.pullAllBy(array, [{ &apos;x&apos;: 1 }, { &apos;x&apos;: 3 }], &apos;x&apos;);
+console.log(array);
+// =&gt; [{ &apos;x&apos;: 2 }]
+</code></pre><h3 id="pullAllWith-array-values-comparator"><a href="#pullAllWith-array-values-comparator" class="headerlink" title="_.pullAllWith(array, values, [comparator])"></a>_.pullAllWith(array, values, [comparator])</h3><pre><code>var array = [{ &apos;x&apos;: 1, &apos;y&apos;: 2 }, { &apos;x&apos;: 3, &apos;y&apos;: 4 }, { &apos;x&apos;: 5, &apos;y&apos;: 6 }];
+
+_.pullAllWith(array, [{ &apos;x&apos;: 3, &apos;y&apos;: 4 }], _.isEqual);
+console.log(array);
+// =&gt; [{ &apos;x&apos;: 1, &apos;y&apos;: 2 }, { &apos;x&apos;: 5, &apos;y&apos;: 6 }]
+</code></pre><h3 id="pullAt-array-indexes"><a href="#pullAt-array-indexes" class="headerlink" title="_.pullAt(array, [indexes])"></a>_.pullAt(array, [indexes])</h3><h4 id="移除指定索引位置array"><a href="#移除指定索引位置array" class="headerlink" title="移除指定索引位置array"></a>移除指定索引位置array</h4><pre><code>var array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];
+var pulled = _.pullAt(array, [1, 3]);
+
+console.log(array);
+// =&gt; [&apos;a&apos;, &apos;c&apos;]
+
+console.log(pulled);
+// =&gt; [&apos;b&apos;, &apos;d&apos;]
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/05/06/ES6-module模块化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -925,466 +1220,6 @@ R.assocPath([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;], 42)({a: 5})
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/02/25/Ramda-学习记录3/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coco x">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/25/Ramda-学习记录3/" itemprop="url">Ramda-学习记录3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-25T10:03:06+08:00">
-                2018-02-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="六-数组"><a href="#六-数组" class="headerlink" title="六. 数组"></a>六. 数组</h2><h3 id="6-1-数组的特征判断"><a href="#6-1-数组的特征判断" class="headerlink" title="6.1 数组的特征判断"></a>6.1 数组的特征判断</h3><p>contains：如果包含某个成员，返回true。</p>
-<pre><code>R.contains(3)([1, 2, 3]) // true
-R.contains(4)([1, 2, 3]) // false
-R.contains({ name: &apos;Fred&apos; })([{ name: &apos;Fred&apos; }]) // true
-R.contains([42])([[42]]) // true
-</code></pre><p>all：所有成员都满足指定函数时，返回true，否则返回false</p>
-<pre><code>var equals3 = R.equals(3);
-R.all(equals3)([3, 3, 3, 3]) // true
-R.all(equals3)([3, 3, 1, 3]) // false
-</code></pre><p>any：只要有一个成员满足条件，就返回true。</p>
-<pre><code>var lessThan0 = R.flip(R.lt)(0);
-var lessThan2 = R.flip(R.lt)(2);
-R.any(lessThan0)([1, 2]) // false
-R.any(lessThan2)([1, 2]) // true
-</code></pre><p>none：没有成员满足条件时，返回true。</p>
-<pre><code>var isEven = n =&gt; n % 2 === 0;
-
-R.none(isEven)([1, 3, 5, 7, 9, 11]) // true
-R.none(isEven)([1, 3, 5, 7, 8, 11]) // false
-</code></pre><p>6.2 数组的截取和添加</p>
-<p>head：返回数组的第一个成员。</p>
-<pre><code>R.head([&apos;fi&apos;, &apos;fo&apos;, &apos;fum&apos;]) // &apos;fi&apos;
-R.head([])  // undefined
-R.head(&apos;abc&apos;) // &apos;a&apos;
-R.head(&apos;&apos;) // &apos;&apos;
-</code></pre><p>last：返回数组的最后一个成员。</p>
-<pre><code>R.last([&apos;fi&apos;, &apos;fo&apos;, &apos;fum&apos;]) // &apos;fum&apos;
-R.last([]) // undefined
-R.last(&apos;abc&apos;) // &apos;c&apos;
-R.last(&apos;&apos;) // &apos;&apos;
-</code></pre><p>tail：返回第一个成员以外的所有成员组成的新数组。</p>
-<pre><code>R.tail([1, 2, 3])  // [2, 3]
-R.tail([1, 2])     // [2]
-R.tail([1])        // []
-R.tail([])         // []
-
-R.tail(&apos;abc&apos;)  // &apos;bc&apos;
-R.tail(&apos;ab&apos;)   // &apos;b&apos;
-R.tail(&apos;a&apos;)    // &apos;&apos;
-R.tail(&apos;&apos;)     // &apos;&apos;
-</code></pre><p>init：返回最后一个成员以外的所有成员组成的新数组。</p>
-<pre><code>R.init([1, 2, 3])  // [1, 2]
-R.init([1, 2])     // [1]
-R.init([1])        // []
-R.init([])         // []
-
-R.init(&apos;abc&apos;)  // &apos;ab&apos;
-R.init(&apos;ab&apos;)   // &apos;a&apos;
-R.init(&apos;a&apos;)    // &apos;&apos;
-R.init(&apos;&apos;)     // &apos;&apos;
-</code></pre><p>nth：取出指定位置的成员。</p>
-<pre><code>var list = [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;, &apos;quux&apos;];
-R.nth(1)(list) // &apos;bar&apos;
-R.nth(-1)(list) // &apos;quux&apos;
-R.nth(-99)(list) // undefined
-
-R.nth(2)(&apos;abc&apos;) // &apos;c&apos;
-R.nth(3)(&apos;abc&apos;) // &apos;&apos;
-</code></pre><p>take：取出前 n 个成员。</p>
-<pre><code>R.take(1)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;foo&apos;]
-R.take(2)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;foo&apos;, &apos;bar&apos;]
-R.take(3)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]
-R.take(4)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]
-R.take(3)(&apos;ramda&apos;)               // &apos;ram&apos;
-</code></pre><p>takeLast：取出后 n 个成员。</p>
-<pre><code>R.takeLast(1)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;baz&apos;]
-R.takeLast(2)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;bar&apos;, &apos;baz&apos;]
-R.takeLast(3)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]
-R.takeLast(4)([&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]) // [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]
-R.takeLast(3)(&apos;ramda&apos;)               // &apos;mda&apos;
-</code></pre><p>slice：从起始位置（包括）开始，到结束位置（不包括）为止，从原数组截取出一个新数组。</p>
-<pre><code>R.slice(1, 3)([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]) // [&apos;b&apos;, &apos;c&apos;]
-R.slice(1, Infinity)([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]) // [&apos;b&apos;, &apos;c&apos;, &apos;d&apos;]
-R.slice(0, -1)([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]
-R.slice(-3, -1)([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]) // [&apos;b&apos;, &apos;c&apos;]
-R.slice(0, 3)(&apos;ramda&apos;) // &apos;ram&apos;
-</code></pre><p>remove：移除开始位置后的n个成员。</p>
-<pre><code>R.remove(2, 3)([1,2,3,4,5,6,7,8]) // [1,2,6,7,8]
-</code></pre><p>insert：在指定位置插入给定值。</p>
-<pre><code>R.insert(2, &apos;x&apos;)([1,2,3,4]) // [1,2,&apos;x&apos;,3,4]
-</code></pre><p>insertAll：在指定位置，插入另一个数组的所有成员。</p>
-<pre><code>R.insertAll(2，[&apos;x&apos;,&apos;y&apos;,&apos;z&apos;])([1,2,3,4]) // [1,2,&apos;x&apos;,&apos;y&apos;,&apos;z&apos;,3,4]
-</code></pre><p>prepend：在数组头部插入一个成员</p>
-<pre><code>R.prepend(&apos;fee&apos;)([&apos;fi&apos;, &apos;fo&apos;, &apos;fum&apos;])
-// [&apos;fee&apos;, &apos;fi&apos;, &apos;fo&apos;, &apos;fum&apos;]
-</code></pre><p>append：在数组尾部追加新的成员。</p>
-<pre><code>R.append(&apos;tests&apos;)([&apos;write&apos;, &apos;more&apos;]) // [&apos;write&apos;, &apos;more&apos;, &apos;tests&apos;]
-R.append(&apos;tests&apos;)([]) // [&apos;tests&apos;]
-R.append([&apos;tests&apos;])([&apos;write&apos;, &apos;more&apos;]) // [&apos;write&apos;, &apos;more&apos;, [&apos;tests&apos;]]
-</code></pre><p>intersperse：在数组成员之间插入表示分隔的成员。</p>
-<pre><code>R.intersperse(&apos;n&apos;)([&apos;ba&apos;, &apos;a&apos;, &apos;a&apos;])
-// [&apos;ba&apos;, &apos;n&apos;, &apos;a&apos;, &apos;n&apos;, &apos;a&apos;]
-</code></pre><p>join：将数组合并成一个字符串，并在成员之间插入分隔符。</p>
-<pre><code>R.join(&apos;|&apos;)([1, 2, 3]) // &apos;1|2|3&apos;
-</code></pre><p>6.3 数组的过滤</p>
-<p>filter：过滤出符合条件的成员。</p>
-<pre><code>var isEven = n =&gt; n % 2 === 0;
-R.filter(isEven)([1, 2, 3, 4]) // [2, 4]
-</code></pre><p>reject：过滤出所有不满足条件的成员。</p>
-<pre><code>var isOdd = (n) =&gt; n % 2 === 1;
-R.reject(isOdd)([1, 2, 3, 4]) // [2, 4]
-</code></pre><p>takeWhile： 一旦满足条件，后面的成员都会被过滤掉。</p>
-<pre><code>var isNotFour = x =&gt; x !== 4;
-R.takeWhile(isNotFour)([1, 2, 3, 4, 3, 2, 1]) // [1, 2, 3]
-</code></pre><p>dropWhile：一旦不满足条件，取出剩余的所有成员。</p>
-<pre><code>var lteTwo = x =&gt; x &lt;= 2;
-R.dropWhile(lteTwo)([1, 2, 3, 4, 3, 2, 1])
-// [3, 4, 3, 2, 1]
-</code></pre><p>without：返回指定值以外的成员。</p>
-<pre><code>R.without([1, 2])([1, 2, 1, 3, 4])
-// [3, 4]
-</code></pre><p>6.4 单数组运算</p>
-<p>countBy：对每个成员执行指定函数以后，返回一个对象，表示各种执行结果分别包含多少成员。</p>
-<pre><code>var numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
-R.countBy(Math.floor)(numbers)  // {&apos;1&apos;: 3, &apos;2&apos;: 2, &apos;3&apos;: 1}
-
-var letters = [&apos;a&apos;, &apos;b&apos;, &apos;A&apos;, &apos;a&apos;, &apos;B&apos;, &apos;c&apos;];
-R.countBy(R.toLower)(letters)  // {&apos;a&apos;: 3, &apos;b&apos;: 2, &apos;c&apos;: 1}
-</code></pre><p>splitAt：在给定位置，将原数组分成两个部分。</p>
-<pre><code>R.splitAt(1)([1, 2, 3]) // [[1], [2, 3]]
-R.splitAt(5)(&apos;hello world&apos;) // [&apos;hello&apos;, &apos; world&apos;]
-R.splitAt(-1)(&apos;foobar&apos;) // 从后往前数 [&apos;fooba&apos;, &apos;r&apos;]
-</code></pre><p>splitEvery：按照指定的个数，将原数组分成多个部分。</p>
-<pre><code>R.splitEvery(3)([1, 2, 3, 4, 5, 6, 7])
-// [[1, 2, 3], [4, 5, 6], [7]]
-
-R.splitEvery(3)(&apos;foobarbaz&apos;)
-// [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]
-</code></pre><p>splitWhen：以第一个满足指定函数的成员为界，将数组分成两个部分。</p>
-<pre><code>R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, 3])
-// 分界成员归到下一组： [[1], [2, 3, 1, 2, 3]]
-
-R.splitWhen(R.equals(0))([1, 2, 3, 1, 2, 3])
-// [1, 2, 3, 1, 2, 3], []]
-</code></pre><p>aperture：每个成员与其后给定数量的成员分成一组，这些组构成一个新的数组。</p>
-<pre><code>R.aperture(3)([1, 2, 3, 4, 5, 6, 7])
-//一哒哒二哒哒： [[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7]]
-</code></pre><p>partition：根据是否满足指定函数，将成员分区。</p>
-<pre><code>R.partition(R.contains(&apos;s&apos;))([&apos;sss&apos;, &apos;ttt&apos;, &apos;foo&apos;, &apos;bars&apos;])
-// =&gt; [ [ &apos;sss&apos;, &apos;bars&apos; ],  [ &apos;ttt&apos;, &apos;foo&apos; ] ]
-</code></pre><p>indexOf：某个值在数组中第一次出现的位置。</p>
-<pre><code>R.indexOf(3)([1,2,3,4]) // 2
-R.indexOf(10)([1,2,3,4]) // -1
-</code></pre><p>lastIndexOf：某个值在数组中最后一次出现的位置。</p>
-<pre><code>R.lastIndexOf(3)([-1,3,3,0,1,2,3,4]) // 6
-R.lastIndexOf(10)([1,2,3,4]) // -1
-</code></pre><p>map：数组的每个成员依次执行某个函数。</p>
-<pre><code>var double = x =&gt; x * 2;
-R.map(double)([1, 2, 3]) // [2, 4, 6]
-</code></pre><p>addIndex: 与map迭代函数配合，增加回调函数的参数：索引位置和原数组。</p>
-<pre><code>var mapIndexed = R.addIndex(R.map);
-mapIndexed(
-  (val, idx) =&gt; idx + &apos;-&apos; + val, [&apos;f&apos;, &apos;o&apos;, &apos;o&apos;, &apos;b&apos;, &apos;a&apos;, &apos;r&apos;]
-)
-// [&apos;0-f&apos;, &apos;1-o&apos;, &apos;2-o&apos;, &apos;3-b&apos;, &apos;4-a&apos;, &apos;5-r&apos;]
-</code></pre><p>forEach：数组的每个成员依次执行某个函数，总是返回原数组。</p>
-<pre><code>var printXPlusFive = x =&gt; console.log(x + 5);
-R.forEach(printXPlusFive, [1, 2, 3]) // [1, 2, 3]
-// logs 6
-// logs 7
-// logs 8
-</code></pre><p>reduce：数组成员依次执行指定函数，每一次的运算结果都会进入一个累积变量。</p>
-<pre><code>var mySubtract = function (a, b) {
-  return a - b;
-};
-R.reduce(mySubtract, 0)([1, 2, 3, 4]) //   //(0 - 1) - 2 - 3 - 4 = -10
-reduceRight：与reduce类似，区别是数组成员从左到右执行。
-
-R.reduceRight(R.subtract, 0)([1, 2, 3, 4]) //(4 - 0) - 3 - 2 - 1 = -2
-reduceWhile：与reduce类似，区别是有一个判断函数，一旦数组成员不符合条件，就停止累积。
-
-var isOdd = (acc, x) =&gt; x % 2 === 1;
-var xs = [1, 3, 5, 60, 777, 800];
-R.reduceWhile(isOdd, R.add, 0)(xs) // 9
-
-var ys = [2, 4, 6];
-R.reduceWhile(isOdd, R.add, 111)(ys) // 111
-</code></pre><p>mapAccum: 类似reduce，’01234’是 appender函数指定的第一个a + b迭代处理digits后的最终结果， [‘01’, ‘012’, ‘0123’, ‘01234’]是appender函数指定的第二个 a + b 每一次迭代处理digits的合集，迭代顺序从左至右。</p>
-<pre><code>var digits = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;];
-var appender = (a, b) =&gt; [a + b, a + b];
-
-R.mapAccum(appender, 0, digits); //=&gt; [&apos;01234&apos;, [&apos;01&apos;, &apos;012&apos;, &apos;0123&apos;, &apos;01234&apos;]]
-</code></pre><p>mapAccumRight：类似mapAccum，迭代顺序从左至右。</p>
-<pre><code>var digits = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;];
-var append = (a, b) =&gt; [a + b, a + b];
-
-R.mapAccumRight(append, 5, digits); //=&gt; [[&apos;12345&apos;, &apos;2345&apos;, &apos;345&apos;, &apos;45&apos;], &apos;12345&apos;]
-</code></pre><p>sort：按照给定函数，对数组进行排序。</p>
-<pre><code>var diff = function(a, b) { return a - b; };
-R.sort(diff)([4,2,7,5])
-// [2, 4, 5, 7]
-</code></pre><p>sortWith：按照给定的一组函数，进行多重排序。</p>
-<pre><code>var alice = {
-  name: &apos;alice&apos;,
-  age: 40
-};
-var bob = {
-  name: &apos;bob&apos;,
-  age: 30
-};
-var clara = {
-  name: &apos;clara&apos;,
-  age: 40
-};
-var people = [clara, bob, alice];
-var ageNameSort = R.sortWith([
-  R.descend(R.prop(&apos;age&apos;)),
-  R.ascend(R.prop(&apos;name&apos;))
-]);
-ageNameSort(people); //=&gt; [alice, clara, bob]
-</code></pre><p>adjust：对指定位置的成员执行给定的函数。</p>
-<pre><code>R.adjust(R.add(10), 1)([1, 2, 3]) // [1, 12, 3]
-R.adjust(R.add(10)，1)([1, 2, 3]) // [1, 12, 3]
-</code></pre><p>ap：数组成员分别执行一组函数，将结果合成为一个新数组。</p>
-<pre><code>R.ap([R.multiply(2), R.add(3)])([1,2,3])
-// [2, 4, 6, 4, 5, 6]
-
-R.ap([R.concat(&apos;tasty &apos;), R.toUpper])([&apos;pizza&apos;, &apos;salad&apos;])
-// [&quot;tasty pizza&quot;, &quot;tasty salad&quot;, &quot;PIZZA&quot;, &quot;SALAD&quot;]
-</code></pre><p>flatten：将嵌套数组铺平。</p>
-<pre><code>R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
-// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-</code></pre><p>groupWith：将数组成员依次按照指定条件两两比较，并按照结果将所有成员放入子数组。</p>
-<pre><code>R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21])
-// [[0], [1, 1], [2], [3], [5], [8], [13], [21]]
-
-R.groupWith((a, b) =&gt; a % 2 === b % 2)([0, 1, 1, 2, 3, 5, 8, 13, 21])
-// [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
-
-R.groupWith(R.eqBy(isVowel), &apos;aestiou&apos;)
-//=&gt; [&apos;ae&apos;, &apos;st&apos;, &apos;iou&apos;]
-</code></pre><p>6.5 双数组运算</p>
-<p>concat：将两个数组合并成一个数组。</p>
-<pre><code>R.concat(&apos;ABC&apos;)(&apos;DEF&apos;) // &apos;ABCDEF&apos;
-R.concat([4, 5, 6])([1, 2, 3]) // [4, 5, 6, 1, 2, 3]
-R.concat([])([]) // []
-</code></pre><p>zip：将两个数组指定位置的成员放在一起，生成一个新数组。</p>
-<pre><code>R.zip([1, 2, 3])([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;])
-// [[1, &apos;a&apos;], [2, &apos;b&apos;], [3, &apos;c&apos;]]
-</code></pre><p>zipObj：将两个数组指定位置的成员分别作为键名和键值，生成一个新对象。</p>
-<pre><code>R.zipObj([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;])([1, 2, 3])
-// {a: 1, b: 2, c: 3}
-</code></pre><p>xprod：将两个数组的成员两两混合，生成一个新数组。</p>
-<pre><code>R.xprod([1, 2])([&apos;a&apos;, &apos;b&apos;])
-// [[1, &apos;a&apos;], [1, &apos;b&apos;], [2, &apos;a&apos;], [2, &apos;b&apos;]]
-</code></pre><p>intersection：返回两个数组相同的成员组成的新数组。</p>
-<pre><code>R.intersection([1,2,3,4], [7,6,5,4,3]) // 第二数组顺序 [4, 3]
-</code></pre><p>difference：返回第一个数组不包含在第二个数组里面的成员。</p>
-<pre><code>R.difference([1,2,3,4])([7,6,5,4,3]) // [1,2]
-R.difference([7,6,5,4,3])([1,2,3,4]) // [7,6,5]
-R.difference([{a: 1}, {b: 2}])([{a: 1}, {c: 3}]) // [{b: 2}]
-</code></pre><p>differenceWith：返回执行指定函数后，第一个数组里面不符合条件的所有成员。</p>
-<pre><code>var cmp = (x, y) =&gt; x.a === y.a;
-var l1 = [{a: 1}, {a: 2}, {a: 3}];
-var l2 = [{a: 3}, {a: 4}]; // [{a: 1}, {a: 2}]
-R.differenceWith(cmp, l1)(l2) // [{a: 1}, {a: 2}]
-</code></pre><p>symmetricDifference：返回两个数组的非共有成员所组成的一个新数组。对称差集</p>
-<pre><code>R.symmetricDifference([1,2,3,4])([7,6,5,4,3]) // [1,2,7,6,5]
-R.symmetricDifference([7,6,5,4,3])([1,2,3,4]) // [7,6,5,1,2]
-</code></pre><p>symmetricDifferenceWith：根据指定条件，返回两个数组所有运算结果不相等的成员所组成的新数组。</p>
-<pre><code>var eqA = R.eqBy(R.prop(&apos;a&apos;));
-var l1 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
-var l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
-R.symmetricDifferenceWith(eqA, l1, l2) // [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-</code></pre><p>6.6 复合数组</p>
-<p>find：返回符合指定条件的成员。</p>
-<pre><code>var xs = [{a: 1}, {a: 2}, {a: 3}];
-R.find(R.propEq(&apos;a&apos;, 2))(xs) // {a: 2}
-R.find(R.propEq(&apos;a&apos;, 4))(xs) // undefined
-</code></pre><p>findLast：返回最后一个符合指定条件的成员。</p>
-<pre><code>var xs = [{a: 1, b: 0}, {a:1, b: 1}];
-R.findLast(R.propEq(&apos;a&apos;, 1))(xs) // {a: 1, b: 1}
-R.findLast(R.propEq(&apos;a&apos;, 4))(xs) // undefined
-</code></pre><p>findIndex：返回第一个符合指定条件的成员的位置。</p>
-<pre><code>var xs = [{a: 1}, {a: 2}, {a: 3}];
-R.findIndex(R.propEq(&apos;a&apos;, 2))(xs) // 1
-R.findIndex(R.propEq(&apos;a&apos;, 4))(xs) // -1
-</code></pre><p>findLastIndex：返回最后一个符合指定条件的成员的位置。</p>
-<pre><code>var xs = [{a: 1, b: 0}, {a:1, b: 1}];
-R.findLastIndex(R.propEq(&apos;a&apos;, 1))(xs) // 1
-R.findLastIndex(R.propEq(&apos;a&apos;, 4))(xs) // -1
-</code></pre><p>pluck：取出数组成员的某个属性，组成一个新数组。</p>
-<pre><code>R.pluck(&apos;a&apos;)([{a: 1}, {a: 2}]) // [1, 2]
-R.pluck(0)([[1, 2], [3, 4]])   // [1, 3]
-</code></pre><p>project：取出数组成员的多个属性，组成一个新数组。</p>
-<pre><code>var abby = {name: &apos;Abby&apos;, age: 7, hair: &apos;blond&apos;, grade: 2};
-var fred = {name: &apos;Fred&apos;, age: 12, hair: &apos;brown&apos;, grade: 7};
-var kids = [abby, fred];
-R.project([&apos;name&apos;, &apos;grade&apos;])(kids)
-// [{name: &apos;Abby&apos;, grade: 2}, {name: &apos;Fred&apos;, grade: 7}]
-</code></pre><p>transpose：将每个成员相同位置的值，组成一个新数组。</p>
-<pre><code>R.transpose([[1, &apos;a&apos;], [2, &apos;b&apos;], [3, &apos;c&apos;]])
-// [[1, 2, 3], [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]]
-
-R.transpose([[1, 2, 3], [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]])
-// [[1, &apos;a&apos;], [2, &apos;b&apos;], [3, &apos;c&apos;]]
-
-R.transpose([[10, 11], [20], [], [30, 31, 32]])
-// [[10, 20, 30], [11, 31], [32]]
-</code></pre><p>mergeAll：将数组的成员合并成一个对象。</p>
-<pre><code>R.mergeAll([{foo:1},{bar:2},{baz:3}])
-// {foo:1,bar:2,baz:3}
-
-R.mergeAll([{foo:1},{foo:2},{bar:2}])
-// {foo:2, bar:2}
-</code></pre><p>fromPairs：将嵌套数组转为一个对象。</p>
-<pre><code>R.fromPairs([[&apos;a&apos;, 1], [&apos;b&apos;, 2], [&apos;c&apos;, 3]])
-// {a: 1, b: 2, c: 3}
-</code></pre><p>groupBy：将数组成员按照指定条件分组。</p>
-<pre><code>var byGrade = R.groupBy(function(student) {
-var score = student.score;
-  return score &lt; 65 ? &apos;F&apos; :
-         score &lt; 70 ? &apos;D&apos; :
-         score &lt; 80 ? &apos;C&apos; :
-         score &lt; 90 ? &apos;B&apos; : &apos;A&apos;;
-});
-var students = [{name: &apos;Abby&apos;, score: 84},
-                {name: &apos;Eddy&apos;, score: 58},
-                // ...
-                {name: &apos;Jack&apos;, score: 69}];
-byGrade(students);
-// {
-//   &apos;A&apos;: [{name: &apos;Dianne&apos;, score: 99}],
-//   &apos;B&apos;: [{name: &apos;Abby&apos;, score: 84}]
-//   // ...,
-//   &apos;F&apos;: [{name: &apos;Eddy&apos;, score: 58}]
-// }
-</code></pre><p>sortBy：根据成员的某个属性排序。</p>
-<pre><code>var sortByFirstItem = R.sortBy(R.prop(0));
-sortByFirstItem([[-1, 1], [-2, 2], [-3, 3]])
-// [[-3, 3], [-2, 2], [-1, 1]]
-
-var sortByNameCaseInsensitive = R.sortBy(
-  R.compose(R.toLower, R.prop(&apos;name&apos;))
-);
-var alice = {name: &apos;ALICE&apos;, age: 101};
-var bob = {name: &apos;Bob&apos;, age: -10};
-var clara = {name: &apos;clara&apos;, age: 314.159};
-var people = [clara, bob, alice];
-sortByNameCaseInsensitive(people)
-// [alice, bob, clara]      
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1435,7 +1270,7 @@ sortByNameCaseInsensitive(people)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1457,7 +1292,7 @@ sortByNameCaseInsensitive(people)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
