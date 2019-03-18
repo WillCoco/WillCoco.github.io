@@ -232,6 +232,241 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2017/12/20/类型检测/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/20/类型检测/" itemprop="url">React类型检测</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T23:21:21+08:00">
+                2017-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>随着你的应用的变得越来越大，你可以通过typechecking来找到更多的bug。 对于某些应用，您可以使用JavaScript扩展（如Flow<a href="/2017/12/20/Flow-JS类型检测工具/" title="Flow-JS类型检测工具">Flow-JS类型检测工具</a>或TypeScript）对整个应用程序进行类型检查。</p>
+<p>即使你不使用这些，React也有一些内置的typechecking能力。 要在组件的props上运行typechecking，可以分配特殊的propTypes属性：</p>
+<pre><code>class Greeting extends React.Component {
+    render() {
+        return (
+            &lt;h1&gt;Hello {this.props.name}&lt;/h1&gt;
+        )
+    };
+}
+Greeting.propTypes = {
+    name: React.PropTypes.string.isRequired
+};
+</code></pre><p>React.PropTypes返回的是一系列验证函数，用于确保接收的数据类似是否是有效的。<br>在这个例子中，我们使用React.PropTypes.string.isRequire检测name是否为字符串，并且是必填的。<br>当为prop提供无效值时，JavaScript控制台中将显示警告。 出于性能原因，仅在开发模式下检查propTypes。</p>
+<p>React.PropTypes<br>下面是一个示例，其中提供了不同的验证函数：</p>
+<pre><code>MyComponent.propTypes = {
+  // 你可以定义一个js原始类型的prop,默认请情况下，这是都是可选的
+  optionalArray: React.PropTypes.array,
+  optionalBool: React.PropTypes.bool,
+  optionalFunc: React.PropTypes.func,
+  optionalNumber: React.PropTypes.number,
+  optionalObject: React.PropTypes.object,
+  optionalString: React.PropTypes.string,
+  optionalSymbol: React.PropTypes.symbol,
+
+  // 任何可以渲染的东西：数字，字符串，元素或数组（或片段）。
+  optionalNode: React.PropTypes.node,
+
+  // React元素
+  optionalElement: React.PropTypes.element,
+
+  // 你也可以声明prop是某个类的实例。 内部使用的是JS的instanceof运算符。
+  optionalMessage: React.PropTypes.instanceOf(Message),
+
+  // 你可以通过将它作为枚举来确保你的prop被限制到特定的值。
+  optionalEnum: React.PropTypes.oneOf([&apos;News&apos;, &apos;Photos&apos;]),
+
+  // 可以是许多类型之一的对象
+  optionalUnion: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+    React.PropTypes.instanceOf(Message)
+  ]),
+
+  // 某种类型的数组
+  optionalArrayOf: React.PropTypes.arrayOf(React.PropTypes.number),
+
+  // 具有某种类型的属性值的对象
+  optionalObjectOf: React.PropTypes.objectOf(React.PropTypes.number),
+
+  // 采取特定样式的对象
+  optionalObjectWithShape: React.PropTypes.shape({
+    color: React.PropTypes.string,
+    fontSize: React.PropTypes.number
+  }),
+
+  // 你可以用`isRequired`来连接到上面的任何一个类型，以确保如果没有提供props的话会显示一个警告。
+  requiredFunc: React.PropTypes.func.isRequired,
+
+  // 任何数据类型
+  requiredAny: React.PropTypes.any.isRequired,
+
+  // 您还可以指定自定义类型检查器。 如果检查失败，它应该返回一个Error对象。 不要`console.warn`或throw，因为这不会在`oneOfType`内工作。
+  customProp: function(props, propName, componentName) {
+    if (!/matchme/.test(props[propName])) {
+      return new Error(
+        &apos;Invalid prop `&apos; + propName + &apos;` supplied to&apos; +
+        &apos; `&apos; + componentName + &apos;`. Validation failed.&apos;
+      );
+    }
+  },
+
+  // 您还可以为`arrayOf`和`objectOf`提供自定义类型检查器。 如果检查失败，它应该返回一个Error对象。
+  // 检查器将为数组或对象中的每个键调用验证函数。
+  // 检查器有两个参数，第一个参数是数组或对象本身，第二个是当前项的键。
+  customArrayProp: React.PropTypes.arrayOf(function(propValue, key, componentName, location, propFullName) {
+    if (!/matchme/.test(propValue[key])) {
+      return new Error(
+        &apos;Invalid prop `&apos; + propFullName + &apos;` supplied to&apos; +
+        &apos; `&apos; + componentName + &apos;`. Validation failed.&apos;
+      );
+    }
+  })
+};
+</code></pre><p>要求只能是单个子元素</p>
+<p>使用React.PropTypes.element，您可以指定只有一个子元素可以作为内容传递的组件。</p>
+<pre><code>class MyComponent extends React.Component {
+    render() {
+        // 只能包含一个子元素，否则会给出警告
+        const children = this.props.children;
+        return (
+            &lt;div&gt;{children}&lt;/div&gt;
+        );
+    }
+}
+
+MyComponent.propTypes = {
+    children: React.PropTypes.element.isRequired
+}
+</code></pre><p>设置Prop默认值</p>
+<p>您可以通过使用defaultProps属性来定义props的默认值：</p>
+<pre><code>class Greeting extends React.Component {
+    render() {
+        return &lt;h1&gt;hello {this.props.name}&lt;/h1&gt;;
+    };
+}
+</code></pre><p>如果name没有传值，则会将name设置为默认的zhangyatao</p>
+<pre><code>Greeting.defaultProps = {
+    name: &apos;zhangyatao&apos;
+}
+
+// 会渲染处&lt;h1&gt;hi zhangyatao&lt;/h1&gt;
+ReactDOM.render(
+    &lt;Greeting /&gt;,
+    document.getElementById(&apos;root&apos;)
+)
+</code></pre><p>如果父组件没有设置并传入name，defaultProps将确保this.props.name将有一个默认值。 propTypes类型检查发生在defaultProps解析之后，因此类型检查也将应用于defaultProps。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2017/11/22/React样式实践/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -498,7 +733,7 @@ $activeColor: #ccc;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

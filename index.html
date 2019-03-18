@@ -232,6 +232,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/03/18/Javascript几种数组便利方法解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/18/Javascript几种数组便利方法解析/" itemprop="url">Javascript几种数组便利方法解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T16:06:39+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这篇文章将详细介绍以下 4 种循环语法的区别：</p>
+<h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><h4 id="for-in"><a href="#for-in" class="headerlink" title="for/in"></a>for/in</h4><h4 id="for-of"><a href="#for-of" class="headerlink" title="for/of"></a>for/of</h4><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>使用for和for/in，我们可以访问数组的下标，而不是实际的数组元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (let i = 0; i &lt; arr.length; ++i) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用for/of，则可以直接访问数组的元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (const v of arr) &#123;</span><br><span class="line">    console.log(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用forEach()，则可以同时访问数组的下标与元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach((v, i) =&gt; console.log(v));</span><br></pre></td></tr></table></figure>
+<h3 id="非数字属性"><a href="#非数字属性" class="headerlink" title="非数字属性"></a>非数字属性</h3><p>JavaScript 的数组就是 Object，这就意味着我们可以给数组添加字符串属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line"></span><br><span class="line">typeof arr; // &apos;object&apos;</span><br><span class="line"></span><br><span class="line">arr.test = &quot;bad&quot;; // 添加非数字属性</span><br><span class="line"></span><br><span class="line">arr.test; // &apos;abc&apos;</span><br><span class="line">arr[1] === arr[&quot;1&quot;]; // true, JavaScript数组只是特殊的Object</span><br></pre></td></tr></table></figure>
+<p>4 种循环语法，只有for/in不会忽略非数字属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">arr.test = &quot;bad&quot;;</span><br><span class="line"></span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]); // 打印&quot;a, b, c, bad&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>正因为如此，<a href="https://stackoverflow.com/questions/500504/why-is-using-for-in-with-array-iteration-a-bad-idea" target="_blank" rel="noopener">使用for/in便利数组并不好</a></p>
+<p>要点： 避免使用for/in来遍历数组，除非你真的要想要遍历非数字属性。可以使用 ESLint 的<a href="https://eslint.org/docs/rules/guard-for-in" target="_blank" rel="noopener">guard-for-in</a>规则来禁止使用for/in。</p>
+<h3 id="数组的空元素"><a href="#数组的空元素" class="headerlink" title="数组的空元素"></a>数组的空元素</h3><p>JavaScript 数组可以有空元素。以下代码语法是正确的，且数组长度为 3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, , &quot;c&quot;];</span><br><span class="line"></span><br><span class="line">arr.length; // 3</span><br></pre></td></tr></table></figure>
+<p>让人更加不解的一点是，循环语句处理[‘a’,, ‘c’]与[‘a’, undefined, ‘c’]的方式并不相同。</p>
+<p>对于[‘a’,, ‘c’]，for/in与forEach会跳过空元素，而for与for/of则不会跳过：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 打印&quot;a, undefined, c&quot;</span><br><span class="line">for (let i = 0; i &lt; arr.length; ++i) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, c&quot;</span><br><span class="line">arr.forEach(v =&gt; console.log(v));</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, c&quot;</span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, undefined, c&quot;</span><br><span class="line">for (const v of arr) &#123;</span><br><span class="line">    console.log(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于[‘a’, undefined, ‘c’]，4 种循环语法一致，打印的都是”a, undefined, c”。</p>
+<p>还有一种添加空元素的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 等价于`[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;,, &apos;e&apos;]`</span><br><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">arr[5] = &quot;e&quot;;</span><br></pre></td></tr></table></figure>
+<p>要点： for/in与forEach会跳过空元素，数组中的空元素被称为“holes”。</p>
+<ul>
+<li>原文：<a href="http://thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html" target="_blank" rel="noopener">For vs forEach() vs for/in vs for/of in JavaScript</a></li>
+<li>译者: <a href="https://www.fundebug.com/" target="_blank" rel="noopener">Fundebug</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/03/01/EOS_DAPP接入指南/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -883,288 +1028,6 @@ document.dispatchEvent(event)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/01/20/Lodash-function-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coco x">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/20/Lodash-function-1/" itemprop="url">Lodash-function</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-20T10:20:33+08:00">
-                2019-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/technology/" itemprop="url" rel="index">
-                    <span itemprop="name">technology</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><h3 id="after-n-func"><a href="#after-n-func" class="headerlink" title="_.after(n, func)"></a>_.after(n, func)</h3><h4 id="方法内部维护n变量，在调用方法n次时及n次后执行func"><a href="#方法内部维护n变量，在调用方法n次时及n次后执行func" class="headerlink" title="方法内部维护n变量，在调用方法n次时及n次后执行func"></a>方法内部维护n变量，在调用方法n次时及n次后执行func</h4><pre><code>let f = _.after(2, alert);
-
-f(); // nothing
-f(); // alert
-f(); // alert
-</code></pre><h3 id="before-n-func"><a href="#before-n-func" class="headerlink" title="_.before(n, func)"></a>_.before(n, func)</h3><h4 id="类似after，前n次调用方法执行func"><a href="#类似after，前n次调用方法执行func" class="headerlink" title="类似after，前n次调用方法执行func"></a>类似after，前n次调用方法执行func</h4><pre><code>let f = _.after(2, alert);
-
-f(); // alert
-f(); // alert
-f(); // nothing
-</code></pre><h3 id="ary-func-n-func-length"><a href="#ary-func-n-func-length" class="headerlink" title="_.ary(func, [n=func.length])"></a>_.ary(func, [n=func.length])</h3><h4 id="限制func参数个数为n个"><a href="#限制func参数个数为n个" class="headerlink" title="限制func参数个数为n个"></a>限制func参数个数为n个</h4><pre><code>parseInt(11, 2); // 3
-
-let f = _.ary(parseInt, 1)&apos;
-f(11); // 11
-</code></pre><h3 id="unary-func"><a href="#unary-func" class="headerlink" title="_.unary(func)"></a>_.unary(func)</h3><h4 id="类似ary，限制func参数个数为1个"><a href="#类似ary，限制func参数个数为1个" class="headerlink" title="类似ary，限制func参数个数为1个"></a>类似ary，限制func参数个数为1个</h4><pre><code>_.map([&apos;11&apos;, &apos;10&apos;, &apos;101&apos;], _.unary(parseInt)); // 参数
-// =&gt; [11, 10, 101]
-</code></pre><h3 id="curry-func-arity-func-length"><a href="#curry-func-arity-func-length" class="headerlink" title="_.curry(func, [arity=func.length])"></a>_.curry(func, [arity=func.length])</h3><h4 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h4><pre><code>var abc = function(a, b, c) {
-  return [a, b, c];
-};
-
-var curried = _.curry(abc);
-
-curried(1)(2)(3);
-// =&gt; [1, 2, 3]
-
-curried(1, 2)(3);
-// =&gt; [1, 2, 3]
-
-curried(1, 2, 3);
-// =&gt; [1, 2, 3]
-
-// 占位符的存在允许后边的参数先准备好
-curried(1)(_, 3)(2);
-// =&gt; [1, 2, 3]
-</code></pre><h3 id="curryRight-func-arity-func-length"><a href="#curryRight-func-arity-func-length" class="headerlink" title="_.curryRight(func, [arity=func.length])"></a>_.curryRight(func, [arity=func.length])</h3><h4 id="类似curry，参数从右至左"><a href="#类似curry，参数从右至左" class="headerlink" title="类似curry，参数从右至左"></a>类似curry，参数从右至左</h4><h3 id="debounce-func-wait-0-options"><a href="#debounce-func-wait-0-options" class="headerlink" title="_.debounce(func, [wait=0], [options={}])"></a>_.debounce(func, [wait=0], [options={}])</h3><h4 id="函数防抖，延迟执行，wait内没有再次运行方法时调用一次"><a href="#函数防抖，延迟执行，wait内没有再次运行方法时调用一次" class="headerlink" title="函数防抖，延迟执行，wait内没有再次运行方法时调用一次"></a>函数防抖，延迟执行，wait内没有再次运行方法时调用一次</h4><h4 id="应用：搜索框停止输入后发送请求"><a href="#应用：搜索框停止输入后发送请求" class="headerlink" title="应用：搜索框停止输入后发送请求"></a>应用：搜索框停止输入后发送请求</h4><pre><code>options参数：
-    maxWait：number // 在maxWait时间内至少执行一次
-    leading： bool // 是否在开始时执行一次
-    trailing： bool // 是否在时间边界结束时执行一次
-</code></pre><h3 id="throttle-func-wait-0-options"><a href="#throttle-func-wait-0-options" class="headerlink" title="_.throttle(func, [wait=0], [options={}])"></a>_.throttle(func, [wait=0], [options={}])</h3><h4 id="函数节流，wait时间内调用无效，wait时间到了可以调用一次，进入新的wait时间"><a href="#函数节流，wait时间内调用无效，wait时间到了可以调用一次，进入新的wait时间" class="headerlink" title="函数节流，wait时间内调用无效，wait时间到了可以调用一次，进入新的wait时间"></a>函数节流，wait时间内调用无效，wait时间到了可以调用一次，进入新的wait时间</h4><pre><code>options参数类似debounce
-</code></pre><h3 id="defer-func-args"><a href="#defer-func-args" class="headerlink" title="_.defer(func, [args])"></a>_.defer(func, [args])</h3><h4 id="执行栈清空时才执行，下一帧执行"><a href="#执行栈清空时才执行，下一帧执行" class="headerlink" title="执行栈清空时才执行，下一帧执行"></a>执行栈清空时才执行，下一帧执行</h4><pre><code>_.defer(function(text) {
-  console.log(text);
-}, &apos;deferred&apos;);
-// =&gt; Logs &apos;deferred&apos; after one millisecond.
-</code></pre><h3 id="delay-func-wait-args"><a href="#delay-func-wait-args" class="headerlink" title="_.delay(func, wait, [args])"></a>_.delay(func, wait, [args])</h3><h4 id="延迟执行"><a href="#延迟执行" class="headerlink" title="延迟执行"></a>延迟执行</h4><pre><code>_.delay(function(text) {
-  console.log(text);
-}, 1000, &apos;later&apos;);
-// =&gt; Logs &apos;later&apos; after one second.
-</code></pre><h3 id="flip-func"><a href="#flip-func" class="headerlink" title="_.flip(func)"></a>_.flip(func)</h3><h4 id="参数反转"><a href="#参数反转" class="headerlink" title="参数反转"></a>参数反转</h4><pre><code>var flipped = _.flip(function() {
-  return _.toArray(arguments);
-});
-
-flipped(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;);
-// =&gt; [&apos;d&apos;, &apos;c&apos;, &apos;b&apos;, &apos;a&apos;]
-</code></pre><h3 id="memoize-func-resolver"><a href="#memoize-func-resolver" class="headerlink" title="_.memoize(func, [resolver])"></a>_.memoize(func, [resolver])</h3><h4 id="缓存函数。纯函数输入相同结果一定相同，所以如果对同样参数的同个纯函数执行结果有缓存，下次执行就不需要再次计算了"><a href="#缓存函数。纯函数输入相同结果一定相同，所以如果对同样参数的同个纯函数执行结果有缓存，下次执行就不需要再次计算了" class="headerlink" title="缓存函数。纯函数输入相同结果一定相同，所以如果对同样参数的同个纯函数执行结果有缓存，下次执行就不需要再次计算了"></a>缓存函数。纯函数输入相同结果一定相同，所以如果对同样参数的同个纯函数执行结果有缓存，下次执行就不需要再次计算了</h4><pre><code>function sum(n, m) {
-    console.log(n, m);
-    return n + m;
-}
-
-// 缓存
-let convert = _.memoize(sum);
-
-convert(1, 2); // 1, 2
-convert(1, 2); // nothing
-</code></pre><h3 id="negate-predicate"><a href="#negate-predicate" class="headerlink" title="_.negate(predicate)"></a>_.negate(predicate)</h3><h4 id="求反"><a href="#求反" class="headerlink" title="求反"></a>求反</h4><pre><code>let f = _.negate(() =&gt; true)
-f(); // false
-
-function isEven(n) {
-  return n % 2 == 0;
-}
-
-_.filter([1, 2, 3, 4, 5, 6], _.negate(isEven));
-// =&gt; [1, 3, 5]
-</code></pre><h3 id="once-func"><a href="#once-func" class="headerlink" title="_.once(func)"></a>_.once(func)</h3><h4 id="只执行一次"><a href="#只执行一次" class="headerlink" title="只执行一次"></a>只执行一次</h4><pre><code>var initialize = _.once(createApplication);
-initialize();
-initialize();
-// =&gt; `createApplication` is invoked once
-</code></pre><h3 id="overArgs-func-transforms-identity"><a href="#overArgs-func-transforms-identity" class="headerlink" title=".overArgs(func, [transforms=[.identity]])"></a><em>.overArgs(func, [transforms=[</em>.identity]])</h3><h4 id="参数转换执行func前对参数转换"><a href="#参数转换执行func前对参数转换" class="headerlink" title="参数转换执行func前对参数转换"></a>参数转换执行func前对参数转换</h4><pre><code>function doubled(n) {a
-  return n * 2;
-}
-
-function square(n) {
-  return n * n;
-}
-
-var func = _.overArgs(function(x, y) {
-  return [x, y];
-}, [square, doubled]);
-
-func(9, 3);
-// =&gt; [81, 6]
-
-func(10, 5);
-// =&gt; [100, 10]
-</code></pre><h3 id="wrap-fn-wrapper-identity"><a href="#wrap-fn-wrapper-identity" class="headerlink" title="_.wrap(fn, [wrapper=identity])"></a>_.wrap(fn, [wrapper=identity])</h3><h4 id="函数fn包裹，用第二个参数wrapper，包裹第一个参数函数"><a href="#函数fn包裹，用第二个参数wrapper，包裹第一个参数函数" class="headerlink" title="函数fn包裹，用第二个参数wrapper，包裹第一个参数函数"></a>函数fn包裹，用第二个参数wrapper，包裹第一个参数函数</h4><pre><code>var p = _.wrap(_.escape, function(func, text) {
-  return &apos;&lt;p&gt;&apos; + func(text) + &apos;&lt;/p&gt;&apos;;
-});
-
-p(&apos;fred, barney, &amp; pebbles&apos;);
-// =&gt; &apos;&lt;p&gt;fred, barney, &amp;amp; pebbles&lt;/p&gt;&apos;
-</code></pre><h3 id="partial-func-partials"><a href="#partial-func-partials" class="headerlink" title="_.partial(func, [partials])"></a>_.partial(func, [partials])</h3><h4 id="缓存部分参数，后面的参数先准备好时可以用占位符"><a href="#缓存部分参数，后面的参数先准备好时可以用占位符" class="headerlink" title="缓存部分参数，后面的参数先准备好时可以用占位符"></a>缓存部分参数，后面的参数先准备好时可以用占位符</h4><pre><code>function greet(greeting, name) {
-  return greeting + &apos; &apos; + name;
-}
-
-var sayHelloTo = _.partial(greet, &apos;hello&apos;);
-sayHelloTo(&apos;fred&apos;);
-// =&gt; &apos;hello fred&apos;
-
-// Partially applied with placeholders.
-var greetFred = _.partial(greet, _, &apos;fred&apos;);
-greetFred(&apos;hi&apos;);
-// =&gt; &apos;hi fred&apos;
-</code></pre><h3 id="rearg-func-indexes"><a href="#rearg-func-indexes" class="headerlink" title="_.rearg(func, indexes)"></a>_.rearg(func, indexes)</h3><h4 id="重新分配参数顺序"><a href="#重新分配参数顺序" class="headerlink" title="重新分配参数顺序"></a>重新分配参数顺序</h4><pre><code>var rearged = _.rearg(function(a, b, c) {
-  return [a, b, c];
-}, [2, 0, 1]);
-
-rearged(&apos;b&apos;, &apos;c&apos;, &apos;a&apos;)
-// =&gt; [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]
-</code></pre><h3 id="rest-func-start-func-length-1"><a href="#rest-func-start-func-length-1" class="headerlink" title="_.rest(func, [start=func.length-1])"></a>_.rest(func, [start=func.length-1])</h3><h4 id="重置方法，参数位置不够的数组形式作为最后一个参数，也可指定位置开始"><a href="#重置方法，参数位置不够的数组形式作为最后一个参数，也可指定位置开始" class="headerlink" title="重置方法，参数位置不够的数组形式作为最后一个参数，也可指定位置开始"></a>重置方法，参数位置不够的数组形式作为最后一个参数，也可指定位置开始</h4><pre><code>var say = _.rest(function(what, names) {
-    console.log(what)
-    console.log(names)
-}
-
-say(a, b, c, d);
-// a
-// [b, c, d]
-</code></pre><h3 id="spread-func-start-0"><a href="#spread-func-start-0" class="headerlink" title="_.spread(func, [start=0])"></a>_.spread(func, [start=0])</h3><h4 id="类似apply-参数变为数组"><a href="#类似apply-参数变为数组" class="headerlink" title="类似apply, 参数变为数组"></a>类似apply, 参数变为数组</h4><pre><code>var say = _.spread(function(who, what) {
-  return who + &apos; says &apos; + what;
-});
-
-say([&apos;fred&apos;, &apos;hello&apos;]);
-// =&gt; &apos;fred says hello&apos;
-
-var numbers = Promise.all([
-  Promise.resolve(40),
-  Promise.resolve(36)
-]);
-
-numbers.then(_.spread(function(x, y) {
-  return x + y;
-}));
-// =&gt; a Promise of 76
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1215,7 +1078,7 @@ numbers.then(_.spread(function(x, y) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

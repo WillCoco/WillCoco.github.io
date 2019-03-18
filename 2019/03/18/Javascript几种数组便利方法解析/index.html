@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这篇文章将详细介绍以下 4 种循环语法的区别： forforEachfor/infor/of语法使用for和for/in，我们可以访问数组的下标，而不是实际的数组元素值： 1234567for (let i = 0; i &amp;lt; arr.length; ++i) &amp;#123;    console.log(arr[i]);&amp;#125;for (let i in arr) &amp;#123;    co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript几种数组便利方法解析">
+<meta property="og:url" content="https://WillCoco.github.io/2019/03/18/Javascript几种数组便利方法解析/index.html">
+<meta property="og:site_name" content="稀客">
+<meta property="og:description" content="这篇文章将详细介绍以下 4 种循环语法的区别： forforEachfor/infor/of语法使用for和for/in，我们可以访问数组的下标，而不是实际的数组元素值： 1234567for (let i = 0; i &amp;lt; arr.length; ++i) &amp;#123;    console.log(arr[i]);&amp;#125;for (let i in arr) &amp;#123;    co">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-18T08:33:23.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript几种数组便利方法解析">
+<meta name="twitter:description" content="这篇文章将详细介绍以下 4 种循环语法的区别： forforEachfor/infor/of语法使用for和for/in，我们可以访问数组的下标，而不是实际的数组元素值： 1234567for (let i = 0; i &amp;lt; arr.length; ++i) &amp;#123;    console.log(arr[i]);&amp;#125;for (let i in arr) &amp;#123;    co">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://WillCoco.github.io/2019/03/18/Javascript几种数组便利方法解析/">
+
+
+
+
+
+  <title>Javascript几种数组便利方法解析 | 稀客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">稀客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/03/18/Javascript几种数组便利方法解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript几种数组便利方法解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T16:06:39+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章将详细介绍以下 4 种循环语法的区别：</p>
+<h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><h4 id="for-in"><a href="#for-in" class="headerlink" title="for/in"></a>for/in</h4><h4 id="for-of"><a href="#for-of" class="headerlink" title="for/of"></a>for/of</h4><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>使用for和for/in，我们可以访问数组的下标，而不是实际的数组元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (let i = 0; i &lt; arr.length; ++i) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用for/of，则可以直接访问数组的元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (const v of arr) &#123;</span><br><span class="line">    console.log(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用forEach()，则可以同时访问数组的下标与元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach((v, i) =&gt; console.log(v));</span><br></pre></td></tr></table></figure>
+<h3 id="非数字属性"><a href="#非数字属性" class="headerlink" title="非数字属性"></a>非数字属性</h3><p>JavaScript 的数组就是 Object，这就意味着我们可以给数组添加字符串属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line"></span><br><span class="line">typeof arr; // &apos;object&apos;</span><br><span class="line"></span><br><span class="line">arr.test = &quot;bad&quot;; // 添加非数字属性</span><br><span class="line"></span><br><span class="line">arr.test; // &apos;abc&apos;</span><br><span class="line">arr[1] === arr[&quot;1&quot;]; // true, JavaScript数组只是特殊的Object</span><br></pre></td></tr></table></figure>
+<p>4 种循环语法，只有for/in不会忽略非数字属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">arr.test = &quot;bad&quot;;</span><br><span class="line"></span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]); // 打印&quot;a, b, c, bad&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>正因为如此，<a href="https://stackoverflow.com/questions/500504/why-is-using-for-in-with-array-iteration-a-bad-idea" target="_blank" rel="noopener">使用for/in便利数组并不好</a></p>
+<p>要点： 避免使用for/in来遍历数组，除非你真的要想要遍历非数字属性。可以使用 ESLint 的<a href="https://eslint.org/docs/rules/guard-for-in" target="_blank" rel="noopener">guard-for-in</a>规则来禁止使用for/in。</p>
+<h3 id="数组的空元素"><a href="#数组的空元素" class="headerlink" title="数组的空元素"></a>数组的空元素</h3><p>JavaScript 数组可以有空元素。以下代码语法是正确的，且数组长度为 3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, , &quot;c&quot;];</span><br><span class="line"></span><br><span class="line">arr.length; // 3</span><br></pre></td></tr></table></figure>
+<p>让人更加不解的一点是，循环语句处理[‘a’,, ‘c’]与[‘a’, undefined, ‘c’]的方式并不相同。</p>
+<p>对于[‘a’,, ‘c’]，for/in与forEach会跳过空元素，而for与for/of则不会跳过：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 打印&quot;a, undefined, c&quot;</span><br><span class="line">for (let i = 0; i &lt; arr.length; ++i) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, c&quot;</span><br><span class="line">arr.forEach(v =&gt; console.log(v));</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, c&quot;</span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, undefined, c&quot;</span><br><span class="line">for (const v of arr) &#123;</span><br><span class="line">    console.log(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于[‘a’, undefined, ‘c’]，4 种循环语法一致，打印的都是”a, undefined, c”。</p>
+<p>还有一种添加空元素的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 等价于`[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;,, &apos;e&apos;]`</span><br><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">arr[5] = &quot;e&quot;;</span><br></pre></td></tr></table></figure>
+<p>要点： for/in与forEach会跳过空元素，数组中的空元素被称为“holes”。</p>
+<ul>
+<li>原文：<a href="http://thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html" target="_blank" rel="noopener">For vs forEach() vs for/in vs for/of in JavaScript</a></li>
+<li>译者: <a href="https://www.fundebug.com/" target="_blank" rel="noopener">Fundebug</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/01/EOS_DAPP接入指南/" rel="next" title="EOS DAPP 接入指南">
+                <i class="fa fa-chevron-left"></i> EOS DAPP 接入指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">coco x</p>
+              <p class="site-description motion-element" itemprop="description">人生七十古来稀</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#for"><span class="nav-number">1.</span> <span class="nav-text">for</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">2.</span> <span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for-in"><span class="nav-number">3.</span> <span class="nav-text">for/in</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for-of"><span class="nav-number">4.</span> <span class="nav-text">for/of</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number"></span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非数字属性"><span class="nav-number"></span> <span class="nav-text">非数字属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的空元素"><span class="nav-number"></span> <span class="nav-text">数组的空元素</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coco x</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
