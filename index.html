@@ -232,6 +232,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/04/12/React上下文-Context/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/React上下文-Context/" itemprop="url">React 上下文Context</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T14:24:15+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="React-Context"><a href="#React-Context" class="headerlink" title="React Context"></a>React Context</h3><p>相比props，context在React应用中不是很常见。props传递只能在父子关系组件逐级传递，如果传递层级比较深，就会非常痛苦，而Context可以跨级传递。当然redux很好解决这个问题</p>
+<h3 id="React-上下文新api"><a href="#React-上下文新api" class="headerlink" title="React 上下文新api"></a>React 上下文新api</h3><p>在16.3.0中成为正式的api，使用方法也和之前的有差别。新版本的Context实现方式简洁清晰许多：</p>
+<pre><code>import React, { Component, createContext } from &apos;react&apos;
+
+// 通过createContext方法创建用于存放用户数据的Context类
+const UserContext = createContext()
+
+// 通过UserContext的属性Provider（组件）发布用户数据
+// 传递给Provider的value属性的值可以是任意数据类型，甚至是函数
+class App extends Component {
+  state = {
+    user: {
+      name: &apos;abc&apos;,
+    },
+  }
+  render() {
+    const {
+      user,
+    } = this.state
+    return (
+      &lt;UserContext.Provider value={user}&gt;
+        &lt;UseUserInfoComponent /&gt;
+      &lt;/UserContext.Provider&gt;
+    )
+  }
+}
+
+// 通过UserContext的属性Consumer（组件）消费用户数据
+// Consumer的子组件必须是一个function，通过function的参数接收顶层传入的数据
+class UseUserInfoComponent extends Component {
+  render() {
+    return (
+      &lt;UserContext.Consumer&gt;
+        {
+          context =&gt; (
+            &lt;div&gt;
+              &lt;p&gt;{context.name}&lt;/p&gt;
+            &lt;/div&gt;
+          )
+        }
+      &lt;/UserContext.Consumer&gt;
+    )
+  }
+}
+</code></pre><h3 id="在生命周期方法中引入Context"><a href="#在生命周期方法中引入Context" class="headerlink" title="在生命周期方法中引入Context"></a>在生命周期方法中引入Context</h3><p>如果在某个组件上定义了 <code>contextTypes</code> ，下面这些生命周期方法将会接收到额外的参数——  context 对象。我们这里这样调整参数接口</p>
+<ul>
+<li><p><a href="https://reactjs.org/docs/react-component.html#constructor" target="_blank" rel="noopener">constructor(props, context)</a></p>
+</li>
+<li><p><a href="https://reactjs.org/docs/react-component.html#componentwillreceiveprops" target="_blank" rel="noopener">componentWillReceiveProps(nextProps, nextContext)</a></p>
+</li>
+<li><p><a href="https://reactjs.org/docs/react-component.html#shouldComponentUpdate" target="_blank" rel="noopener">shouldComponentUpdate(nextProps, nextState, nextContext)</a></p>
+</li>
+<li><p><a href="https://reactjs.org/docs/react-component.html#componentWillUpdate" target="_blank" rel="noopener">componentWillUpdate(nextProps, nextState, nextContext)</a></p>
+</li>
+<li><p><a href="https://reactjs.org/docs/react-component.html#componentDidUpdate" target="_blank" rel="noopener">componentDidUpdate(prevProps, prevState, prevContext)</a></p>
+</li>
+</ul>
+<h3 id="在方法性组件中引入Context"><a href="#在方法性组件中引入Context" class="headerlink" title="在方法性组件中引入Context"></a>在方法性组件中引入Context</h3><pre><code>const PropTypes = require(&apos;prop-types&apos;);
+
+const Button = ({children}, context) =&gt;
+  &lt;button style={{background: context.color}}&gt;
+    {children}
+  &lt;/button&gt;;
+
+Button.contextTypes = {color: PropTypes.string};
+</code></pre><h3 id="使用中需要注意的点"><a href="#使用中需要注意的点" class="headerlink" title="使用中需要注意的点"></a>使用中需要注意的点</h3><p>调用<code>creatContext</code>时可以传入默认值，但该值不是Provider的默认值，而是作为Consumer的默认值，仅当没有Provider的时候才生效</p>
+<p>任何订阅者(Consumer)都可以直接修改context，这会导致后续的订阅者获取到修改后的context值，但这显然是不可取的。如果需要修改，应该统一由发布者(Provider)修改。</p>
+<p>参考：</p>
+<p><a href="https://zhuanlan.zhihu.com/p/42505277" target="_blank" rel="noopener">滴滴AMC前端团队</a></p>
+<p><a href="https://my.oschina.net/chkui/blog/876320" target="_blank" rel="noopener">随风溜达的向日葵</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/04/12/React16-8新特性一/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -770,149 +959,6 @@ document.dispatchEvent(event)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/01/31/zeromqjs/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coco x">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/31/zeromqjs/" itemprop="url">zeromq.js介绍和事例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T16:46:04+08:00">
-                2019-01-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-zeromq介绍"><a href="#1-zeromq介绍" class="headerlink" title="1. zeromq介绍"></a><a href="#介绍">1. zeromq介绍</a></h3><h3 id="2-几种消息模式"><a href="#2-几种消息模式" class="headerlink" title="2. 几种消息模式"></a><a href="#几种消息模式">2. 几种消息模式</a></h3><h3 id="3-req-rep-listener转换成promise"><a href="#3-req-rep-listener转换成promise" class="headerlink" title="3. req/rep listener转换成promise"></a><a href="#req/rep listener转换成promise">3. req/rep listener转换成promise</a></h3><h3 id="4-demo"><a href="#4-demo" class="headerlink" title="4. demo"></a><a href="#demo">4. demo</a></h3><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的node绑定库，这里的例子是基于<a href="https://github.com/zeromq/zeromq.js" target="_blank" rel="noopener">zeromq.js</a></p>
-<h3 id="几种消息模式"><a href="#几种消息模式" class="headerlink" title="几种消息模式"></a>几种消息模式</h3><h4 id="pub-sub模式"><a href="#pub-sub模式" class="headerlink" title="pub/sub模式"></a>pub/sub模式</h4><p>  <img src="/images/zeromq/zeromq_3.png" width="400"></p>
-<p>发布订阅模式 发布端单向分发数据，且不关心是否把全部信息发送给订阅端。如果发布端开始发布信息时，订阅端尚未连接上来，则这些信息会被直接丢弃。订阅端只负责接收，而不能反馈，且在订阅端消费速度慢于发布端的情况下，会在订阅端堆积数据。该模型主要用于有时效性的数据分发。实时价格、天气预报、微博明星粉丝可以应用这种经典模型。订阅端未连接时发布者发布的信息会丢失，如果需要这些过去的信息，可以通过与请求回应模型组合来解决。</p>
-<ul>
-<li>订阅者可以连接多个发布者，轮流接收消息；</li>
-<li>如果发布者没有订阅者与之相连，那它发送的消息将直接被丢弃；</li>
-<li>如果你使用TCP协议，那当订阅者处理速度过慢时，消息会在发布者处堆积。</li>
-</ul>
-<h4 id="push-pull模式"><a href="#push-pull模式" class="headerlink" title="push/pull模式"></a>push/pull模式</h4><p>  <img src="/images/zeromq/zeromq_0.png" width="400"></p>
-<p>Server端作为Push端，而Client端作为Pull端，如果有多个Client端同时连接到Server端，则Server端会在内部做一个负载均衡，采用平均分配的算法，将所有消息均衡发布到Client端上。如果有多个Server端同时连接到Client端，这里Push与Pull之间的对应关系是多个Push角色对应一个Pull角色，在ZeroMQ中，给这种结构取的名叫做公平队列，这里也就是说将Pull角色理解为一个队列，各个Push角色不断的向这个队列中发送数据。与发布订阅模型相比，推拉模型在没有消费者的情况下，发布的消息不会被消耗掉；在消费者能力不够的情况下，能够提供多消费者并行消费解决方案。该模型主要用于多任务并行处理。</p>
-<ul>
-<li>worker链接之前的消息不会丢弃</li>
-<li>所有worker接收的信息的集合就是push端推送的消息</li>
-</ul>
-<h4 id="rep-req模式"><a href="#rep-req模式" class="headerlink" title="rep/req模式"></a>rep/req模式</h4><p>  <img src="/images/zeromq/zeromq_1.png" width="200"></p>
-<p>问答模式，由请求端发起请求，然后等待回应端应答。一个请求必须对应一个回应，从请求端的角度来看是发-收配对，从回应端的角度是收-发对。请求端可以是1~N个。该模型主要用于远程调用及任务分配等。服务端在前一个处理完之前接收不到后面的请求，所以所有请求和返回都是对应顺序的。如果要非阻塞方式，请用<a href="#router/dealer模式">router/dealer模式</a></p>
-<ul>
-<li>一问一答都是按顺序的，阻塞的，请求1-回应1 请求2-回应2；</li>
-</ul>
-<h4 id="router-dealer模式"><a href="#router-dealer模式" class="headerlink" title="router/dealer模式"></a>router/dealer模式</h4><p>DEALER和ROUTER是插座，可以轻松扩展REQ / REP对。在直接通信中，REQ和REP以阻塞方式进行通话，而该模式是非阻塞的。客户端需要identity来告诉服务端客户端身份，请求处理后返回给谁。请求中可以指定请求编号来区分回复对应的是哪个请求。</p>
-<p>  <img src="/images/zeromq/zeromq_2.png" width="400"></p>
-<h3 id="req-rep-listener转换成promise"><a href="#req-rep-listener转换成promise" class="headerlink" title="req/rep listener转换成promise"></a>req/rep listener转换成promise</h3><p>事例演示了如何把监听(listener)的异步方式封装成promise<br><a href="https://github.com/WillCoco/zeromqjs_demo/blob/master/router-dealer/dealer-listener2Promise.js" target="_blank" rel="noopener">dealer-listener2Promise.js</a></p>
-<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><p><a href="https://github.com/WillCoco/zeromqjs_demo" target="_blank" rel="noopener">zeromqjs_demo</a></p>
-<h3 id="GUIDE"><a href="#GUIDE" class="headerlink" title="GUIDE"></a>GUIDE</h3><p><a href="http://zguide.zeromq.org/" target="_blank" rel="noopener">zguide</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -963,7 +1009,7 @@ document.dispatchEvent(event)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
