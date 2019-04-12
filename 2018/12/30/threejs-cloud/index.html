@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript,ES6,">
+  <meta name="keywords" content="Javascript,Threejs,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前言随着网站逐渐变成”互联网应用程序”，嵌入网页的Javascript代码越来越庞大，网页越来越像桌面程序，越来越复杂。Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。Javascript社区做了很多努力，在现有的运行环境中，实现”模块”的效果。 原始写法：模块就是实现特定功能的一组方法。只要把不同的函数（以及记">
-<meta name="keywords" content="Javascript,ES6">
+<meta name="description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
+<meta name="keywords" content="Javascript,Threejs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6_module模块化">
-<meta property="og:url" content="https://WillCoco.github.io/2018/05/06/ES6-module模块化/index.html">
+<meta property="og:title" content="threejs-cloud">
+<meta property="og:url" content="https://WillCoco.github.io/2018/12/30/threejs-cloud/index.html">
 <meta property="og:site_name" content="稀客">
-<meta property="og:description" content="前言随着网站逐渐变成”互联网应用程序”，嵌入网页的Javascript代码越来越庞大，网页越来越像桌面程序，越来越复杂。Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。Javascript社区做了很多努力，在现有的运行环境中，实现”模块”的效果。 原始写法：模块就是实现特定功能的一组方法。只要把不同的函数（以及记">
+<meta property="og:description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-12T03:20:16.471Z">
+<meta property="og:updated_time" content="2019-04-12T03:23:46.176Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6_module模块化">
-<meta name="twitter:description" content="前言随着网站逐渐变成”互联网应用程序”，嵌入网页的Javascript代码越来越庞大，网页越来越像桌面程序，越来越复杂。Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。Javascript社区做了很多努力，在现有的运行环境中，实现”模块”的效果。 原始写法：模块就是实现特定功能的一组方法。只要把不同的函数（以及记">
+<meta name="twitter:title" content="threejs-cloud">
+<meta name="twitter:description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://WillCoco.github.io/2018/05/06/ES6-module模块化/">
+  <link rel="canonical" href="https://WillCoco.github.io/2018/12/30/threejs-cloud/">
 
 
 
 
 
-  <title>ES6_module模块化 | 稀客</title>
+  <title>threejs-cloud | 稀客</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/05/06/ES6-module模块化/">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/12/30/threejs-cloud/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="coco x">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6_module模块化</h1>
+          <h1 class="post-title" itemprop="name headline">threejs-cloud</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T17:35:46+08:00">
-                2018-05-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-30T16:46:00+08:00">
+                2018-12-30
               </time>
             
 
@@ -300,78 +300,229 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着网站逐渐变成”互联网应用程序”，嵌入网页的Javascript代码越来越庞大，网页越来越像桌面程序，越来越复杂。<br>Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。<br>Javascript社区做了很多努力，在现有的运行环境中，实现”模块”的效果。</p>
-<h3 id="原始写法："><a href="#原始写法：" class="headerlink" title="原始写法："></a>原始写法：</h3><p>模块就是实现特定功能的一组方法。只要把不同的函数（以及记录状态的变量）简单地放在一起，就算是一个模块。</p>
-<pre><code>function m1(){
- //...
-}
+        　　　　
+    <script id="vs" type="x-shader/x-vertex">
 
-function m2(){
- //...
-}
-</code></pre><p>缺点很明显：”污染”了全局变量，无法保证不与其他模块发生变量名冲突</p>
-<h3 id="对象写法"><a href="#对象写法" class="headerlink" title="对象写法"></a>对象写法</h3><pre><code>var module1 = new Object({
-  count : 0,
-  m1 : function (){
-    　//...
-    },
-  m2 : function (){
-    //...
-  }
-});
-</code></pre><p>缺点：暴露所有模块成员，内部状态可以被外部改写</p>
-<h3 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a>立即执行函数</h3><pre><code>var module1 = (function(){
-  var count = 0;
-  var m1 = function(){
-    //...
-  };
-  var m2 = function(){
-  　//...
-  };
-  return {
-  　m1 : m1,
-  　m2 : m2
-  };
-})();
-</code></pre><h3 id="模块化规范"><a href="#模块化规范" class="headerlink" title="模块化规范"></a>模块化规范</h3><p>在 ES6 之前，社区制定了一些模块加载方案：</p>
-<pre><code>CommonJS
-AMD =&gt; require.js
-CMD =&gt; sea.js
-</code></pre><p>ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。</p>
-<h3 id="exs-import-export-和传统requre-export区别"><a href="#exs-import-export-和传统requre-export区别" class="headerlink" title="exs import/export 和传统requre/export区别"></a>exs import/export 和传统requre/export区别</h3><p>ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p>
-<pre><code>// CommonJS模块
-let { stat, exists, readFile } = require(&apos;fs&apos;);
+			varying vec2 vUv;
 
-// 等同于
-let fs = require(&apos;fs&apos;);
-let stat = fs.stat;
-let exists = fs.exists;
-let readfile = fs.readfile;
-</code></pre><p>上面代码的实质是整体加载fs模块（即加载fs的所有方法），生成一个对象（fs），然后再从这个对象上面读取 3 个方法。这种加载称为“运行时加载”，因为只有运行时才能得到这个对象，导致完全没办法在编译时做“静态优化”</p>
-<p>ES6 模块不是对象，而是通过export命令显式指定输出的代码，再通过import命令输入。</p>
-<pre><code>// ES6模块
-import { stat, exists, readFile } from &apos;fs&apos;;
-</code></pre><p>上面代码的实质是从fs模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高。</p>
-<p>由于 ES6 模块是编译时加载，使得静态分析成为可能。有了它，就能进一步拓宽 JavaScript 的语法，比如flow 类型检查。</p>
-<p>require随处可用，参数可拼接， import必须前置，静态字符串。</p>
-<p>require输出的是一个值的拷贝，import 模块输出的是值的引用。</p>
-<h3 id="import-export用法"><a href="#import-export用法" class="headerlink" title="import/export用法"></a>import/export用法</h3><pre><code>import fs from &apos;fs&apos;
-import {default as fs} from &apos;fs&apos;
-import * as fs from &apos;fs&apos;
-import {readFile} from &apos;fs&apos;
-import {readFile as read} from &apos;fs&apos;
-import fs, {readFile} from &apos;fs&apos;
+			void main() {
 
-export default fs
-export const fs
-export function readFile
-export {readFile, read}
-export * from &apos;fs&apos;
-module.exports = fs
-</code></pre><p>　　　　
-　　　　　　
-　　　
-　　　　</p>
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+    <script id="fs" type="x-shader/x-fragment">
+
+			uniform sampler2D map;
+
+			uniform vec3 fogColor;
+			uniform float fogNear;
+			uniform float fogFar;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+				gl_FragColor = texture2D( map, vUv );
+				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+		</script>
+
+    <script type="text/javascript">
+      (function() {
+        if (document.getElementsByClassName('post-title-link').length === 0 && document.getElementsByClassName('post-title')[0]) {
+          document.write(`
+            <div style="text-align: center">X轴 <input type="number" id="x-input"></div>
+            <div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
+            <div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
+          `);
+
+          function loadJS(filePath) {
+            return new Promise((resolve) => {
+              var newScriptElement = document.createElement("script");
+              newScriptElement.type = "text/javascript";
+              newScriptElement.src = filePath;
+              document.body.appendChild(newScriptElement);
+              newScriptElement.onload = function () {
+                resolve();
+              }
+            })
+          }
+
+          document.write(
+            '<script type="text/javascript" src="/lib/Detector.js"><\/script>'
+          );
+
+          loadJS('https://cdnjs.cloudflare.com/ajax/libs/three.js/55/three.js')
+            .then(() => {
+              if (!Detector.webgl) Detector.addGetWebGLMessage();
+
+              var container;
+              var camera, scene, renderer;
+              var mesh, geometry, material;
+
+              var mouseX = 0, mouseY = 0;
+              var start_time = Date.now();
+
+              var windowHalfX = window.innerWidth / 2;
+              var windowHalfY = window.innerHeight / 2;
+
+
+              init();
+
+              function init() {
+
+                container = document.createElement('div');
+                document.body.appendChild(container);
+
+                // Bg gradient
+
+                var canvas = document.createElement('canvas');
+                canvas.width = 32;
+                canvas.height = window.innerHeight;
+
+                var context = canvas.getContext('2d');
+
+                var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, "#1e4877");
+                gradient.addColorStop(0.5, "#4584b4");
+
+                context.fillStyle = gradient;
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
+                container.style.backgroundSize = '32px 100%';
+                container.style.position = 'absolute';
+                container.style.top = 0;
+                container.style.bottom = 0;
+                container.style.zIndex = -1;
+
+
+                camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 3000);
+                camera.position.z = 6000;
+
+                scene = new THREE.Scene();
+
+                geometry = new THREE.Geometry();
+
+                var texture = THREE.ImageUtils.loadTexture('/images/threejs/cloud.png', null, animate);
+                texture.magFilter = THREE.LinearMipMapLinearFilter;
+                texture.minFilter = THREE.LinearMipMapLinearFilter;
+
+                var fog = new THREE.Fog(0x4584b4, -100, 3000);
+
+                material = new THREE.ShaderMaterial({
+
+                  uniforms: {
+
+                    "map": {type: "t", value: texture},
+                    "fogColor": {type: "c", value: fog.color},
+                    "fogNear": {type: "f", value: fog.near},
+                    "fogFar": {type: "f", value: fog.far},
+
+                  },
+                  vertexShader: document.getElementById('vs').textContent,
+                  fragmentShader: document.getElementById('fs').textContent,
+                  depthWrite: false,
+                  depthTest: false,
+                  transparent: true
+
+                });
+
+                var plane = new THREE.Mesh(new THREE.PlaneGeometry(64, 64));
+
+                for (var i = 0; i < 8000; i++) {
+
+                  plane.position.x = Math.random() * 1000 - 500;
+                  plane.position.y = -Math.random() * Math.random() * 200 - 15;
+                  plane.position.z = i;
+                  plane.rotation.z = Math.random() * Math.PI;
+                  plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
+
+                  THREE.GeometryUtils.merge(geometry, plane);
+                }
+
+                mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                mesh = new THREE.Mesh(geometry, material);
+                mesh.position.z = -8000;
+                scene.add(mesh);
+
+                renderer = new THREE.WebGLRenderer({antialias: false});
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.appendChild(renderer.domElement);
+
+                document.addEventListener('mousemove', onDocumentMouseMove, false);
+                window.addEventListener('resize', onWindowResize, false);
+
+              }
+
+              function onDocumentMouseMove(event) {
+
+                mouseX = (event.clientX - windowHalfX) * 0.25;
+                mouseY = (event.clientY - windowHalfY) * 0.15;
+
+              }
+
+              function onWindowResize(event) {
+
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+              }
+
+              function animate() {
+
+                requestAnimationFrame(animate);
+
+                position = ((Date.now() - start_time) * 0.03) % 8000;
+
+                camera.position.x += (mouseX - camera.position.x) * 0.01;
+                camera.position.y += (-mouseY - camera.position.y) * 0.01;
+                camera.position.z = -position + 8000;
+
+                // console.log(camera.position.x, 'camera.position.x')
+                // console.log(camera.position.y, 'camera.position.y')
+                // console.log(camera.position.z, 'camera.position.z')
+                renderer.render(scene, camera);
+              }
+
+
+              // 控制
+              function changeCamera(x, y) {
+                if (x) camera.position.x = +x;
+                if (y) camera.position.y = +y;
+
+                console.log(camera.position, 'camera')
+                renderer.render(scene, camera);
+              }
+
+              const xInput = document.getElementById('x-input');
+              const yInput = document.getElementById('y-input');
+              const cameraBtn = document.getElementById('camera-btn');
+
+              cameraBtn.onclick = () => {
+                console.log(xInput, 'xInput')
+                changeCamera(xInput.value, yInput.value)
+              };
+            });
+        }
+      })()
+
+    </script>
+
 
       
     </div>
@@ -391,7 +542,7 @@ module.exports = fs
           
             <a href="/tags/Javascript/" rel="tag"># Javascript</a>
           
-            <a href="/tags/ES6/" rel="tag"># ES6</a>
+            <a href="/tags/Threejs/" rel="tag"># Threejs</a>
           
         </div>
       
@@ -404,8 +555,8 @@ module.exports = fs
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/06/ES6-Symbol/" rel="next" title="ES6_Symbol">
-                <i class="fa fa-chevron-left"></i> ES6_Symbol
+              <a href="/2018/12/29/Lodash-Array-1/" rel="next" title="Lodash-练习记录-Array-1">
+                <i class="fa fa-chevron-left"></i> Lodash-练习记录-Array-1
               </a>
             
           </div>
@@ -414,8 +565,8 @@ module.exports = fs
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/29/Lodash-Array-1/" rel="prev" title="Lodash-练习记录-Array-1">
-                Lodash-练习记录-Array-1 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/20/Lodash-function-1/" rel="prev" title="Lodash-function">
+                Lodash-function <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -468,17 +619,8 @@ module.exports = fs
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -538,22 +680,6 @@ module.exports = fs
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原始写法："><span class="nav-number">1.1.</span> <span class="nav-text">原始写法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象写法"><span class="nav-number">1.2.</span> <span class="nav-text">对象写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#立即执行函数"><span class="nav-number">1.3.</span> <span class="nav-text">立即执行函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化规范"><span class="nav-number">1.4.</span> <span class="nav-text">模块化规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exs-import-export-和传统requre-export区别"><span class="nav-number">1.5.</span> <span class="nav-text">exs import/export 和传统requre/export区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import-export用法"><span class="nav-number">1.6.</span> <span class="nav-text">import/export用法</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

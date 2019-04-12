@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="稀客">
 <meta property="og:description" content="今天查看React源码时候注意到一些很陌生的东西，比如memo、lazy、useState等use系列，这些东西以前没见过，难不成react又有新特性，新api？google一下果然如此 一、memomemo的功能感觉和shouldComponentUpdate非常类似，但不像shouldComponentUpdate只能作为component类中的生命周期方法，memo更加的贴合函数式编程理念，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-12T03:20:16.532Z">
+<meta property="og:updated_time" content="2019-04-12T03:25:23.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React16.8新特性">
 <meta name="twitter:description" content="今天查看React源码时候注意到一些很陌生的东西，比如memo、lazy、useState等use系列，这些东西以前没见过，难不成react又有新特性，新api？google一下果然如此 一、memomemo的功能感觉和shouldComponentUpdate非常类似，但不像shouldComponentUpdate只能作为component类中的生命周期方法，memo更加的贴合函数式编程理念，">
@@ -300,7 +300,7 @@
       
 
       
-        <p>今天查看React源码时候注意到一些很陌生的东西，比如memo、lazy、useState等use系列，这些东西以前没见过，难不成react又有新特性，新api？<br>google一下果然如此</p>
+        <p>今天查看React源码时候注意到一些很陌生的东西，比如memo、lazy、useState等use系列，这些东西以前没见过，难不成react又有新特性，新api？google一下果然如此</p>
 <h3 id="一、memo"><a href="#一、memo" class="headerlink" title="一、memo"></a>一、memo</h3><p>memo的功能感觉和shouldComponentUpdate非常类似，但不像shouldComponentUpdate只能作为component类中的生命周期方法，memo更加的贴合函数式编程理念，<br>可以用在function component中。</p>
 <p>react源码：</p>
 <pre><code>function memo(type, compare) {
@@ -369,13 +369,12 @@ function MyComponent() {
     &lt;/div&gt;
   );
 }
-</code></pre><h3 id="三、hooks"><a href="#三、hooks" class="headerlink" title="三、hooks"></a>三、hooks</h3><p>hooks是什么？</p>
-<blockquote>
+</code></pre><h3 id="三、hooks"><a href="#三、hooks" class="headerlink" title="三、hooks"></a>三、hooks</h3><h4 id="hooks是什么？"><a href="#hooks是什么？" class="headerlink" title="hooks是什么？"></a>hooks是什么？</h4><blockquote>
 <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.</p>
 </blockquote>
 <p>官方解释的很清晰，hooks就是能让你在function component中也能用React.Component类中特性（state，部分生命周期等）的新特性。</p>
 <p>hooks常用api有：useState、useEffect、useContext、useReducer、useRef、useMemo等。</p>
-<h5 id="useState可以定义、使用和修改state："><a href="#useState可以定义、使用和修改state：" class="headerlink" title="useState可以定义、使用和修改state："></a>useState可以定义、使用和修改state：</h5><pre><code>import { useState } from &quot;react&quot;;
+<h4 id="useState可以定义、使用和修改state："><a href="#useState可以定义、使用和修改state：" class="headerlink" title="useState可以定义、使用和修改state："></a>useState可以定义、使用和修改state：</h4><pre><code>import { useState } from &quot;react&quot;;
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -392,7 +391,7 @@ function App() {
     &lt;/&gt;
   );
 }
-</code></pre><h5 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h5><p>类似 React.Component中的 DidMount和DidUpdate。也就是说useEffect第一次渲染和每次更新都会触发useEffect，需要注意开销和优化。在return中清理一些需要清除的effects。第二个列表参数指定useEffect只响应这些props.source中props改变带来的更新。</p>
+</code></pre><h4 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h4><p>类似 React.Component中的 DidMount和DidUpdate。也就是说useEffect第一次渲染和每次更新都会触发useEffect，需要注意开销和优化。在return中清理一些需要清除的effects。第二个列表参数指定useEffect只响应这些props.source中props改变带来的更新。</p>
 <pre><code>import { useState, useEffect } from &quot;react&quot;;
 
 useEffect(() =&gt; {
@@ -402,7 +401,7 @@ useEffect(() =&gt; {
     subscription.unsubscribe();
   };
 }, [props.source]);
-</code></pre><h5 id="内置-Hooks和其他Hooks"><a href="#内置-Hooks和其他Hooks" class="headerlink" title="内置 Hooks和其他Hooks"></a><a href="https://reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">内置 Hooks和其他Hooks</a></h5><h5 id="状态与-UI-的界限会越来越清晰"><a href="#状态与-UI-的界限会越来越清晰" class="headerlink" title="状态与 UI 的界限会越来越清晰"></a>状态与 UI 的界限会越来越清晰</h5><p>React Hooks 本质就是 renderProps 或者 HOC 的另一种写法。通过hooks和抽象大量 Custom Hooks，可以说我们又有了一种更加函数式的，少嵌套的，无状态组件的组织方式，</p>
+</code></pre><h4 id="内置-Hooks和其他Hooks"><a href="#内置-Hooks和其他Hooks" class="headerlink" title="内置 Hooks和其他Hooks"></a><a href="https://reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">内置 Hooks和其他Hooks</a></h4><h4 id="状态与-UI-的界限会越来越清晰"><a href="#状态与-UI-的界限会越来越清晰" class="headerlink" title="状态与 UI 的界限会越来越清晰"></a>状态与 UI 的界限会越来越清晰</h4><p>React Hooks 本质就是 renderProps 或者 HOC 的另一种写法。通过hooks和抽象大量 Custom Hooks，可以说我们又有了一种更加函数式的，少嵌套的，无状态组件的组织方式，</p>
 <p>参考：</p>
 <ol>
 <li><a href="https://reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">React docs</a></li>
@@ -450,10 +449,6 @@ useEffect(() =&gt; {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/12/threejs-cloud/" rel="prev" title="threejs-cloud">
-                threejs-cloud <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -541,7 +536,7 @@ useEffect(() =&gt; {
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -552,7 +547,7 @@ useEffect(() =&gt; {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -585,7 +580,7 @@ useEffect(() =&gt; {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、memo"><span class="nav-number">1.</span> <span class="nav-text">一、memo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、lazy-amp-suspence"><span class="nav-number">2.</span> <span class="nav-text">二、lazy &amp; suspence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、hooks"><span class="nav-number">3.</span> <span class="nav-text">三、hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#useState可以定义、使用和修改state："><span class="nav-number">3.0.1.</span> <span class="nav-text">useState可以定义、使用和修改state：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#useEffect"><span class="nav-number">3.0.2.</span> <span class="nav-text">useEffect</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内置-Hooks和其他Hooks"><span class="nav-number">3.0.3.</span> <span class="nav-text">内置 Hooks和其他Hooks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#状态与-UI-的界限会越来越清晰"><span class="nav-number">3.0.4.</span> <span class="nav-text">状态与 UI 的界限会越来越清晰</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、memo"><span class="nav-number">1.</span> <span class="nav-text">一、memo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、lazy-amp-suspence"><span class="nav-number">2.</span> <span class="nav-text">二、lazy &amp; suspence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、hooks"><span class="nav-number">3.</span> <span class="nav-text">三、hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hooks是什么？"><span class="nav-number">3.1.</span> <span class="nav-text">hooks是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#useState可以定义、使用和修改state："><span class="nav-number">3.2.</span> <span class="nav-text">useState可以定义、使用和修改state：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#useEffect"><span class="nav-number">3.3.</span> <span class="nav-text">useEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置-Hooks和其他Hooks"><span class="nav-number">3.4.</span> <span class="nav-text">内置 Hooks和其他Hooks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态与-UI-的界限会越来越清晰"><span class="nav-number">3.5.</span> <span class="nav-text">状态与 UI 的界限会越来越清晰</span></a></li></ol></li></ol></div>
             
 
           </div>

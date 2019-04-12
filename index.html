@@ -232,492 +232,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/04/12/electron打包后表单控件复制粘贴失效解决办法-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coco x">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/12/electron打包后表单控件复制粘贴失效解决办法-1/" itemprop="url">electron打包后表单控件复制粘贴失效解决办法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T11:20:16+08:00">
-                2019-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/technology/" itemprop="url" rel="index">
-                    <span itemprop="name">technology</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="mac系统下快捷键问题"><a href="#mac系统下快捷键问题" class="headerlink" title="mac系统下快捷键问题"></a>mac系统下快捷键问题</h2><p>在Mac系统下，打完包的electron App中，发现Redo、Undo、复制粘贴等快捷键无效。解决此问题需要此在main.js中注册Menu，直接上代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">//step1: 引入electron的Menu模块</span><br><span class="line">var Menu = require(&apos;electron&apos;).Menu;</span><br><span class="line"></span><br><span class="line">//step2: 快捷键映射关系</span><br><span class="line">let template = [&#123;</span><br><span class="line">    label: &quot;Application&quot;,</span><br><span class="line">    submenu: [</span><br><span class="line">        &#123; label: &quot;About Application&quot;, selector: &quot;orderFrontStandardAboutPanel:&quot; &#125;,</span><br><span class="line">        &#123; type: &quot;separator&quot; &#125;,</span><br><span class="line">        &#123; label: &quot;Quit&quot;, accelerator: &quot;Command+Q&quot;, click: function() &#123; app.quit(); &#125;&#125;</span><br><span class="line">    ]&#125;, &#123;</span><br><span class="line">    label: &quot;Edit&quot;,</span><br><span class="line">    submenu: [</span><br><span class="line">        &#123; label: &quot;Undo&quot;, accelerator: &quot;CmdOrCtrl+Z&quot;, selector: &quot;undo:&quot; &#125;,</span><br><span class="line">        &#123; label: &quot;Redo&quot;, accelerator: &quot;Shift+CmdOrCtrl+Z&quot;, selector: &quot;redo:&quot; &#125;,</span><br><span class="line">        &#123; type: &quot;separator&quot; &#125;,</span><br><span class="line">        &#123; label: &quot;Cut&quot;, accelerator: &quot;CmdOrCtrl+X&quot;, selector: &quot;cut:&quot; &#125;,</span><br><span class="line">        &#123; label: &quot;Copy&quot;, accelerator: &quot;CmdOrCtrl+C&quot;, selector: &quot;copy:&quot; &#125;,</span><br><span class="line">        &#123; label: &quot;Paste&quot;, accelerator: &quot;CmdOrCtrl+V&quot;, selector: &quot;paste:&quot; &#125;,</span><br><span class="line">        &#123; label: &quot;Select All&quot;, accelerator: &quot;CmdOrCtrl+A&quot;, selector: &quot;selectAll:&quot; &#125;</span><br><span class="line">    ]&#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">//step3: 在ready后注册</span><br><span class="line">app.on(&apos;ready&apos;, () =&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">  //注册菜单</span><br><span class="line">  Menu.setApplicationMenu(Menu.buildFromTemplate(template));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>到此问题就解决了</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/04/12/threejs-cloud/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coco x">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/12/threejs-cloud/" itemprop="url">threejs-cloud</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T11:20:16+08:00">
-                2019-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            　　　　
-    <script id="vs" type="x-shader/x-vertex">
-
-			varying vec2 vUv;
-
-			void main() {
-
-				vUv = uv;
-				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-
-			}
-
-		</script>
-
-    <script id="fs" type="x-shader/x-fragment">
-
-			uniform sampler2D map;
-
-			uniform vec3 fogColor;
-			uniform float fogNear;
-			uniform float fogFar;
-
-			varying vec2 vUv;
-
-			void main() {
-
-				float depth = gl_FragCoord.z / gl_FragCoord.w;
-				float fogFactor = smoothstep( fogNear, fogFar, depth );
-
-				gl_FragColor = texture2D( map, vUv );
-				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
-				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
-
-			}
-
-		</script>
-
-    <script type="text/javascript">
-      (function() {
-        if (document.getElementsByClassName('post-title-link').length === 0 && document.getElementsByClassName('post-title')[0]) {
-          document.write(`
-            <div style="text-align: center">X轴 <input type="number" id="x-input"></div>
-            <div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
-            <div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
-          `);
-
-          function loadJS(filePath) {
-            return new Promise((resolve) => {
-              var newScriptElement = document.createElement("script");
-              newScriptElement.type = "text/javascript";
-              newScriptElement.src = filePath;
-              document.body.appendChild(newScriptElement);
-              newScriptElement.onload = function () {
-                resolve();
-              }
-            })
-          }
-
-          document.write(
-            '<script type="text/javascript" src="/lib/Detector.js"><\/script>'
-          );
-
-          loadJS('https://cdnjs.cloudflare.com/ajax/libs/three.js/55/three.js')
-            .then(() => {
-              if (!Detector.webgl) Detector.addGetWebGLMessage();
-
-              var container;
-              var camera, scene, renderer;
-              var mesh, geometry, material;
-
-              var mouseX = 0, mouseY = 0;
-              var start_time = Date.now();
-
-              var windowHalfX = window.innerWidth / 2;
-              var windowHalfY = window.innerHeight / 2;
-
-
-              init();
-
-              function init() {
-
-                container = document.createElement('div');
-                document.body.appendChild(container);
-
-                // Bg gradient
-
-                var canvas = document.createElement('canvas');
-                canvas.width = 32;
-                canvas.height = window.innerHeight;
-
-                var context = canvas.getContext('2d');
-
-                var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-                gradient.addColorStop(0, "#1e4877");
-                gradient.addColorStop(0.5, "#4584b4");
-
-                context.fillStyle = gradient;
-                context.fillRect(0, 0, canvas.width, canvas.height);
-
-                container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
-                container.style.backgroundSize = '32px 100%';
-                container.style.position = 'absolute';
-                container.style.top = 0;
-                container.style.bottom = 0;
-                container.style.zIndex = -1;
-
-
-                camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 3000);
-                camera.position.z = 6000;
-
-                scene = new THREE.Scene();
-
-                geometry = new THREE.Geometry();
-
-                var texture = THREE.ImageUtils.loadTexture('/images/threejs/cloud.png', null, animate);
-                texture.magFilter = THREE.LinearMipMapLinearFilter;
-                texture.minFilter = THREE.LinearMipMapLinearFilter;
-
-                var fog = new THREE.Fog(0x4584b4, -100, 3000);
-
-                material = new THREE.ShaderMaterial({
-
-                  uniforms: {
-
-                    "map": {type: "t", value: texture},
-                    "fogColor": {type: "c", value: fog.color},
-                    "fogNear": {type: "f", value: fog.near},
-                    "fogFar": {type: "f", value: fog.far},
-
-                  },
-                  vertexShader: document.getElementById('vs').textContent,
-                  fragmentShader: document.getElementById('fs').textContent,
-                  depthWrite: false,
-                  depthTest: false,
-                  transparent: true
-
-                });
-
-                var plane = new THREE.Mesh(new THREE.PlaneGeometry(64, 64));
-
-                for (var i = 0; i < 8000; i++) {
-
-                  plane.position.x = Math.random() * 1000 - 500;
-                  plane.position.y = -Math.random() * Math.random() * 200 - 15;
-                  plane.position.z = i;
-                  plane.rotation.z = Math.random() * Math.PI;
-                  plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
-
-                  THREE.GeometryUtils.merge(geometry, plane);
-                }
-
-                mesh = new THREE.Mesh(geometry, material);
-                scene.add(mesh);
-
-                mesh = new THREE.Mesh(geometry, material);
-                mesh.position.z = -8000;
-                scene.add(mesh);
-
-                renderer = new THREE.WebGLRenderer({antialias: false});
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                container.appendChild(renderer.domElement);
-
-                document.addEventListener('mousemove', onDocumentMouseMove, false);
-                window.addEventListener('resize', onWindowResize, false);
-
-              }
-
-              function onDocumentMouseMove(event) {
-
-                mouseX = (event.clientX - windowHalfX) * 0.25;
-                mouseY = (event.clientY - windowHalfY) * 0.15;
-
-              }
-
-              function onWindowResize(event) {
-
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-
-                renderer.setSize(window.innerWidth, window.innerHeight);
-
-              }
-
-              function animate() {
-
-                requestAnimationFrame(animate);
-
-                position = ((Date.now() - start_time) * 0.03) % 8000;
-
-                camera.position.x += (mouseX - camera.position.x) * 0.01;
-                camera.position.y += (-mouseY - camera.position.y) * 0.01;
-                camera.position.z = -position + 8000;
-
-                // console.log(camera.position.x, 'camera.position.x')
-                // console.log(camera.position.y, 'camera.position.y')
-                // console.log(camera.position.z, 'camera.position.z')
-                renderer.render(scene, camera);
-              }
-
-
-              // 控制
-              function changeCamera(x, y) {
-                if (x) camera.position.x = +x;
-                if (y) camera.position.y = +y;
-
-                console.log(camera.position, 'camera')
-                renderer.render(scene, camera);
-              }
-
-              const xInput = document.getElementById('x-input');
-              const yInput = document.getElementById('y-input');
-              const cameraBtn = document.getElementById('camera-btn');
-
-              cameraBtn.onclick = () => {
-                console.log(xInput, 'xInput')
-                changeCamera(xInput.value, yInput.value)
-              };
-            });
-        }
-      })()
-
-    </script>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/04/12/React16-8新特性一/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -789,7 +303,7 @@
       
         
           
-            <p>今天查看React源码时候注意到一些很陌生的东西，比如memo、lazy、useState等use系列，这些东西以前没见过，难不成react又有新特性，新api？<br>google一下果然如此</p>
+            <p>今天查看React源码时候注意到一些很陌生的东西，比如memo、lazy、useState等use系列，这些东西以前没见过，难不成react又有新特性，新api？google一下果然如此</p>
 <h3 id="一、memo"><a href="#一、memo" class="headerlink" title="一、memo"></a>一、memo</h3><p>memo的功能感觉和shouldComponentUpdate非常类似，但不像shouldComponentUpdate只能作为component类中的生命周期方法，memo更加的贴合函数式编程理念，<br>可以用在function component中。</p>
 <p>react源码：</p>
 <pre><code>function memo(type, compare) {
@@ -858,13 +372,12 @@ function MyComponent() {
     &lt;/div&gt;
   );
 }
-</code></pre><h3 id="三、hooks"><a href="#三、hooks" class="headerlink" title="三、hooks"></a>三、hooks</h3><p>hooks是什么？</p>
-<blockquote>
+</code></pre><h3 id="三、hooks"><a href="#三、hooks" class="headerlink" title="三、hooks"></a>三、hooks</h3><h4 id="hooks是什么？"><a href="#hooks是什么？" class="headerlink" title="hooks是什么？"></a>hooks是什么？</h4><blockquote>
 <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.</p>
 </blockquote>
 <p>官方解释的很清晰，hooks就是能让你在function component中也能用React.Component类中特性（state，部分生命周期等）的新特性。</p>
 <p>hooks常用api有：useState、useEffect、useContext、useReducer、useRef、useMemo等。</p>
-<h5 id="useState可以定义、使用和修改state："><a href="#useState可以定义、使用和修改state：" class="headerlink" title="useState可以定义、使用和修改state："></a>useState可以定义、使用和修改state：</h5><pre><code>import { useState } from &quot;react&quot;;
+<h4 id="useState可以定义、使用和修改state："><a href="#useState可以定义、使用和修改state：" class="headerlink" title="useState可以定义、使用和修改state："></a>useState可以定义、使用和修改state：</h4><pre><code>import { useState } from &quot;react&quot;;
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -881,7 +394,7 @@ function App() {
     &lt;/&gt;
   );
 }
-</code></pre><h5 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h5><p>类似 React.Component中的 DidMount和DidUpdate。也就是说useEffect第一次渲染和每次更新都会触发useEffect，需要注意开销和优化。在return中清理一些需要清除的effects。第二个列表参数指定useEffect只响应这些props.source中props改变带来的更新。</p>
+</code></pre><h4 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h4><p>类似 React.Component中的 DidMount和DidUpdate。也就是说useEffect第一次渲染和每次更新都会触发useEffect，需要注意开销和优化。在return中清理一些需要清除的effects。第二个列表参数指定useEffect只响应这些props.source中props改变带来的更新。</p>
 <pre><code>import { useState, useEffect } from &quot;react&quot;;
 
 useEffect(() =&gt; {
@@ -891,7 +404,7 @@ useEffect(() =&gt; {
     subscription.unsubscribe();
   };
 }, [props.source]);
-</code></pre><h5 id="内置-Hooks和其他Hooks"><a href="#内置-Hooks和其他Hooks" class="headerlink" title="内置 Hooks和其他Hooks"></a><a href="https://reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">内置 Hooks和其他Hooks</a></h5><h5 id="状态与-UI-的界限会越来越清晰"><a href="#状态与-UI-的界限会越来越清晰" class="headerlink" title="状态与 UI 的界限会越来越清晰"></a>状态与 UI 的界限会越来越清晰</h5><p>React Hooks 本质就是 renderProps 或者 HOC 的另一种写法。通过hooks和抽象大量 Custom Hooks，可以说我们又有了一种更加函数式的，少嵌套的，无状态组件的组织方式，</p>
+</code></pre><h4 id="内置-Hooks和其他Hooks"><a href="#内置-Hooks和其他Hooks" class="headerlink" title="内置 Hooks和其他Hooks"></a><a href="https://reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">内置 Hooks和其他Hooks</a></h4><h4 id="状态与-UI-的界限会越来越清晰"><a href="#状态与-UI-的界限会越来越清晰" class="headerlink" title="状态与 UI 的界限会越来越清晰"></a>状态与 UI 的界限会越来越清晰</h4><p>React Hooks 本质就是 renderProps 或者 HOC 的另一种写法。通过hooks和抽象大量 Custom Hooks，可以说我们又有了一种更加函数式的，少嵌套的，无状态组件的组织方式，</p>
 <p>参考：</p>
 <ol>
 <li><a href="https://reactjs.org/docs/hooks-reference.html" target="_blank" rel="noopener">React docs</a></li>
@@ -1078,6 +591,328 @@ useEffect(() =&gt; {
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/03/01/EOS_DAPP接入指南/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/01/EOS_DAPP接入指南/" itemprop="url">EOS DAPP 接入指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T10:10:10+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>　　　　</p>
+<script>
+    const title = document.getElementsByClassName('post-title')[0];
+    const isHome = document.getElementsByClassName('post-title-link').length > 0;
+    if (!isHome && title) {
+
+       console.log(document.styleSheets[0].rules[0])
+       try {
+           document.styleSheets[0].insertRule(
+           `.mystery-title::after{
+               content: '/' attr(data-content);
+               position:relative;
+               left:-15px;
+               color:#ff0000
+           }`,
+           0)//chrome,firefox等非IE浏览器使用
+       } catch(err) {
+           console.log(err)
+       }
+       try {
+           document.styleSheets[0].addRule('.mystery-title::before{position:relative;left:-10px;color:green}',0)//IE系列浏览器使用
+       } catch(err) {
+           console.log(err)
+       }
+       if (!title.className.match('mystery-title')) {
+           title.className += ' mystery-title'; 
+           let direction = ['北','北','北','↑','↓','←','→'];
+           let timerCount = 0;
+           title.setAttribute('data-content', ' '+direction[parseInt(Math.random() * direction.length)]);
+           timerCount++;
+           setInterval(() => {
+                title.setAttribute('data-content', ' '+direction[parseInt(Math.random() * direction.length)]);
+                timerCount++;
+           }, Math.random()*5000+500)
+       }
+    }
+</script>
+
+
+
+<h4 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a><a href="#前沿">1. 前言</a></h4><h4 id="2-scatter-EOS-DAPP"><a href="#2-scatter-EOS-DAPP" class="headerlink" title="2. scatter EOS DAPP"></a><a href="#scatter dapp中主要的钱包交互">2. scatter EOS DAPP</a></h4><h4 id="3-注入原理"><a href="#3-注入原理" class="headerlink" title="3. 注入原理"></a><a href="#注入原理">3. 注入原理</a></h4><h4 id="4-常见操作覆写"><a href="#4-常见操作覆写" class="headerlink" title="4. 常见操作覆写"></a><a href="#常见操作覆写">4. 常见操作覆写</a></h4><h3 id="前沿"><a href="#前沿" class="headerlink" title="前沿"></a>前沿</h3><p>EOS主网上线至今，有越来越多的EOS Dapp上线。其中有很多dapp都是基于<a href="https://https://get-scatter.com" target="_blank" rel="noopener">scatter</a>钱包的接口，只需实现游戏逻辑，私钥管理，交易收发等等都只要交给scatter就可以。<br>当我们有自己的EOS钱包，就可以接入这些DAPP达到一些推广钱包等目的。</p>
+<h3 id="scatter-dapp中主要的钱包交互"><a href="#scatter-dapp中主要的钱包交互" class="headerlink" title="scatter dapp中主要的钱包交互"></a>scatter dapp中主要的钱包交互</h3><p>引入包，定义网络信息:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import EOS from &quot;eosjs&quot;;</span><br><span class="line">import ScatterJS from &quot;scatterjs-core&quot;;</span><br><span class="line">import ScatterEOS from &quot;scatterjs-plugin-eosjs&quot;;</span><br><span class="line"></span><br><span class="line">const network = &#123;</span><br><span class="line">    blockchain: &quot;eos&quot;,</span><br><span class="line">    host: &quot;mainnet.eoscanada.com&quot;,</span><br><span class="line">    port: 443,</span><br><span class="line">    protocol: &quot;https&quot;,</span><br><span class="line">    chainId: &quot;aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906&quot;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>监听scatter钱包加载:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">document.addEventListener(&apos;scatterLoaded&apos;, () =&gt; &#123;</span><br><span class="line">    ScatterJS.scatter.connect(&quot;p3d&quot;)</span><br><span class="line">        .then(connected =&gt; &#123;</span><br><span class="line">            if (!connected) return false;</span><br><span class="line">            </span><br><span class="line">            EOSClient = ScatterJS.scatter.eos(network, EOS);</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>获取身份信息:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function getIdentity() &#123;</span><br><span class="line">    return () =&gt; &#123;</span><br><span class="line">        ScatterJS.scatter &amp;&amp; ScatterJS.scatter.getIdentity(&#123; accounts: [network] &#125;)</span><br><span class="line">            .then(() =&gt; &#123;</span><br><span class="line">              // 获取身份成功</span><br><span class="line">              const identity = ScatterJS.account(&apos;eos&apos;);</span><br><span class="line">              console.log(identity, &apos;this.scatter.identity.accounts&apos;);</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch((err) =&gt; &#123;</span><br><span class="line">              console.log(err, &apos;获取身份失败&apos;);</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发送交易，或者其他合约操作的三个接口:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 普通交易，参数是对象风格的或者类数组风格的两种方式</span><br><span class="line">EOSClient.transfer()</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 合约操作1</span><br><span class="line">EOSClient.transaction(</span><br><span class="line">  &#123;</span><br><span class="line">   // ...headers,</span><br><span class="line">   actions: [</span><br><span class="line">       &#123;  </span><br><span class="line">           account: contract, // 合约名</span><br><span class="line">           name: actionName, // 操作名</span><br><span class="line">           authorization: [&#123;</span><br><span class="line">             actor: identity.name,</span><br><span class="line">             permission: identity.authority</span><br><span class="line">           &#125;],</span><br><span class="line">           data: &#123;</span><br><span class="line">             from: identity.name,</span><br><span class="line">             to: to,</span><br><span class="line">             quantity,</span><br><span class="line">             memo</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;  </span><br><span class="line">   ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">  .then(res =&gt; &#123;console.log(res, &apos;fasong token&apos;)&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 合约操作2，chrome扩展scatter不指定authorization会报错，可能是没有正确识别active/owner权限</span><br><span class="line">EOSClient.contract(&apos;ethsidechain&apos;)</span><br><span class="line">    .then(r =&gt; &#123;</span><br><span class="line">        r.transfer(</span><br><span class="line">          identity.name,</span><br><span class="line">          to,</span><br><span class="line">          &apos;1.0000 EETH&apos;,</span><br><span class="line">          memo,</span><br><span class="line">          &#123; authorization: [`$&#123;identity.name&#125;@$&#123;identity.authority&#125;`]&#125;</span><br><span class="line">        ).then(r =&gt; &#123;</span><br><span class="line">          console.log(r, &apos;transfer&apos;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h3><p>覆写window下的scatter,如此当dapp调用的scatter钱包接口已经替换为我们钱包的接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">window.scatter = &#123;</span><br><span class="line">    ...</span><br><span class="line">    getIdentity: function() &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;,</span><br><span class="line">    eos: (network, EOS) =&gt; &#123;</span><br><span class="line">        transfer() &#123;</span><br><span class="line">        &#125;,</span><br><span class="line">        contract() &#123;</span><br><span class="line">        &#125;,</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发送scatter加载事件来自动登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var event = document.createEvent(&apos;HTMLEvents&apos;);</span><br><span class="line">event.initEvent(&quot;scatterLoaded&quot;, true, true);</span><br><span class="line">event.eventType = &apos;scatterLoaded&apos;;</span><br><span class="line">document.dispatchEvent(event);</span><br></pre></td></tr></table></figure></p>
+<p>*调试多个dapp网站，发现有些将scatter挂载在window.Scatter.scatter下，有些则将scatter和EOSClient定义在局部变量中，并将window.scatter设为null，实际这些情况都不影响以上方式的注入覆写。乍看之下很困惑，简单分析下scatterjs得到了答案：</p>
+<p>1.ScatterJS不是标准模块化的，污染了全局变量scatter，也就是说import ScatterJS库之后，就有了window.scatter。且和Scatter.scatter是同一个引用：</p>
+<pre><code>ScatterJS.scatter === window.scatter; // true
+</code></pre><p>2.加载dapp网站代码，代码中注册了对<code>scatterLoaded</code>事件的监听:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> document.addEventListener(&apos;scatterLoaded&apos;, () =&gt; &#123;</span><br><span class="line">  ScatterJS.scatter.connect(&quot;p3d&quot;)</span><br><span class="line">      .then(connected =&gt; &#123;</span><br><span class="line">          if (!connected) return false;</span><br><span class="line">          </span><br><span class="line">          EOSClient = ScatterJS.scatter.eos(network, EOS);</span><br><span class="line">          </span><br><span class="line">          // 后边的EOS操作通过调用EOSClient.transfer ...</span><br><span class="line">      &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>3.模拟<code>scatterLoaded</code>事件</p>
+<pre><code>var event = document.createEvent(&apos;HTMLEvents&apos;);
+event.initEvent(&quot;scatterLoaded&quot;, true, true);
+event.eventType = &apos;scatterLoaded&apos;;
+document.dispatchEvent(event)
+</code></pre><p>4.dapp中收到scatterLoaded事件后，EOSClient顺利成章的拿到了覆写的window.scatter方法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/01/31/zeromqjs/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/31/zeromqjs/" itemprop="url">zeromq.js介绍和事例</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T16:46:04+08:00">
+                2019-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-zeromq介绍"><a href="#1-zeromq介绍" class="headerlink" title="1. zeromq介绍"></a><a href="#介绍">1. zeromq介绍</a></h3><h3 id="2-几种消息模式"><a href="#2-几种消息模式" class="headerlink" title="2. 几种消息模式"></a><a href="#几种消息模式">2. 几种消息模式</a></h3><h3 id="3-req-rep-listener转换成promise"><a href="#3-req-rep-listener转换成promise" class="headerlink" title="3. req/rep listener转换成promise"></a><a href="#req/rep listener转换成promise">3. req/rep listener转换成promise</a></h3><h3 id="4-demo"><a href="#4-demo" class="headerlink" title="4. demo"></a><a href="#demo">4. demo</a></h3><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>zeromq是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库。它提供一个消息队列, 但是与面向消息的中间件不同，ZeroMQ的运行不需要专门的消息代理（message broker）。该库设计成常见的套接字风格的API。支持多种语言，zeromq.js是zeromq的node绑定库，这里的例子是基于<a href="https://github.com/zeromq/zeromq.js" target="_blank" rel="noopener">zeromq.js</a></p>
+<h3 id="几种消息模式"><a href="#几种消息模式" class="headerlink" title="几种消息模式"></a>几种消息模式</h3><h4 id="pub-sub模式"><a href="#pub-sub模式" class="headerlink" title="pub/sub模式"></a>pub/sub模式</h4><p>  <img src="/images/zeromq/zeromq_3.png" width="400"></p>
+<p>发布订阅模式 发布端单向分发数据，且不关心是否把全部信息发送给订阅端。如果发布端开始发布信息时，订阅端尚未连接上来，则这些信息会被直接丢弃。订阅端只负责接收，而不能反馈，且在订阅端消费速度慢于发布端的情况下，会在订阅端堆积数据。该模型主要用于有时效性的数据分发。实时价格、天气预报、微博明星粉丝可以应用这种经典模型。订阅端未连接时发布者发布的信息会丢失，如果需要这些过去的信息，可以通过与请求回应模型组合来解决。</p>
+<ul>
+<li>订阅者可以连接多个发布者，轮流接收消息；</li>
+<li>如果发布者没有订阅者与之相连，那它发送的消息将直接被丢弃；</li>
+<li>如果你使用TCP协议，那当订阅者处理速度过慢时，消息会在发布者处堆积。</li>
+</ul>
+<h4 id="push-pull模式"><a href="#push-pull模式" class="headerlink" title="push/pull模式"></a>push/pull模式</h4><p>  <img src="/images/zeromq/zeromq_0.png" width="400"></p>
+<p>Server端作为Push端，而Client端作为Pull端，如果有多个Client端同时连接到Server端，则Server端会在内部做一个负载均衡，采用平均分配的算法，将所有消息均衡发布到Client端上。如果有多个Server端同时连接到Client端，这里Push与Pull之间的对应关系是多个Push角色对应一个Pull角色，在ZeroMQ中，给这种结构取的名叫做公平队列，这里也就是说将Pull角色理解为一个队列，各个Push角色不断的向这个队列中发送数据。与发布订阅模型相比，推拉模型在没有消费者的情况下，发布的消息不会被消耗掉；在消费者能力不够的情况下，能够提供多消费者并行消费解决方案。该模型主要用于多任务并行处理。</p>
+<ul>
+<li>worker链接之前的消息不会丢弃</li>
+<li>所有worker接收的信息的集合就是push端推送的消息</li>
+</ul>
+<h4 id="rep-req模式"><a href="#rep-req模式" class="headerlink" title="rep/req模式"></a>rep/req模式</h4><p>  <img src="/images/zeromq/zeromq_1.png" width="200"></p>
+<p>问答模式，由请求端发起请求，然后等待回应端应答。一个请求必须对应一个回应，从请求端的角度来看是发-收配对，从回应端的角度是收-发对。请求端可以是1~N个。该模型主要用于远程调用及任务分配等。服务端在前一个处理完之前接收不到后面的请求，所以所有请求和返回都是对应顺序的。如果要非阻塞方式，请用<a href="#router/dealer模式">router/dealer模式</a></p>
+<ul>
+<li>一问一答都是按顺序的，阻塞的，请求1-回应1 请求2-回应2；</li>
+</ul>
+<h4 id="router-dealer模式"><a href="#router-dealer模式" class="headerlink" title="router/dealer模式"></a>router/dealer模式</h4><p>DEALER和ROUTER是插座，可以轻松扩展REQ / REP对。在直接通信中，REQ和REP以阻塞方式进行通话，而该模式是非阻塞的。客户端需要identity来告诉服务端客户端身份，请求处理后返回给谁。请求中可以指定请求编号来区分回复对应的是哪个请求。</p>
+<p>  <img src="/images/zeromq/zeromq_2.png" width="400"></p>
+<h3 id="req-rep-listener转换成promise"><a href="#req-rep-listener转换成promise" class="headerlink" title="req/rep listener转换成promise"></a>req/rep listener转换成promise</h3><p>事例演示了如何把监听(listener)的异步方式封装成promise<br><a href="https://github.com/WillCoco/zeromqjs_demo/blob/master/router-dealer/dealer-listener2Promise.js" target="_blank" rel="noopener">dealer-listener2Promise.js</a></p>
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><p><a href="https://github.com/WillCoco/zeromqjs_demo" target="_blank" rel="noopener">zeromqjs_demo</a></p>
+<h3 id="GUIDE"><a href="#GUIDE" class="headerlink" title="GUIDE"></a>GUIDE</h3><p><a href="http://zguide.zeromq.org/" target="_blank" rel="noopener">zguide</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1139,7 +974,7 @@ useEffect(() =&gt; {
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -1150,7 +985,7 @@ useEffect(() =&gt; {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
