@@ -232,6 +232,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/01/30/热更新demo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/30/热更新demo/" itemprop="url">热更新demo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-30T10:20:33+08:00">
+                2018-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="code-push-热更新-js-css-html-和图片"><a href="#code-push-热更新-js-css-html-和图片" class="headerlink" title="code-push 热更新 js css html 和图片"></a>code-push 热更新 js css html 和图片</h2><p><a href="https://github.com/WillCoco/codePushDemo.git" target="_blank" rel="noopener">go demo</a></p>
+<h3 id="1-安装code-push-cli"><a href="#1-安装code-push-cli" class="headerlink" title="1.安装code-push-cli"></a>1.安装code-push-cli</h3><pre><code>$ npm install -g code-push-cli
+</code></pre><h3 id="2-注册账号"><a href="#2-注册账号" class="headerlink" title="2.注册账号"></a>2.注册账号</h3><pre><code>$ code-push register
+
+这时候会自动启动浏览器打开网页并提供一个codePush AccessKey，然后命令行里出现需要输入access key 进行登录
+</code></pre><h3 id="3-添加一个CodePush应用"><a href="#3-添加一个CodePush应用" class="headerlink" title="3.添加一个CodePush应用"></a>3.添加一个CodePush应用</h3><pre><code>code-push app add &lt;appName&gt; &lt;platform&gt; react-native
+
+获得 deployment-key（Production是对应生产环境的，Staging是对应开发环境的）：
+</code></pre><p><img src="https://raw.githubusercontent.com/WillCoco/codePushDemo/master/pic/deployment_key.png" alt="Demo"></p>
+<h3 id="4-react-native应用接入code-push"><a href="#4-react-native应用接入code-push" class="headerlink" title="4.react-native应用接入code-push"></a>4.react-native应用接入code-push</h3><pre><code>$ npm install react-native-code-push --save
+$ react-native link react-native-code-push
+
+然后在项目中：
+
+import codePush from &apos;react-native-code-push&apos;;
+
+componentDidMount() {
+  codePush.checkForUpdate(deploymentKey).then((update)=&gt;{
+      if(!update){
+          Alert.alert(&quot;提示&quot;,&quot;已是最新版本--&quot;,[
+              {text:&quot;Ok&quot;, onPress:()=&gt;{
+                  console.log(&quot;点了OK&quot;);
+              }}
+          ]);
+      }
+      else{
+          codePush.sync({
+              deploymentKey,
+              updateDialog: {
+                  optionalIgnoreButtonLabel: &apos;稍后&apos;,
+                  optionalInstallButtonLabel: &apos;后台更新&apos;,
+                  optionalUpdateMessage: &apos;有新版本了，是否更新？&apos;,
+                  title: &apos;更新提示&apos;
+              },
+              installMode: codePush.InstallMode.IMMEDIATE
+          });
+      }
+  })
+}
+
+其中deploymentKey就是之前获得的
+</code></pre><h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><pre><code>巴拉巴拉
+</code></pre><h3 id="发布更新"><a href="#发布更新" class="headerlink" title="发布更新"></a>发布更新</h3><pre><code>code-push release-react &lt;appName&gt; &lt;platform&gt;
+
+或者更复杂的：
+
+code-push release-react MyApp-iOS ios  --t 1.0.0 --dev false --d Production --des &quot;1.优化操作流程&quot; --m true
+
+其中参数–t为二进制(.ipa与apk)安装包的的版本；–dev为是否启用开发者模式(默认为false)；–d是要发布更新的环境分Production与Staging(默认为Staging)；–des为更新说明；–m 是强制更新。
+</code></pre><p>更多信息请看<a href="https://github.com/Microsoft/react-native-code-push" target="_blank" rel="noopener">官方文档</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/01/16/node-sqilte3/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -878,246 +1047,6 @@ ReactDOM.render(
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2017/11/22/React样式实践/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coco x">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/22/React样式实践/" itemprop="url">React样式实践</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T11:26:13+08:00">
-                2017-11-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/React/" itemprop="url" rel="index">
-                    <span itemprop="name">React</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/React/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>  CSS可以最大限度的分离样式和内容，选择器也可以很方便的给某些元素添加样式。你根本找不到任何不用CSS的理由。但是在React这里就是另外一回事了，虽然React不是不用CSS。但是，它在给元素添加样式的时候方式不同。</p>
-<p>  React的核心哲学之一就是让可视化的组件自包含，并且可复用。这就是为什么HTML元素和Javascript放在一起组成了Component（组件）。React的自包含组件需要在定义的时候就定义好样式，这样才能实现自包含。</p>
-<h3 id="react中样式的几种写法"><a href="#react中样式的几种写法" class="headerlink" title="react中样式的几种写法"></a>react中样式的几种写法</h3><p>1.css写法</p>
-<p>  xxx.css:</p>
-<pre><code>.container {
-  margin-left: 10px;
-}
-</code></pre><p>  xxx.js:</p>
-<pre><code>//引入css
-import style from &apos;xxx.css&apos;
-
-//使用className
-&lt;div className={style.container}&gt;
-  ...
-&lt;/div&gt;
-</code></pre><p>2.行内样式</p>
-<pre><code>//jsx中是驼峰命名
-&lt;div style={{ marginLeft: 10 }}&gt;
-  ...
-&lt;/div&gt;
-</code></pre><p>3.对象样式 和 行内样式没什么本质区别</p>
-<pre><code>const styles = {
-  marginLeft: 10,
-  ...
-}
-&lt;div style={{ marginLeft: 10 }}&gt;
-  ...
-&lt;/div&gt;
-</code></pre><h3 id="以上看来各种用法都没有问题，但是看下面的例子："><a href="#以上看来各种用法都没有问题，但是看下面的例子：" class="headerlink" title="以上看来各种用法都没有问题，但是看下面的例子："></a>以上看来各种用法都没有问题，但是看下面的例子：</h3><p>一个封装好的组件：</p>
-<pre><code>&lt;ListItem
-  key={1}
-  innerDivStyle={{ marginLeft: basicMargin }}
-  primaryText= {&lt;PrimaryText data-text=&quot;总览&quot; /&gt;}
-  leftIcon={&lt;ContentInbox viewBox={Metrics.iconNormal} style={{}} /&gt;}
-  hoverColor={activeColor}
-  style={{}}
-/&gt;
-</code></pre><p>在ListItem下的style的属性 和 leftIcon中的style属性都可以替换为 className，但是innerDivStyle，它是组件中的内框，又只能用对象样式的方法来书写。</p>
-<p>另外，注意到<code>hoverColor</code> &amp; <code>marginLeft</code>的属性值，我希望他们是统一在项目的Theme资源下定义的，而不是在每个文件里满天飞。如果是对象样式，它可以这样定义js or json文件方便读取：</p>
-<p>Theme/Colors.js:</p>
-<pre><code>let colors = {
-  warn: &apos;#ff000&apos;,
-  hoverColor: &apos;#ccc&apos;
-}
-
-export default colors;
-</code></pre><p>Theme/Metrics.js:</p>
-<pre><code>let metrics = {
-  basicMargin: 10
-}
-
-export default metrics;
-</code></pre><p>xxx.js中很方便的使用:</p>
-<pre><code>import Color from &apos;../Theme/Color&apos;
-import Metrics from &apos;../Theme/Metrics&apos;
-...
-
-&lt;ListItem
-  key={1}
-  innerDivStyle={{ marginLeft: Metrics.basicMargin }}
-  primaryText= {&lt;PrimaryText data-text=&quot;总览&quot; /&gt;}
-  leftIcon={&lt;ContentInbox viewBox={Metrics.iconNormal} style={{}} /&gt;}
-  hoverColor={Color.activeColor}
-  style={{}}
-/&gt;
-</code></pre><p>我们再来试试css方式怎么用，sass使得写css像写js一样使用非常灵活，可定义变量等方式来减少重复代码,它在构建阶段被编程普通的css, 需要在webpack中配置loader,我们在这只看它的使用：</p>
-<p>Theme/Colors.scss:</p>
-<pre><code>$warn: red;
-$activeColor: #ccc;
-
-.warnBackground {
-  background-color: red
-}
-</code></pre><p>可以被其他scss文件引用, 然而在js中:</p>
-<p>xxx.js</p>
-<pre><code>import styles from &apos;Theme/xxx.scss&apos;
-
-&lt;ListItem
-  key={1}
-  innerDivStyle={{ ContentInbox: ?? }}
-  primaryText= {&lt;PrimaryText data-text=&quot;总览&quot; /&gt;}
-  leftIcon={&lt;ContentInbox viewBox={Metrics.iconNormal} className={{}} /&gt;}
-  hoverColor={??}
-  className={styles.warnBackground}
-/&gt;
-</code></pre><p>到这就懵逼了，js读取scss定义的属性值 或者 sass从其他js json配置 都不那么容易。 那么组件jsx的属性<code>hoverColor</code> &amp; <code>ContentInbox</code>怎么传入Theme中的值？</p>
-<p>到此总结 在自己造的轮子中， 明确对外开放的属性中，样式定制只通过改变className的， 可以使用css。相信在大部分项目中都会使用其他好用的轮子，包括上面例子中使用的ListItem来自 google的material-ui, 感觉和对象样式或者叫LineStyle更搭配。</p>
-<p>各种技术和技术架构总是为产品服务，能满足需求节省开发时间的就是合理的。为了项目整体更整洁，更app，我要把css改成中改成使用对象样式，另外在写动画组件时，还是很愿意尝试css3的动画属性。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1168,7 +1097,7 @@ $activeColor: #ccc;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

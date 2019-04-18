@@ -232,6 +232,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/03/18/Javascript几种数组便利方法解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/18/Javascript几种数组便利方法解析/" itemprop="url">Javascript几种数组便利方法解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T16:06:39+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这篇文章将详细介绍以下 4 种循环语法的区别：</p>
+<h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><h4 id="for-in"><a href="#for-in" class="headerlink" title="for/in"></a>for/in</h4><h4 id="for-of"><a href="#for-of" class="headerlink" title="for/of"></a>for/of</h4><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>使用for和for/in，我们可以访问数组的下标，而不是实际的数组元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (let i = 0; i &lt; arr.length; ++i) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用for/of，则可以直接访问数组的元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (const v of arr) &#123;</span><br><span class="line">    console.log(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用forEach()，则可以同时访问数组的下标与元素值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach((v, i) =&gt; console.log(v));</span><br></pre></td></tr></table></figure>
+<h3 id="非数字属性"><a href="#非数字属性" class="headerlink" title="非数字属性"></a>非数字属性</h3><p>JavaScript 的数组就是 Object，这就意味着我们可以给数组添加字符串属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line"></span><br><span class="line">typeof arr; // &apos;object&apos;</span><br><span class="line"></span><br><span class="line">arr.test = &quot;bad&quot;; // 添加非数字属性</span><br><span class="line"></span><br><span class="line">arr.test; // &apos;abc&apos;</span><br><span class="line">arr[1] === arr[&quot;1&quot;]; // true, JavaScript数组只是特殊的Object</span><br></pre></td></tr></table></figure>
+<p>4 种循环语法，只有for/in不会忽略非数字属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">arr.test = &quot;bad&quot;;</span><br><span class="line"></span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]); // 打印&quot;a, b, c, bad&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>正因为如此，<a href="https://stackoverflow.com/questions/500504/why-is-using-for-in-with-array-iteration-a-bad-idea" target="_blank" rel="noopener">使用for/in便利数组并不好</a></p>
+<p>要点： 避免使用for/in来遍历数组，除非你真的要想要遍历非数字属性。可以使用 ESLint 的<a href="https://eslint.org/docs/rules/guard-for-in" target="_blank" rel="noopener">guard-for-in</a>规则来禁止使用for/in。</p>
+<h3 id="数组的空元素"><a href="#数组的空元素" class="headerlink" title="数组的空元素"></a>数组的空元素</h3><p>JavaScript 数组可以有空元素。以下代码语法是正确的，且数组长度为 3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const arr = [&quot;a&quot;, , &quot;c&quot;];</span><br><span class="line"></span><br><span class="line">arr.length; // 3</span><br></pre></td></tr></table></figure>
+<p>让人更加不解的一点是，循环语句处理[‘a’,, ‘c’]与[‘a’, undefined, ‘c’]的方式并不相同。</p>
+<p>对于[‘a’,, ‘c’]，for/in与forEach会跳过空元素，而for与for/of则不会跳过：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 打印&quot;a, undefined, c&quot;</span><br><span class="line">for (let i = 0; i &lt; arr.length; ++i) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, c&quot;</span><br><span class="line">arr.forEach(v =&gt; console.log(v));</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, c&quot;</span><br><span class="line">for (let i in arr) &#123;</span><br><span class="line">    console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印&quot;a, undefined, c&quot;</span><br><span class="line">for (const v of arr) &#123;</span><br><span class="line">    console.log(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于[‘a’, undefined, ‘c’]，4 种循环语法一致，打印的都是”a, undefined, c”。</p>
+<p>还有一种添加空元素的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 等价于`[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;,, &apos;e&apos;]`</span><br><span class="line">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</span><br><span class="line">arr[5] = &quot;e&quot;;</span><br></pre></td></tr></table></figure>
+<p>要点： for/in与forEach会跳过空元素，数组中的空元素被称为“holes”。</p>
+<ul>
+<li>原文：<a href="http://thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html" target="_blank" rel="noopener">For vs forEach() vs for/in vs for/of in JavaScript</a></li>
+<li>译者: <a href="https://www.fundebug.com/" target="_blank" rel="noopener">Fundebug</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/03/01/EOS_DAPP接入指南/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -823,348 +968,6 @@ numbers.then(_.spread(function(x, y) {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/12/30/threejs-cloud/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="coco x">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="稀客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/30/threejs-cloud/" itemprop="url">threejs-cloud</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-30T16:46:00+08:00">
-                2018-12-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            　　　　
-    <script id="vs" type="x-shader/x-vertex">
-
-			varying vec2 vUv;
-
-			void main() {
-
-				vUv = uv;
-				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-
-			}
-
-		</script>
-
-    <script id="fs" type="x-shader/x-fragment">
-
-			uniform sampler2D map;
-
-			uniform vec3 fogColor;
-			uniform float fogNear;
-			uniform float fogFar;
-
-			varying vec2 vUv;
-
-			void main() {
-
-				float depth = gl_FragCoord.z / gl_FragCoord.w;
-				float fogFactor = smoothstep( fogNear, fogFar, depth );
-
-				gl_FragColor = texture2D( map, vUv );
-				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
-				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
-
-			}
-
-		</script>
-
-    <script type="text/javascript">
-      (function() {
-        if (document.getElementsByClassName('post-title-link').length === 0 && document.getElementsByClassName('post-title')[0]) {
-          document.write(`
-            <div style="text-align: center">X轴 <input type="number" id="x-input"></div>
-            <div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
-            <div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
-          `);
-
-          function loadJS(filePath) {
-            return new Promise((resolve) => {
-              var newScriptElement = document.createElement("script");
-              newScriptElement.type = "text/javascript";
-              newScriptElement.src = filePath;
-              document.body.appendChild(newScriptElement);
-              newScriptElement.onload = function () {
-                resolve();
-              }
-            })
-          }
-
-          document.write(
-            '<script type="text/javascript" src="/lib/Detector.js"><\/script>'
-          );
-
-          loadJS('https://cdnjs.cloudflare.com/ajax/libs/three.js/55/three.js')
-            .then(() => {
-              if (!Detector.webgl) Detector.addGetWebGLMessage();
-
-              var container;
-              var camera, scene, renderer;
-              var mesh, geometry, material;
-
-              var mouseX = 0, mouseY = 0;
-              var start_time = Date.now();
-
-              var windowHalfX = window.innerWidth / 2;
-              var windowHalfY = window.innerHeight / 2;
-
-
-              init();
-
-              function init() {
-
-                container = document.createElement('div');
-                document.body.appendChild(container);
-
-                // Bg gradient
-
-                var canvas = document.createElement('canvas');
-                canvas.width = 32;
-                canvas.height = window.innerHeight;
-
-                var context = canvas.getContext('2d');
-
-                var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-                gradient.addColorStop(0, "#1e4877");
-                gradient.addColorStop(0.5, "#4584b4");
-
-                context.fillStyle = gradient;
-                context.fillRect(0, 0, canvas.width, canvas.height);
-
-                container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
-                container.style.backgroundSize = '32px 100%';
-                container.style.position = 'absolute';
-                container.style.top = 0;
-                container.style.bottom = 0;
-                container.style.zIndex = -1;
-
-
-                camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 3000);
-                camera.position.z = 6000;
-
-                scene = new THREE.Scene();
-
-                geometry = new THREE.Geometry();
-
-                var texture = THREE.ImageUtils.loadTexture('/images/threejs/cloud.png', null, animate);
-                texture.magFilter = THREE.LinearMipMapLinearFilter;
-                texture.minFilter = THREE.LinearMipMapLinearFilter;
-
-                var fog = new THREE.Fog(0x4584b4, -100, 3000);
-
-                material = new THREE.ShaderMaterial({
-
-                  uniforms: {
-
-                    "map": {type: "t", value: texture},
-                    "fogColor": {type: "c", value: fog.color},
-                    "fogNear": {type: "f", value: fog.near},
-                    "fogFar": {type: "f", value: fog.far},
-
-                  },
-                  vertexShader: document.getElementById('vs').textContent,
-                  fragmentShader: document.getElementById('fs').textContent,
-                  depthWrite: false,
-                  depthTest: false,
-                  transparent: true
-
-                });
-
-                var plane = new THREE.Mesh(new THREE.PlaneGeometry(64, 64));
-
-                for (var i = 0; i < 8000; i++) {
-
-                  plane.position.x = Math.random() * 1000 - 500;
-                  plane.position.y = -Math.random() * Math.random() * 200 - 15;
-                  plane.position.z = i;
-                  plane.rotation.z = Math.random() * Math.PI;
-                  plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
-
-                  THREE.GeometryUtils.merge(geometry, plane);
-                }
-
-                mesh = new THREE.Mesh(geometry, material);
-                scene.add(mesh);
-
-                mesh = new THREE.Mesh(geometry, material);
-                mesh.position.z = -8000;
-                scene.add(mesh);
-
-                renderer = new THREE.WebGLRenderer({antialias: false});
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                container.appendChild(renderer.domElement);
-
-                document.addEventListener('mousemove', onDocumentMouseMove, false);
-                window.addEventListener('resize', onWindowResize, false);
-
-              }
-
-              function onDocumentMouseMove(event) {
-
-                mouseX = (event.clientX - windowHalfX) * 0.25;
-                mouseY = (event.clientY - windowHalfY) * 0.15;
-
-              }
-
-              function onWindowResize(event) {
-
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-
-                renderer.setSize(window.innerWidth, window.innerHeight);
-
-              }
-
-              function animate() {
-
-                requestAnimationFrame(animate);
-
-                position = ((Date.now() - start_time) * 0.03) % 8000;
-
-                camera.position.x += (mouseX - camera.position.x) * 0.01;
-                camera.position.y += (-mouseY - camera.position.y) * 0.01;
-                camera.position.z = -position + 8000;
-
-                // console.log(camera.position.x, 'camera.position.x')
-                // console.log(camera.position.y, 'camera.position.y')
-                // console.log(camera.position.z, 'camera.position.z')
-                renderer.render(scene, camera);
-              }
-
-
-              // 控制
-              function changeCamera(x, y) {
-                if (x) camera.position.x = +x;
-                if (y) camera.position.y = +y;
-
-                console.log(camera.position, 'camera')
-                renderer.render(scene, camera);
-              }
-
-              const xInput = document.getElementById('x-input');
-              const yInput = document.getElementById('y-input');
-              const cameraBtn = document.getElementById('camera-btn');
-
-              cameraBtn.onclick = () => {
-                console.log(xInput, 'xInput')
-                changeCamera(xInput.value, yInput.value)
-              };
-            });
-        }
-      })()
-
-    </script>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1215,7 +1018,7 @@ numbers.then(_.spread(function(x, y) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
